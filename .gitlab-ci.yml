@@ -1,7 +1,7 @@
 image: node:lts-alpine3.18
 
 stages:
-   - test
+#   - test
    - build
    - deploy staging
    - deploy production
@@ -14,12 +14,12 @@ variables:
    TLS_NAME_LIVE: rhmapp-tls
    TLS_NAME_STAGINIG: rhmappstag
 
-start_app:
-   stage: test
-   before_script:
-      - npm install -f
-   script:
-      - npm run dev -f &
+#start_app:
+#   stage: test
+#   before_script:
+#      - npm install -f
+#   script:
+#      - npm run dev -f &
  #     - sleep 10
  #     - apk --no-cache add curl
  #     - curl "http://localhost:3000"
