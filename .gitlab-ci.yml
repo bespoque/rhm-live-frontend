@@ -22,7 +22,7 @@ build-job staging:
     - cd /var/www/rhm
     - npm i
     - npm run build
-    - npx next start&
+    - npx next start > /dev/null 2>&1
   tags :  
      - rhm
   only :
@@ -33,16 +33,16 @@ build-job main:
   script:
     - echo "Compiling the code..."
     - echo "Compile complete."
-    - sudo kill -9 $(sudo lsof -t -i:3000) || echo command failed $?
+    - sudo kill -9 $(sudo lsof -t -i:3001) || echo command failed $?
     - sed -i "s/%%DB%%/$LIVE_DB/" ./src/config/url.js
-    - sudo rm -rf /var/www/rhm/*
-    - sudo cp -r * /var/www/rhm/
-    - sudo cp -r . /var/www/rhm/
+    - sudo rm -rf /var/www/rhm-dev/*
+    - sudo cp -r * /var/www/rhm-dev/
+    - sudo cp -r . /var/www/rhm-dev/
     - sudo rm -rf *
-    - cd /var/www/rhm
+    - cd /var/www/rhm-dev
     - npm i
     - npm run build
-    - npx next start
+    - npx next start > /dev/null 2>&1 - 3001
   tags :  
      - rhm-dev
   only :
