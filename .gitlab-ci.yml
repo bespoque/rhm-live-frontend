@@ -14,14 +14,14 @@ build-job staging:
     - echo "Compiling the code..."
     - echo "Compile complete."
     - sed -i "s/%%DB%%/$TEST_DB/" ./src/config/url.js
-    - rm -rf /var/www/rhm/*
-    - cp -r * /var/www/rhm/
-    - cp -r . /var/www/rhm/
-    - rm -rf *
-    - nvm use 14
-    - npm i
-    - npm run build
-    - npx next start
+    - sudo rm -rf /var/www/rhm/*
+    - sudo cp -r * /var/www/rhm/
+    - sudo cp -r . /var/www/rhm/
+    - sudo rm -rf *
+    - sudo nvm use 14
+    - sudo npm i
+    - sudo npm run build
+    - sudo npx next start
   tags :  
      - rhm
   only :
@@ -33,9 +33,9 @@ build-job main:
     - echo "Compiling the code..."
     - echo "Compile complete."
     - sed -i "s/%%DB%%/$LIVE_DB/" ./src/config/url.js
-    - rm -rf /var/www/rhm/*
-    - cp -r * /var/www/rhm/
-    - cp -r . /var/www/rhm/
+    - rm -rf /var/www/rhm-dev/*
+    - cp -r * /var/www/rhm-dev/
+    - cp -r . /var/www/rhm-dev/
     - rm -rf *
     - nvm use 14
     - npm i
