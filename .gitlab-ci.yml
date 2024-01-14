@@ -13,7 +13,7 @@ build-job staging:
   script:
     - echo "Compiling the code..."
     - echo "Compile complete."
-    - sudo kill -9 $(sudo lsof -t -i:3000)
+    - sudo kill -9 $(sudo lsof -t -i:3000) || echo command failed $?
     - sed -i "s/%%DB%%/$TEST_DB/" ./src/config/url.js
     - sudo rm -rf /var/www/rhm/*
     - sudo cp -r * /var/www/rhm/
