@@ -18,7 +18,6 @@ build-job staging:
     - sudo cp -r * /var/www/rhm/
     - sudo cp -r . /var/www/rhm/
     - sudo rm -rf *
-    - nvm use 14
     - npm i
     - npm run build
     - npx next start
