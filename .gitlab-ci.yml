@@ -18,6 +18,7 @@ build-job staging:
     - sudo cp -r * /var/www/rhm/
     - sudo cp -r . /var/www/rhm/
     - sudo rm -rf *
+    - cd /var/www/rhm
     - npm i
     - npm run build
     - npx next start
