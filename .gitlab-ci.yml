@@ -8,8 +8,8 @@ variables:
    TEST_DB: rhmapi
    LIVE_DB: rhmlive
 
-build-job staging:       
-  stage: build dev
+build-job main:       
+  stage: build main
   script:
     - echo "Compiling the code..."
     - echo "Compile complete."
@@ -28,8 +28,8 @@ build-job staging:
   only :
      - main 
  
-build-job main:       
-  stage: build main
+build-job staging:       
+  stage: build dev
   script:
     - echo "Compiling the code..."
     - echo "Compile complete."
