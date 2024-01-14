@@ -22,7 +22,7 @@ build-job main:
     - cd /var/www/rhm
     - npm i
     - npm run build
-    - npx next start > /dev/null 2>&1
+    - npx next start > /dev/null 2>&1 &
   tags :  
      - rhm
   only :
@@ -42,7 +42,7 @@ build-job staging:
     - cd /var/www/rhm-dev
     - npm i
     - npm run build
-    - npx next start > /dev/null 2>&1 - 3001
+    - npx next start > /dev/null 2>&1 & -p 3001
   tags :  
      - rhm-dev
   only :
