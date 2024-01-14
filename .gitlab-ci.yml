@@ -1,16 +1,47 @@
 stages:         
   - build main
+  - build dev
+
+variables:
+   STAGING_DOMAIN: dev.rhmapp.irs.kg.gov.ng
+   PRODUCTION_DOMAIN: rhmapp.irs.kg.gov.ng
+   TEST_DB: rhmapi
+   LIVE_DB: rhmlive
+
+build-job staging:       
+  stage: build dev
+  script:
+    - echo "Compiling the code..."
+    - echo "Compile complete."
+    - sed -i "s/%%DB%%/$TEST_DB/" ./src/config/url.js
+    - rm -rf /var/www/rhm/*
+    - cp -r * /var/www/rhm/
+    - cp -r . /var/www/rhm/
+    - rm -rf *
+    - nvm use 14
+    - npm i
+    - npm run build
+    - npx next start
+  tags :  
+     - rhm
+  only :
+     - main 
  
 build-job main:       
   stage: build main
   script:
     - echo "Compiling the code..."
     - echo "Compile complete."
-    - sudo rm -rf /var/www/rhm/*
-    - sudo cp -r * /var/www/rhm/
-    - sudo cp -r . /var/www/rhm/
-    - sudo rm -rf *
+    - sed -i "s/%%DB%%/$LIVE_DB/" ./src/config/url.js
+    - rm -rf /var/www/rhm/*
+    - cp -r * /var/www/rhm/
+    - cp -r . /var/www/rhm/
+    - rm -rf *
+    - nvm use 14
+    - npm i
+    - npm run build
+    - npx next start
   tags :  
-     - rhm
+     - rhm-dev
   only :
-     - main 
+     - dev 
