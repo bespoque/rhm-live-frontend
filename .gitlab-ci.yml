@@ -1,103 +1,49 @@
-image: node:lts-alpine3.18
-
-stages:
-   - test
-   - build
-   - deploy staging
-   - deploy production
+stages:         
+  - build main
+  - build dev
 
 variables:
    STAGING_DOMAIN: dev.rhmapp.irs.kg.gov.ng
    PRODUCTION_DOMAIN: rhmapp.irs.kg.gov.ng
    TEST_DB: rhmapi
    LIVE_DB: rhmlive
-   TLS_NAME_LIVE: rhmapp-tls
-   TLS_NAME_STAGINIG: rhmappstag
 
-start_app:
-   stage: test
-   before_script:
-      - npm install -f
-   script:
-      - npm run dev -f &
- #     - sleep 10
- #     - apk --no-cache add curl
- #     - curl "http://localhost:3000"
-
-build_image_test:
-   stage: build
-   image: docker:24.0.4-cli-alpine3.18
-   services:
-      - docker:24.0.4-dind
-#   variables:
-#      - DOCKER_TLS_CERTDIR: "/certs"
-   before_script:
-      - docker login -u $REGISTRY_USER -p $REGISTRY_PASS
-      - sed -i "s/%%DB%%/$TEST_DB/" ./src/config/url.js
-   script:
-      - echo $CI_COMMIT_SHORT_SHA
-      - docker build -t bespoque/rhm:test-1.4-$CI_COMMIT_SHORT_SHA .
-      - docker push bespoque/rhm:test-1.4-$CI_COMMIT_SHORT_SHA
-
-build_image_live:
-   stage: build
-   image: docker:24.0.4-cli-alpine3.18
-   services:
-      - docker:24.0.4-dind
-#   variables:
-#      - DOCKER_TLS_CERTDIR: "/certs"
-   before_script:
-      - docker login -u $REGISTRY_USER -p $REGISTRY_PASS
-      - sed -i "s/%%DB%%/$LIVE_DB/" ./src/config/url.js
-   script:
-      - echo $CI_COMMIT_SHORT_SHA
-      - docker build -t bespoque/rhm:prod-1.4-$CI_COMMIT_SHORT_SHA .
-      - docker push bespoque/rhm:prod-1.4-$CI_COMMIT_SHORT_SHA
-
-deploy_stage:
-   stage: deploy staging
-   script:
-      - echo "Deploy to staging server"
-   environment:
-      name: staging
-      url: http://$STAGING_DOMAIN
-   except:
-      - main
-   image:
-      name: bitnami/kubectl:latest
-      entrypoint: ['']
-   script:
-      - echo $CI_COMMIT_SHORT_SHA
-      - kubectl config get-contexts
-      - kubectl config use-context bespoqueng/quick-pay:bespoque-agent
-      - kubectl get pods -n kgirs-dev
-      - sed -i "s/%%VERSION%%/$CI_COMMIT_SHORT_SHA/" ./manifest/rhm-deployment.yaml
-      - sed -i "s/%%EVN%%/test/" ./manifest/rhm-deployment.yaml
-      - sed -i "s/%%URL%%/$STAGING_DOMAIN/" ./manifest/rhm-app-ingress.yaml
-      - sed -i "s/%%TLSNAME%%/$TLS_NAME_STAGING/" ./manifest/rhm-app-ingress.yaml
-      - kubectl apply -f ./manifest/. -n kgirs-dev
-
-deploy_prod:
-   stage: deploy production
-   script:
-      - echo "Deploy to production server"
-   environment:
-      name: production
-      url: http://$PRODUCTION_DOMAIN
-   when: manual
-   only:
-      - main
-   image:
-      name: bitnami/kubectl:latest
-      entrypoint: ['']
-   script:
-      - echo $CI_COMMIT_SHORT_SHA
-      - kubectl config get-contexts
-      - kubectl config use-context bespoqueng/quick-pay:bespoque-agent
-      - kubectl get pods -n kgirs
-      - sed -i "s/%%VERSION%%/$CI_COMMIT_SHORT_SHA/" ./manifest/rhm-deployment.yaml
-      - sed -i "s/%%EVN%%/prod/" ./manifest/rhm-deployment.yaml
-      - sed -i "s/%%URL%%/$PRODUCTION_DOMAIN/" ./manifest/rhm-app-ingress.yaml
-      - sed -i "s/%%TLSNAME%%/$TLS_NAME_LIVE/" ./manifest/rhm-app-ingress.yaml
-      - kubectl apply -f ./manifest/. -n kgirs
-
+build-job main:       
+  stage: build main
+  script:
+    - echo "Compiling the code..."
+    - echo "Compile complete."
+    - sudo kill -9 $(sudo lsof -t -i:3000) || echo command failed $?
+    - sed -i "s/%%DB%%/$LIVE_DB/" ./src/config/url.js
+    - sudo rm -rf /var/www/rhm/*
+    - sudo cp -r * /var/www/rhm/
+    - sudo cp -r . /var/www/rhm/
+    - sudo rm -rf *
+    - cd /var/www/rhm
+    - npm i
+    - npm run build
+    - npx next start > /dev/null 2>&1 &
+  tags :  
+     - rhm
+  only :
+     - main 
+ 
+build-job staging:       
+  stage: build dev
+  script:
+    - echo "Compiling the code..."
+    - echo "Compile complete."
+    - sudo kill -9 $(sudo lsof -t -i:3001) || echo command failed $?
+    - sed -i "s/%%DB%%/$TEST_DB/" ./src/config/url.js
+    - sudo rm -rf /var/www/rhm-dev/*
+    - sudo cp -r * /var/www/rhm-dev/
+    - sudo cp -r . /var/www/rhm-dev/
+    - sudo rm -rf *
+    - cd /var/www/rhm-dev
+    - npm i
+    - npm run build
+    - npx next start > /dev/null 2>&1 & -p 3001
+  tags :  
+     - rhm-dev
+  only :
+     - dev 
