@@ -400,7 +400,7 @@ const NotificationModal = ({ isOpen, closeModal, id, auditStartYr, auditEndYr, a
             } else {
                 toast.success(dataFetch.message);
                 closeModal()
-                router.reload()
+                // router.reload()
 
             }
         } catch (error) {
@@ -477,14 +477,23 @@ const NotificationModal = ({ isOpen, closeModal, id, auditStartYr, auditEndYr, a
                                 </label>
                                 <input type="text"
                                     name='notification_addressee'
-                                    placeholder="Eg. Managing director"
                                     onChange={handleInputChange}
+                                    placeholder="Eg. Managing director"
                                     value={formData.notification_addressee}
                                     className="border border-gray-300 rounded px-2 py-1 w-full"
                                     required
 
                                 />
 
+                            </div>
+                            <div>
+                                <label className="text-dark  block mb-1">
+                                    Notification body:
+                                </label>
+                                <textarea
+                                    name='notification_body'
+                                    onChange={handleInputChange}
+                                ></textarea>
                             </div>
 
                         </div>
