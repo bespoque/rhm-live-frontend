@@ -167,7 +167,6 @@ const Notification = () => {
             } else {
                 toast.success(dataFetch.message);
                 setIsFetching(!isFetching)
-                // router.reload()
 
             }
         } catch (error) {
@@ -191,10 +190,11 @@ const Notification = () => {
                 const dataFetch = await res.json()
                 setNotDet(dataFetch.body[0])
                 setIsFetching(false)
-                const response = await fetch('https://test.rhm.backend.bespoque.ng/taxaudit/taxaudit-jobs-ack-batch.php', {
+                const response = await fetch('https://test.rhm.backend.bespoque.ng/taxaudit/taxaudit-notification-ack-batch.php', {
                     method: 'POST',
                     body: JSON.stringify({
                         "job_id": JobID,
+                        "notification_id": Notifid
                     })
                 })
                 const logData = await response.json()
@@ -288,7 +288,7 @@ const Notification = () => {
                     <h2 className="text-xl font-semibold">Notification Details</h2>
                     <div className="flex">
                         <button onClick={() => router.back()} className="p-2 bg-gray-400 text-white w-20 rounded mr-3">Back</button>
-                        <button><a href={`https://test.rhm.backend.bespoque.ng/notification-file-pdf.php?fileno=${notice?.notification_fileno}`} rel="noreferrer" target="_blank" className="p-2 bg-pink-400 text-white rounded">View letter</a></button>
+                        <button><a href={`https://test.rhm.backend.bespoque.ng/notification-file-pdf.php?fileno=${notice?.notification_fileno}&action=DOWNLOAD`} rel="noreferrer" target="_blank" className="p-2 bg-pink-400 text-white rounded">View letter</a></button>
                     </div>
                 </div>
                 <div className="flex justify-end gap-2 items-center mb-4">
@@ -306,7 +306,7 @@ const Notification = () => {
                                                     setReviewModal(true)
                                                     setReviewDecline(e.target.value)
                                                 }
-                                                } className="p-2 bg-red-400 text-white w-20 rounded" value="Decline">Decline</button>
+                                                } className="p-2 bg-red-400 text-white w-20 rounded ml-2" value="Decline">Decline</button>
                                             </div>
                                         }
                                         </>
