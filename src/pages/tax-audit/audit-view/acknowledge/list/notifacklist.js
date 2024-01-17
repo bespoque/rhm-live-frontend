@@ -45,6 +45,8 @@ export default function Notifiacklist() {
     const { JobID, Notifid, auditStartYr, auditEndYr } = router?.query
     const decoded = jwt.decode(auth);
     const emailAdd = decoded.user
+    const groups = decoded.groups
+    let creatorRange = [1, 4, 13, 15, 29]
 
     const openModal = () => {
         setIsModalOpen(true);
@@ -111,7 +113,7 @@ export default function Notifiacklist() {
                     body: JSON.stringify({
                         job_id: JobID,
                         id: Notifid
-                        
+
                     })
                 })
                 const dataFetchJobDet = await response.json()
@@ -159,13 +161,13 @@ export default function Notifiacklist() {
         year: 'numeric',
         month: 'long',
         day: 'numeric'
-      });
+    });
     let oldNoticeDate = new Date(notificationData?.notification_date);
     let oldNoticeDateFormatted = oldNoticeDate.toLocaleDateString('en-US', {
         year: 'numeric',
         month: 'long',
         day: 'numeric'
-      });
+    });
 
 
     function Letter() {
@@ -193,7 +195,7 @@ export default function Notifiacklist() {
                             Thank you.
                         </p><br />
 
-             
+
                         <p>Thank you for the anticipated cooperation.</p> <br />
                         <p>
                             Yours Faithfully..
@@ -319,19 +321,45 @@ export default function Notifiacklist() {
             <MaterialTable title="Notification acknowledegements"
                 data={notifAck}
                 columns={fields}
-                actions={
-                    [
-                        {
-                            icon: HomeRounded,
-                            tooltip: 'Reschedule Visit',
-                            onClick: (event, rowData) => {
-                                setAckId(rowData.id)
-                                openModal()
-                            }
-                        },
+                actions={[
+                    () => {
+                        if (groups.some(r => creatorRange.includes(r))) {
+                            return {
+                                icon: HomeRounded,
+                                tooltip: 'Reschedule Visit',
+                                onClick: (event, rowData) => {
+                                    setAckId(rowData.id)
+                                    openModal()
+                                }
+                            };
+                        }
+                        else {
+                            return {
 
-                    ]
-                }
+                                icon: HomeRounded,
+                                hidden: true,
+                                tooltip: 'Reschedule Visit',
+                                onClick: (event, rowData) => {
+                                    setAckId(rowData.id)
+                                    openModal()
+                                }
+                            };
+                        }
+                    },
+                ]}
+                // actions={
+                //     [
+                //         {
+                //             icon: HomeRounded,
+                //             tooltip: 'Reschedule Visit',
+                //             onClick: (event, rowData) => {
+                //                 setAckId(rowData.id)
+                //                 openModal()
+                //             }
+                //         },
+
+                //     ]
+                // }
                 options={{
                     search: true,
                     paging: true,

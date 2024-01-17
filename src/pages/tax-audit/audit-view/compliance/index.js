@@ -17,6 +17,8 @@ import { useRouter } from 'next/router'
 import ComplianceButtons from './components/buttons'
 import { MoreHoriz } from '@material-ui/icons'
 import { FiArrowUp, FiPlusCircle } from 'react-icons/fi'
+import { shallowEqual, useSelector } from 'react-redux'
+import jwt from "jsonwebtoken";
 
 function Index() {
   const router = useRouter()
@@ -56,6 +58,18 @@ function Index() {
 
   ];
 
+
+  const { auth } = useSelector(
+    (state) => ({
+        auth: state.authentication.auth,
+    }),
+    shallowEqual
+);
+const decoded = jwt.decode(auth);
+const groups = decoded.groups
+let creatorRange = [1, 4, 13, 15, 29]
+const shouldCreateCompliance = groups.some((element) => creatorRange.includes(element));
+
   const togglePanel = () => {
     setIsPanelOpen(!isPanelOpen);
   };
@@ -81,16 +95,16 @@ function Index() {
         })
         const dataFetchComp = await res.json()
         setIsFetching(false)
-    
+
         const jobResponse = await fetch('https://test.rhm.backend.bespoque.ng/taxaudit/taxaudit-fetch-singlejob.php', {
           method: 'POST',
           body: JSON.stringify({
-              "param1": "id",
-              "param2": JobID
+            "param1": "id",
+            "param2": JobID
           })
-      })
-      const dataFetchJobDet = await jobResponse.json()
-      setJob(dataFetchJobDet.body[0])
+        })
+        const dataFetchJobDet = await jobResponse.json()
+        setJob(dataFetchJobDet.body[0])
 
 
         if (dataFetchComp && dataFetchComp.body) {
@@ -155,9 +169,12 @@ function Index() {
           </div>
 
           <div style={{ display: isPanelOpen ? 'block' : 'none' }}>
+            {shouldCreateCompliance && 
             <div className='flex gap-4 justify-center mb-10'>
               <ComplianceButtons JobID={JobID} />
             </div>
+            
+            }
 
             {checkList?.map((item) => (
               <div className='my-5 px-4 mx-auto'>

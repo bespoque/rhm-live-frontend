@@ -43,6 +43,11 @@ const Notification = () => {
 
     const decoded = jwt.decode(auth);
     const emailAdd = decoded.user
+    const groups = decoded.groups
+    let creatorRange = [1, 4, 13, 15, 29]
+    let ApprovalRange = [1, 2, 3, 12, 21, 27, 20, 30]
+    const shouldCreateAcknowledgement = groups.some((element) => creatorRange.includes(element));
+    const shouldApproveNoticeLetter = groups.some((element) => ApprovalRange.includes(element));
 
     const toggleReviewModal = () => {
         setReviewDecline("")
@@ -172,6 +177,7 @@ const Notification = () => {
     }
 
 
+
     useEffect(() => {
         async function fetchPost() {
             try {
@@ -291,13 +297,18 @@ const Notification = () => {
                             {notice?.reviewstatus === "Rejected" || notice?.approvestatus === "Rejected" ? "" :
                                 <>
                                     {notice?.reviewstatus === null || notice?.reviewstatus === "Pending" ?
-                                        <>
-                                            <button onClick={() => setReviewModal(true)} className="p-2 bg-purple-400 text-white w-20 rounded">Verify</button>
-                                            <button onClick={(e) => {
-                                                setReviewModal(true)
-                                                setReviewDecline(e.target.value)
-                                            }
-                                            } className="p-2 bg-red-400 text-white w-20 rounded" value="Decline">Decline</button>
+                                        <> {
+                                            shouldApproveNoticeLetter &&
+                                            <div>
+
+                                                <button onClick={() => setReviewModal(true)} className="p-2 bg-purple-400 text-white w-20 rounded">Verify</button>
+                                                <button onClick={(e) => {
+                                                    setReviewModal(true)
+                                                    setReviewDecline(e.target.value)
+                                                }
+                                                } className="p-2 bg-red-400 text-white w-20 rounded" value="Decline">Decline</button>
+                                            </div>
+                                        }
                                         </>
                                         : <>
                                             <>
@@ -305,15 +316,23 @@ const Notification = () => {
                                                     notice?.approvestatus === "Approved" ?
                                                         "" : <>
                                                             {
-                                                                notice?.reviewstatus === "Verified" ? <div>
-                                                                    <button onClick={() => setApproveModal(true)} className="p-2 bg-green-400 text-white w-20 rounded">Approve</button>
-                                                                    <button onClick={(e) => {
-                                                                        setApproveModal(true)
-                                                                        setApproveDecline(e.target.value)
-                                                                    }
+                                                                notice?.reviewstatus === "Verified" ?
 
-                                                                    } className="p-2 bg-red-400 text-white w-20 rounded ml-2" value="Decline">Decline</button>
-                                                                </div> : <> </>
+                                                                    <div>
+                                                                        {
+                                                                            shouldApproveNoticeLetter &&
+                                                                            <div>
+
+                                                                                <button onClick={() => setApproveModal(true)} className="p-2 bg-green-400 text-white w-20 rounded">Approve</button>
+                                                                                <button onClick={(e) => {
+                                                                                    setApproveModal(true)
+                                                                                    setApproveDecline(e.target.value)
+                                                                                }
+
+                                                                                } className="p-2 bg-red-400 text-white w-20 rounded ml-2" value="Decline">Decline</button>
+                                                                            </div>
+                                                                        }
+                                                                    </div> : <> </>
                                                             }
                                                         </>
                                                 }
@@ -328,7 +347,14 @@ const Notification = () => {
 
                     <div>
                         {
-                            notice?.reviewstatus === "Rejected" || notice?.approvestatus === "Rejected" || notice?.approvestatus === null || notice?.reviewstatus === null ? "" : <NewAckButton Notifid={Notifid} JobID={JobID} />
+                            notice?.reviewstatus === "Rejected" || notice?.approvestatus === "Rejected" || notice?.approvestatus === null || notice?.reviewstatus === null ? "" :
+                                <div>
+                                    {
+                                        shouldCreateAcknowledgement &&
+                                        <NewAckButton Notifid={Notifid} JobID={JobID} />
+                                    }
+
+                                </div>
 
                         }
                     </div>
@@ -359,7 +385,7 @@ const Notification = () => {
 
                         <p>
                             <span className="font-semibold">REASON: </span>
-                            <span className='font-bold'>{ notice?.approvenote || notice?.reviewnote}</span>
+                            <span className='font-bold'>{notice?.approvenote || notice?.reviewnote}</span>
                         </p>
                     )
                         : ""

@@ -1,4 +1,4 @@
-import { RhmDashboard, ManageTaxpayer, DirectAssessment, Paye, Collections } from '../../components/Icons/index';
+import { RhmDashboard, ManageTaxpayer, DirectAssessment, Paye, Collections, UserGuide } from '../../components/Icons/index';
 
 
 const initialState = [
@@ -209,6 +209,26 @@ const initialState = [
             url: '/reports',
             title: 'View',
             items: [],
+          },
+        ],
+      },
+      {
+        url: '/',
+        icon: <UserGuide />,
+        title: 'Tax Audit',
+        items: [
+          {
+            title: 'My Jobs',
+            url: "/tax-audit/my-jobs",
+            items: [],
+          },
+
+          {
+            title: 'Management',
+            items: [
+              { title: 'New Job', url: '/tax-audit/create-job', items: [] },
+              { title: 'All Jobs', url: '/tax-audit/all-jobs', items: [] },
+            ],
           },
         ],
       },

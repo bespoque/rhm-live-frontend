@@ -7,7 +7,6 @@ import { useEffect, useState } from 'react';
 import UseFetcher from '../../components/fetcher/useFetcher';
 import url from "../../config/url";
 
-
 const Index = () => {
 
   const [assessData, setAssessData] = useState([])

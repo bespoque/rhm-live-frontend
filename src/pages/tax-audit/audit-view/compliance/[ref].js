@@ -32,6 +32,9 @@ const ViewCompliance = () => {
 
     const decoded = jwt.decode(auth);
     const emailAdd = decoded.user
+    const groups = decoded.groups
+    let ApprovalRange = [1, 2, 3, 12, 21, 27, 20, 30]
+    const shouldApproveCompliance = groups.some((element) => ApprovalRange.includes(element));
 
     const closeModal = () => {
         setVisitModal(false);
@@ -266,13 +269,18 @@ const ViewCompliance = () => {
                             {complianceData?.reviewstatus === "Rejected" || complianceData?.approvestatus === "Rejected" ? "" :
                                 <>
                                     {complianceData?.reviewstatus === null ?
-                                        <>
-                                            <button onClick={() => setReviewModal(true)} className="p-2 bg-purple-400 text-white w-20 rounded">Verify</button>
-                                            <button onClick={(e) => {
-                                                setReviewModal(true)
-                                                setReviewDecline(e.target.value)
-                                            }
-                                            } className="p-2 bg-red-400 text-white w-20 rounded" value="Decline">Decline</button>
+                                        <>{
+                                            shouldApproveCompliance &&
+                                            <div>
+
+                                                <button onClick={() => setReviewModal(true)} className="p-2 bg-purple-400 text-white w-20 rounded">Verify</button>
+                                                <button onClick={(e) => {
+                                                    setReviewModal(true)
+                                                    setReviewDecline(e.target.value)
+                                                }
+                                                } className="p-2 bg-red-400 text-white w-20 ml-2 rounded" value="Decline">Decline</button>
+                                            </div>
+                                        }
                                         </>
                                         : <>
                                             <>
@@ -280,15 +288,20 @@ const ViewCompliance = () => {
                                                     complianceData?.approvestatus === "Approved" ?
                                                         "" : <>
                                                             {
-                                                                complianceData?.reviewstatus === "Verified" ? <div>
-                                                                    <button onClick={() => setApproveModal(true)} className="p-2 bg-green-400 text-white w-20 rounded">Approve</button>
-                                                                    <button onClick={(e) => {
-                                                                        setApproveModal(true)
-                                                                        setApproveDecline(e.target.value)
-                                                                    }
+                                                                complianceData?.reviewstatus === "Verified" ?
+                                                                    <div>
+                                                                        {shouldApproveCompliance &&
+                                                                            <>
+                                                                                <button onClick={() => setApproveModal(true)} className="p-2 bg-green-400 text-white w-20 rounded">Approve</button>
+                                                                                <button onClick={(e) => {
+                                                                                    setApproveModal(true)
+                                                                                    setApproveDecline(e.target.value)
+                                                                                }
 
-                                                                    } className="p-2 bg-red-400 text-white w-20 rounded ml-2" value="Decline">Decline</button>
-                                                                </div> : <> </>
+                                                                                } className="p-2 bg-red-400 text-white w-20 rounded ml-2" value="Decline">Decline</button>
+                                                                            </>
+                                                                        }
+                                                                    </div> : <> </>
                                                             }
                                                         </>
                                                 }
@@ -333,10 +346,10 @@ const ViewCompliance = () => {
                 {
                     complianceData?.reviewnote && (
 
-                    <p>
-                        <span className="font-semibold">REASON: </span>{' '}
-                        <span className='font-bold'>{complianceData?.reviewnote}</span>
-                    </p>
+                        <p>
+                            <span className="font-semibold">REASON: </span>{' '}
+                            <span className='font-bold'>{complianceData?.reviewnote}</span>
+                        </p>
                     )
                 }
             </div>

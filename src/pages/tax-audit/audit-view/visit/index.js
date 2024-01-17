@@ -18,6 +18,8 @@ import MaterialTable from '@material-table/core';
 import NewVisitButton from './button';
 import { FiArrowUp, FiPlusCircle } from 'react-icons/fi';
 import { Dialog, DialogTitle, DialogContent, Typography } from '@material-ui/core';
+import { shallowEqual, useSelector } from 'react-redux';
+import jwt from "jsonwebtoken";
 
 
 const Visit = () => {
@@ -68,6 +70,17 @@ const Visit = () => {
     const handleClosePopup = () => {
         setSelectedRow(null);
     }
+
+    const { auth } = useSelector(
+        (state) => ({
+            auth: state.authentication.auth,
+        }),
+        shallowEqual
+    );
+    const decoded = jwt.decode(auth);
+    const groups = decoded.groups
+    let creatorRange = [1, 4, 13, 15, 29]
+    const shouldCreateCorrespondence = groups.some((element) => creatorRange.includes(element));
 
     const startDate = job?.job_auditdate_start || "";
     const endDate = job?.job_auditdate_end || "";
@@ -208,9 +221,12 @@ const Visit = () => {
                     </div>
                 </div>
             </div>
+            {
+                shouldCreateCorrespondence &&
             <div className="flex justify-end m-2">
                 <NewVisitButton id={id} />
             </div>
+            }
             <MaterialTable title="Visit logs"
                 data={visitData}
                 columns={fields}

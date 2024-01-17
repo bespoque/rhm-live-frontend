@@ -339,7 +339,6 @@ export default function AssessmentReportstable({ FilteredData }) {
                   "station": rowData.tax_office
                 }
               )
-              console.log("revisedAssFields", revisedAssFields);
               setRevisedModal(true)
             }
           },

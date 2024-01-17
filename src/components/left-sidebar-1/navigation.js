@@ -1,4 +1,6 @@
-import { RhmDashboard, ManageTaxpayer, DirectAssessment, Paye, Collections, Settings, UserGuide, ManageUser } from '../../components/Icons/index';
+import { RhmDashboard, ManageTaxpayer, DirectAssessment, Paye, Collections, Settings } from '../Icons';
+
+import {SUPER_ADMIN, REPORT_RANGE} from './constants'
 
 
 const initialState = [
@@ -266,12 +268,17 @@ const initialState = [
             url: '/reports-manifest',
             items: [],
           },
+          // {
+          //   title: 'DA Receipt',
+          //   url: '/da-receipt',
+          //   items: [],
+          // },
         ],
       },
 
       {
         url: '/',
-        icon: <UserGuide />,
+        icon: <Settings />,
         title: 'Tax Audit',
         items: [
           {
@@ -279,7 +286,7 @@ const initialState = [
             url: "/tax-audit/my-jobs",
             items: [],
           },
-
+       
           {
             title: 'Management',
             items: [
@@ -295,6 +302,76 @@ const initialState = [
         icon: <Settings />,
         title: 'Settings',
         items: [
+          {
+            title: 'Revenue Items',
+            items: [
+              { title: 'Create', url: '/', items: [] },
+              {
+                title: 'View',
+                url: '/',
+                items: [],
+              },
+              {
+                title: 'Edit',
+                url: '/',
+                items: [],
+              },
+              {
+                title: 'Delete',
+                url: '/',
+                items: [],
+              },
+            ],
+          },
+
+          {
+            title: 'Tax Office',
+            items: [
+              { title: 'Create', url: '/', items: [] },
+              {
+                title: 'View',
+                url: '/',
+                items: [],
+              },
+              { title: 'Edit', url: '/', items: [] },
+              { title: 'Delete', url: '/', items: [] },
+
+            ],
+          },
+          {
+            title: 'Sectors',
+            items: [
+              { title: 'Create', url: '/', items: [] },
+              { title: 'View', url: '/', items: [] },
+              {
+                title: 'Edit',
+                url: '/',
+                items: [],
+              },
+              {
+                title: 'Delete',
+                url: '/',
+                items: [],
+              },
+            ],
+          },
+          {
+            title: 'Budget Estimate',
+            items: [
+              { title: 'Create', url: '/', items: [] },
+              { title: 'View', url: '/', items: [] },
+              {
+                title: 'Edit',
+                url: '/',
+                items: [],
+              },
+              {
+                title: 'Delete',
+                url: '/',
+                items: [],
+              },
+            ],
+          },
           // {
           //   title: 'Business Type',
           //   items: [
@@ -318,7 +395,7 @@ const initialState = [
 
       {
         url: '/',
-        icon: <ManageUser />,
+        icon: <Settings />,
         title: 'Access Management',
         items: [
 

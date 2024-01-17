@@ -30,7 +30,9 @@ const Notification = () => {
 
     const decoded = jwt.decode(auth);
     const emailAdd = decoded.user
-
+    const groups = decoded.groups
+    let ApprovalRange = [1, 2, 3, 12, 21, 27, 20, 30]
+    const shouldApproveReschedule = groups.some((element) => ApprovalRange.includes(element));
 
     const toggleReviewModal = () => {
         setReviewDecline("")
@@ -150,8 +152,8 @@ const Notification = () => {
                 const dataFetch = await res.json()
                 setNotDet(dataFetch.body[0])
                 setIsFetching(false)
-         
-          
+
+
             } catch (error) {
                 console.error('Server Error:', error)
             } finally {
@@ -161,7 +163,7 @@ const Notification = () => {
         fetchPost();
     }, [Notifid, JobID, ReschId]);
 
-console.log("notice?.reviewstatus", notice?.reviewstatus);
+    console.log("notice?.reviewstatus", notice?.reviewstatus);
     return (
         <>
             <ToastContainer />
@@ -234,7 +236,7 @@ console.log("notice?.reviewstatus", notice?.reviewstatus);
                     </div>
                 </div>
             )}
-           
+
 
             {isFetching && <ProcessorSpinner />}
             <div className="bg-white shadow-lg rounded-lg p-6 mb-4">
@@ -252,12 +254,17 @@ console.log("notice?.reviewstatus", notice?.reviewstatus);
                                 <>
                                     {notice?.reviewstatus === null || notice?.reviewstatus === "Pending" ?
                                         <>
-                                            <button onClick={() => setReviewModal(true)} className="p-2 bg-purple-400 text-white w-20 rounded">Verify</button>
-                                            <button onClick={(e) => {
-                                                setReviewModal(true)
-                                                setReviewDecline(e.target.value)
+                                            {shouldApproveReschedule &&
+                                                <div>
+
+                                                    <button onClick={() => setReviewModal(true)} className="p-2 bg-purple-400 text-white w-20 rounded">Verify</button>
+                                                    <button onClick={(e) => {
+                                                        setReviewModal(true)
+                                                        setReviewDecline(e.target.value)
+                                                    }
+                                                    } className="p-2 bg-red-400 text-white w-20 ml-2 rounded" value="Decline">Decline</button>
+                                                </div>
                                             }
-                                            } className="p-2 bg-red-400 text-white w-20 rounded" value="Decline">Decline</button>
                                         </>
                                         : <>
                                             <>
@@ -265,15 +272,21 @@ console.log("notice?.reviewstatus", notice?.reviewstatus);
                                                     notice?.approvestatus === "Approved" ?
                                                         "" : <>
                                                             {
-                                                                notice?.reviewstatus === "Verified" ? <div>
-                                                                    <button onClick={() => setApproveModal(true)} className="p-2 bg-green-400 text-white w-20 rounded">Approve</button>
-                                                                    <button onClick={(e) => {
-                                                                        setApproveModal(true)
-                                                                        setApproveDecline(e.target.value)
-                                                                    }
+                                                                notice?.reviewstatus === "Verified" ?
+                                                                    <div>
+                                                                        {shouldApproveReschedule &&
+                                                                            <div className='flex'>
+                                                                                <button onClick={() => setApproveModal(true)} className="p-2 bg-green-400 text-white w-20 rounded">Approve</button>
+                                                                                <button onClick={(e) => {
+                                                                                    setApproveModal(true)
+                                                                                    setApproveDecline(e.target.value)
+                                                                                }
 
-                                                                    } className="p-2 bg-red-400 text-white w-20 rounded ml-2" value="Decline">Decline</button>
-                                                                </div> : <> </>
+                                                                                } className="p-2 bg-red-400 text-white w-20 rounded ml-2" value="Decline">Decline</button>
+                                                                            </div>
+                                                                        }
+                                                                    </div>
+                                                                     : <> </>
                                                             }
                                                         </>
                                                 }

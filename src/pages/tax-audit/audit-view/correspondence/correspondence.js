@@ -18,6 +18,8 @@ import MaterialTable from '@material-table/core';
 import NewCorresButton from './button';
 import { Dialog, DialogTitle, DialogContent, Typography } from '@material-ui/core';
 import { FiArrowUp, FiPlusCircle } from 'react-icons/fi';
+import { shallowEqual, useSelector } from 'react-redux';
+import jwt from "jsonwebtoken";
 
 const AuditNotice = () => {
     const [isFetching, setIsFetching] = useState(() => true);
@@ -56,6 +58,17 @@ const AuditNotice = () => {
             field: "createtime",
         },
     ];
+
+    const { auth } = useSelector(
+        (state) => ({
+            auth: state.authentication.auth,
+        }),
+        shallowEqual
+    );
+    const decoded = jwt.decode(auth);
+    const groups = decoded.groups
+    let creatorRange = [1, 4, 13, 15, 29]
+    const shouldCreateCorrespondence = groups.some((element) => creatorRange.includes(element));
 
     const togglePanel = () => {
         setIsPanelOpen(!isPanelOpen);
@@ -100,7 +113,7 @@ const AuditNotice = () => {
 
                 const dataFetchJobDet = await response.json()
                 setJob(dataFetchJobDet.body[0])
-                
+
                 const jobUsers = dataFetchJobDet?.body?.jobusers
                 setJobUsers(jobUsers)
 
@@ -146,7 +159,7 @@ const AuditNotice = () => {
                             <p className="font-semibold text-gray-500">Taxpayer Details</p>
                             <hr />
                             <div className="flex justify-between">
-                            <p>Taxpayer: <p className="font-semibold">{job?.taxpayer_TaxpayerName}</p> </p>
+                                <p>Taxpayer: <p className="font-semibold">{job?.taxpayer_TaxpayerName}</p> </p>
                                 <p>Tax Id <p className="font-semibold">{job?.job_kgtin}</p></p>
                             </div>
                             <p className="font-semibold text-gray-500">Job Details</p>
@@ -214,9 +227,11 @@ const AuditNotice = () => {
                     </div>
                 </div>
             </div >
-            <div className="flex justify-end m-2">
-                <NewCorresButton id={id} />
-            </div>
+            {shouldCreateCorrespondence &&
+                <div className="flex justify-end m-2">
+                    <NewCorresButton id={id} />
+                </div>
+            }
             <MaterialTable title="Correspondence Log"
                 data={corresp}
                 columns={fields}

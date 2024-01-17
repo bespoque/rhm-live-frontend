@@ -1,4 +1,4 @@
-import { RhmDashboard, ManageTaxpayer, Paye, Collections } from '../../components/Icons/index';
+import { RhmDashboard, ManageTaxpayer, Paye, Collections, UserGuide } from '../../components/Icons/index';
 
 
 const initialState = [
@@ -55,11 +55,11 @@ const initialState = [
             url: '/view/objection/submitted',
             items: [],
           },
-             {
-                title: 'Verified',
-                url: '/view/objection/verified',
-                items: [],
-              },
+          {
+            title: 'Verified',
+            url: '/view/objection/verified',
+            items: [],
+          },
           {
             title: 'Verified',
             url: '/view/objection/verified',
@@ -154,6 +154,25 @@ const initialState = [
             url: '/reports',
             title: 'View',
             items: [],
+          },
+        ],
+      },
+      {
+        url: '/',
+        icon: <UserGuide />,
+        title: 'Tax Audit',
+        items: [
+          {
+            title: 'My Jobs',
+            url: "/tax-audit/my-jobs",
+            items: [],
+          },
+
+          {
+            title: 'Management',
+            items: [
+              { title: 'All Jobs', url: '/tax-audit/all-jobs', items: [] },
+            ],
           },
         ],
       },

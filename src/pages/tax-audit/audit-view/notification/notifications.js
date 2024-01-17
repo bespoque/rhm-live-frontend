@@ -17,7 +17,8 @@ import MaterialTable from '@material-table/core';
 import NewNotificationButton from './../notification/button';
 import Modal from '@material-ui/core/Modal';
 import { FiArrowUp, FiPlusCircle } from 'react-icons/fi';
-
+import { shallowEqual, useSelector } from 'react-redux';
+import jwt from "jsonwebtoken";
 
 
 const AuditNotice = () => {
@@ -33,6 +34,18 @@ const AuditNotice = () => {
     const router = useRouter()
     const { id } = router?.query
     const jobId = id
+
+    const { auth } = useSelector(
+        (state) => ({
+            auth: state.authentication.auth,
+        }),
+        shallowEqual
+    );
+
+    const decoded = jwt.decode(auth);
+    const groups = decoded.groups
+    let creatorRange = [1, 4, 13, 15, 29]
+    const shouldCreateNoticeLetter = groups.some((element) => creatorRange.includes(element));
 
     const handleActionChange = (action, rowData) => {
         switch (action) {
@@ -102,14 +115,12 @@ const AuditNotice = () => {
                         appearance: 'none',
                         background: 'transparent',
                         border: 'none',
-                        outline: 'none' ,
+                        outline: 'none',
                         cursor: 'pointer'
-                      }}
+                    }}
                 >
                     <option value="" disabled hidden>
-                     
-                        More... 
-                        {/* Choose an action */}
+                        More...
                     </option>
 
                     <option value="details">Details</option>
@@ -201,7 +212,7 @@ const AuditNotice = () => {
     }, [id]);
 
 
-
+   
     return (
         <>
             {isFetching && <ProcessorSpinner />}
@@ -299,9 +310,12 @@ const AuditNotice = () => {
                 </div>
             </div>
 
-            <div className="flex justify-end m-2">
-                <NewNotificationButton id={jobId} auditStartYr={auditStartYr} address={job?.taxpayer_Address} auditEndYr={auditEndYr} />
-            </div>
+            {shouldCreateNoticeLetter &&
+                <div className="flex justify-end m-2">
+
+                    <NewNotificationButton id={jobId} auditStartYr={auditStartYr} address={job?.taxpayer_Address} auditEndYr={auditEndYr} />
+                </div>
+            }
             <MaterialTable title="Notifications"
                 data={notificationData}
                 columns={fields}

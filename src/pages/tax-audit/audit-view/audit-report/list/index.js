@@ -9,7 +9,8 @@ import { Dialog, DialogContent, DialogTitle } from '@material-ui/core';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { formatNumber } from 'accounting';
-
+import { shallowEqual, useSelector } from 'react-redux';
+import jwt from "jsonwebtoken";
 
 
 export default function AuditReportList() {
@@ -27,7 +28,17 @@ export default function AuditReportList() {
     const [dropdownVis, setDropdownVis] = useState(true);
 
 
+    const { auth } = useSelector(
+        (state) => ({
+            auth: state.authentication.auth,
+        }),
+        shallowEqual
+    );
 
+    const decoded = jwt.decode(auth);
+    const groups = decoded.groups
+    let ApprovalRange = [1, 2, 3, 12, 21, 27, 20, 30]
+    const shouldSeeApprovepageButton = groups.some((element) => ApprovalRange.includes(element));
 
     function getYearsInRange(startYear, endYear) {
         const years = [];
@@ -74,7 +85,7 @@ export default function AuditReportList() {
 
 
 
- 
+
 
     const startDate = job?.job_auditdate_start || "";
     const endDate = job?.job_auditdate_end || "";
@@ -288,17 +299,22 @@ export default function AuditReportList() {
             <Widget>
                 <div className="flex justify-between">
                     <p>Upload Audit documents</p>
-                    <button className="bg-green-500 text-white py-2 px-4 rounded my-2"
-                        onClick={() => router.push(`/tax-audit/audit-view/audit-report/list/${JobID}`)}
-                    >
-                        View Audit
-                    </button>
+                    {shouldSeeApprovepageButton &&
+                        <div>
+                            <button className="bg-green-500 text-white py-2 px-4 rounded my-2"
+                                onClick={() => router.push(`/tax-audit/audit-view/audit-report/list/${JobID}`)}
+                            >
+                                View Audit
+                            </button>
+
+                        </div>
+                    }
                 </div>
 
                 {dropdownVis && (
                     <div>
                         <ScopeDropdown scopeData={scopeData} onSelectScope={handleScopeChange} />
-                        
+
                     </div>
                 )}
 
@@ -315,7 +331,7 @@ export default function AuditReportList() {
                             JobID={JobID}
                             changeScope={handleScopeChange}
                             toggleVis={toggleVis}
-                            
+
                         />
                     </div>
                 )}
