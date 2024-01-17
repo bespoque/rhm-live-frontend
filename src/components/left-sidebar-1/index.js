@@ -38,7 +38,21 @@ const LeftSidebar = () => {
 
   let approverRange = [1, 2, 3, 12, 21, 27, 20]
   let payeTccApprover = [1, 30]
-  let creatorRange = [1, 4, 13, 15]
+  // let creatorRange = [1, 4, 13, 15]
+  let creatorRange = [
+    "m.adibaba@irs.kg.gov.ng",
+    "arowosegbe.t@irs.kg.gov.ng",
+    "s.simpa@irs.kg.gov.ng",
+    "salami.y@irs.kg.gov.ng",
+    "o.thomas@irs.kg.gov.ng",
+    "b.enyojo@irs.kg.gov.ng",
+    "z.haruna@irs.kg.gov.ng",
+    "s.ojo@irs.kg.gov.ng",
+    "a.fatima@irs.kg.gov.ng",
+    "o.abiodun@irs.kg.gov.ng",
+    "m.obadaki@irs.kg.gov.ng",
+    "a.ize@irs.kg.gov.ng"
+  ]
   let payeTccInitiator = [29, 1]
   let adminRange = [1]
   let reportRange = [39, 1, 9]
@@ -48,9 +62,13 @@ const LeftSidebar = () => {
   let bdprs = [6, 7, 1]
 
   let StaffType;
+  let staffEmail
   if (authentication) {
     StaffType = jwt.decode(authentication)?.groups;
+    staffEmail = jwt.decode(authentication)?.user;
   }
+
+  console.log("staffEmail", staffEmail);
 
   if (StaffType.some(r => approverRange.includes(r)) && StaffType.some(r => creatorRange.includes(r)) && StaffType.some(r => adminRange.includes(r))) {
     return (
@@ -148,7 +166,7 @@ const LeftSidebar = () => {
     );
   }
 
-  if (StaffType.some(r => payeTccApprover.includes(r)) && StaffType.some(r => payeTccApprover.includes(r)) && StaffType.some(r => payeTccApprover.includes(r))) {
+  if (StaffType.some(r => payeTccApprover.includes(r))) {
     return (
       <div className="left-sidebar left-sidebar-1">
         <Logo />
