@@ -486,7 +486,7 @@ const NotificationModal = ({ isOpen, closeModal, id, auditStartYr, auditEndYr, a
                                 />
 
                             </div>
-                            <div>
+                            {/* <div>
                                 <label className="text-dark  block mb-1">
                                     Notification body:
                                 </label>
@@ -494,7 +494,7 @@ const NotificationModal = ({ isOpen, closeModal, id, auditStartYr, auditEndYr, a
                                     name='notification_body'
                                     onChange={handleInputChange}
                                 ></textarea>
-                            </div>
+                            </div> */}
 
                         </div>
                         <div className="my-4">

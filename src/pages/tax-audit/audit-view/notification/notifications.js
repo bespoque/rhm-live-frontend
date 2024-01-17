@@ -77,7 +77,7 @@ const AuditNotice = () => {
         router.push(`/tax-audit/audit-view/acknowledge/list/reschedulelist?Notifid=${rowData.id}&JobID=${rowData.job_id}`);
     }
     const handleLetter = (rowData) => {
-        setSelectedPdfUrl(`https://test.rhm.backend.bespoque.ng/notification-file-pdf.php?fileno=${rowData.notification_fileno}`);
+        setSelectedPdfUrl(`https://test.rhm.backend.bespoque.ng/notification-file-pdf.php?fileno=${rowData.notification_fileno}&action=DOWNLOAD`);
         setIsModalOpenPDF(true);
     }
 

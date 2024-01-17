@@ -191,10 +191,11 @@ const Notification = () => {
                 const dataFetch = await res.json()
                 setNotDet(dataFetch.body[0])
                 setIsFetching(false)
-                const response = await fetch('https://test.rhm.backend.bespoque.ng/taxaudit/taxaudit-jobs-ack-batch.php', {
+                const response = await fetch('https://test.rhm.backend.bespoque.ng/taxaudit/taxaudit-notification-ack-batch.php', {
                     method: 'POST',
                     body: JSON.stringify({
                         "job_id": JobID,
+                        "notification_id": Notifid
                     })
                 })
                 const logData = await response.json()
@@ -306,7 +307,7 @@ const Notification = () => {
                                                     setReviewModal(true)
                                                     setReviewDecline(e.target.value)
                                                 }
-                                                } className="p-2 bg-red-400 text-white w-20 rounded" value="Decline">Decline</button>
+                                                } className="p-2 bg-red-400 text-white w-20 rounded ml-2" value="Decline">Decline</button>
                                             </div>
                                         }
                                         </>
