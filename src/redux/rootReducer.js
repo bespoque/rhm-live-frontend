@@ -12,7 +12,6 @@ import navigationApprover from './navigation/navigationApprover';
 import navigationApproverTcc from './navigation/navigationApproverTcc';
 import navigationCreator from './navigation/navigationCreator';
 import navigationCreatorTcc from './navigation/navigationCreatorTcc';
-import navigationCreatorApprover from './navigation/navigationCreatorApprover';
 import navigationAdmin from './navigation/navigationAdmin';
 import navigationReport from './navigation/navigationReport';
 import navigationAuditPrint from './navigation/navigationAuditPrint';
@@ -34,7 +33,6 @@ const rootReducer = combineReducers({
   navigationApproverTcc,
   navigationCreator,
   navigationCreatorTcc,
-  navigationCreatorApprover,
   navigationAdmin,
   navigationReport,
   navigationAuditPrint,
