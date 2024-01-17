@@ -503,7 +503,7 @@ const LeftSidebar = () => {
     );
   }
 
-  else if (staffEmail.some(r => creatorRange.includes(r))) {
+  else if (staffEmail.includes(creatorRange)) {
     return (
       <div className="left-sidebar left-sidebar-1">
         <Logo />
