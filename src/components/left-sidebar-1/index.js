@@ -39,7 +39,7 @@ const LeftSidebar = () => {
   let approverRange = [1, 2, 3, 12, 21, 27, 20]
   let payeTccApprover = [1, 30]
   // let creatorRange = [1, 4, 13, 15]
-  let creatorRange = [
+  let creatorRange = [1, "prince.u@bespoque.ng",
     "m.adibaba@irs.kg.gov.ng",
     "arowosegbe.t@irs.kg.gov.ng",
     "s.simpa@irs.kg.gov.ng",
@@ -56,10 +56,10 @@ const LeftSidebar = () => {
   let payeTccInitiator = [29, 1]
   let adminRange = [1]
   let reportRange = [39, 1, 9]
-  let auditPrint = [1, 42, 19]
-  let audit = [1, 19]
-  let otherTaxes = [1, 24]
-  let bdprs = [6, 7, 1]
+  let auditPrint = [42, 19]
+  let audit = [19]
+  let otherTaxes = [24]
+  let bdprs = [6, 7]
 
   let StaffType;
   let staffEmail
@@ -70,7 +70,9 @@ const LeftSidebar = () => {
 
   console.log("staffEmail", staffEmail);
 
-  if (StaffType.some(r => approverRange.includes(r)) && StaffType.some(r => creatorRange.includes(r)) && StaffType.some(r => adminRange.includes(r))) {
+  if (StaffType.some(r => approverRange.includes(r)) &&
+    StaffType.some(r => creatorRange.includes(r)) &&
+    StaffType.some(r => adminRange.includes(r))) {
     return (
       <div className="left-sidebar left-sidebar-1">
         <Logo />
@@ -503,7 +505,7 @@ const LeftSidebar = () => {
     );
   }
 
-  else if (StaffType.some(r => creatorRange.includes(r))) {
+  else if (staffEmail.some(r => creatorRange.includes(r))) {
     return (
       <div className="left-sidebar left-sidebar-1">
         <Logo />
