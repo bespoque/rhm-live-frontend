@@ -400,7 +400,7 @@ const NotificationModal = ({ isOpen, closeModal, id, auditStartYr, auditEndYr, a
             } else {
                 toast.success(dataFetch.message);
                 closeModal()
-                // router.reload()
+                router.reload()
 
             }
         } catch (error) {
@@ -486,16 +486,7 @@ const NotificationModal = ({ isOpen, closeModal, id, auditStartYr, auditEndYr, a
                                 />
 
                             </div>
-                            {/* <div>
-                                <label className="text-dark  block mb-1">
-                                    Notification body:
-                                </label>
-                                <textarea
-                                    name='notification_body'
-                                    onChange={handleInputChange}
-                                ></textarea>
-                            </div> */}
-
+                
                         </div>
                         <div className="my-4">
                             <hr />
@@ -559,14 +550,14 @@ const NotificationModal = ({ isOpen, closeModal, id, auditStartYr, auditEndYr, a
 
                         <div className="flex justify-evenly mt-4">
                             <button
-                                className="bg-blue-500 hover:bg-blue-600 text-dark py-2 px-4 rounded mt-4"
+                                className="bg-green-500 hover:bg-blue-600 text-white py-2 px-4 rounded mt-4"
                                 type="submit"
                             >
                                 Proceed
                             </button>
 
                             <button
-                                className="bg-red-300 hover:bg-gray-400 text-gray-700 py-2 px-4 rounded mt-4 ml-2"
+                                className="bg-red-400 hover:bg-gray-400 text-white py-2 px-4 rounded mt-4 ml-2"
                                 onClick={() => {
                                     setFormState('')
                                     setLetterState('hidden')
@@ -582,13 +573,13 @@ const NotificationModal = ({ isOpen, closeModal, id, auditStartYr, auditEndYr, a
 
                 <div className={`${letterState} flex justify-evenly`}>
                     <button
-                        className="bg-green-300 hover:bg-gray-400 text-gray-700 py-2 px-4 rounded mt-4 ml-2"
+                        className="bg-green-500 hover:bg-gray-400 text-white py-2 px-4 rounded mt-4 ml-2"
                         onClick={submitNotice}
                     >
                         Send
                     </button>
                     <button
-                        className="bg-red-300 hover:bg-gray-400 text-gray-700 py-2 px-4 rounded mt-4 ml-2"
+                        className="bg-red-500 hover:bg-gray-400 text-white py-2 px-4 rounded mt-4 ml-2"
                         onClick={() => {
                             setFormState('')
                             setLetterState('hidden')
