@@ -48,6 +48,8 @@ export default function Notifiacklist() {
     const groups = decoded.groups
     let creatorRange = [1, 4, 13, 15, 29]
 
+    console.log("JobID", JobID);
+
     const openModal = () => {
         setIsModalOpen(true);
     };

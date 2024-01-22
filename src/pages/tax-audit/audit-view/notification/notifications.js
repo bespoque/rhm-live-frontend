@@ -71,7 +71,7 @@ const AuditNotice = () => {
     };
 
     const handleAcknowledge = (rowData) => {
-        router.push(`/tax-audit/audit-view/acknowledge/list/notifacklist?Notifid=${rowData.id}&JobID=${rowData.job_id}&auditStartYr=${auditStartYr}&auditEndYr=${auditEndYr}`)
+        router.push(`/tax-audit/audit-view/acknowledge/list/notifacklist?Notifid=${rowData.id}&JobID&=${rowData.job_id}&auditStartYr=${auditStartYr}&auditEndYr=${auditEndYr}&fileref=${rowData.notification_fileno}`)
     }
     const handleReschedule = (rowData) => {
         router.push(`/tax-audit/audit-view/acknowledge/list/reschedulelist?Notifid=${rowData.id}&JobID=${rowData.job_id}`);
@@ -124,8 +124,8 @@ const AuditNotice = () => {
                     </option>
 
                     <option value="details">Details</option>
-                    <option disabled={rowData.status === "Rejected" || rowData.status === null} value="acknowledge">Acknowledgements</option>
-                    <option disabled={rowData.status === "Rejected" || rowData.status === null} value="reschedule">Reschedules</option>
+                    <option disabled={rowData?.status === "Rejected" || rowData?.status === null} value="acknowledge">Acknowledgements</option>
+                    <option disabled={rowData?.status === "Rejected" || rowData?.status === null} value="reschedule">Reschedules</option>
                     {rowData.status === "Approved" && (
                         <option value="letter">Letter</option>
                     )}
