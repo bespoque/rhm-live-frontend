@@ -206,25 +206,25 @@ const initialState = [
           },
         ],
       },
-      {
-        url: '/',
-        icon: <UserGuide />,
-        title: 'Tax Audit',
-        items: [
-          {
-            title: 'My Jobs',
-            url: "/tax-audit/my-jobs",
-            items: [],
-          },
+      // {
+      //   url: '/',
+      //   icon: <UserGuide />,
+      //   title: 'Tax Audit',
+      //   items: [
+      //     {
+      //       title: 'My Jobs',
+      //       url: "/tax-audit/my-jobs",
+      //       items: [],
+      //     },
 
-          {
-            title: 'Management',
-            items: [
-              { title: 'All Jobs', url: '/tax-audit/all-jobs', items: [] },
-            ],
-          },
-        ],
-      },
+      //     {
+      //       title: 'Management',
+      //       items: [
+      //         { title: 'All Jobs', url: '/tax-audit/all-jobs', items: [] },
+      //       ],
+      //     },
+      //   ],
+      // },
     ],
   },
 ];

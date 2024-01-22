@@ -128,77 +128,77 @@ const initialState = [
         ],
       },
 
-      {
-        url: '/',
-        icon: <Paye />,
-        title: 'PAYE',
-        items: [
-          {
-            url: '/',
-            title: 'TCC',
-            items: [
-              {
-                title: 'Create',
-                url: '/tcc/paye',
-                items: [],
-              },
-              {
-                title: 'Draft',
-                url: '/view/listpayetcc/alltcc',
-                items: [],
-              },
-              {
-                title: 'Verified',
-                url: '/view/listpayetcc/alltcc/verified',
-                items: [],
-              },
-              {
-                title: 'Audit Checked',
-                url: '/view/listpayetcc/alltcc/audit',
-                items: [],
-              },
-              {
-                title: 'Pending E.C Sign',
-                url: '/view/listpayetcc/alltcc/approved',
-                items: [],
-              },
-              {
-                title: 'Print',
-                url: '/view/listpayetcc',
-                items: [],
-              },
-            ],
-          },
-          {
-            url: '/',
-            title: 'Income Details',
-            items: [
-              {
-                title: 'Create',
-                url: '/pita/payslip',
-                items: [],
-              },
-              {
-                title: 'view',
-                url: '/view/payslip',
-                items: [],
-              },
+      // {
+      //   url: '/',
+      //   icon: <Paye />,
+      //   title: 'PAYE',
+      //   items: [
+      //     {
+      //       url: '/',
+      //       title: 'TCC',
+      //       items: [
+      //         {
+      //           title: 'Create',
+      //           url: '/tcc/paye',
+      //           items: [],
+      //         },
+      //         {
+      //           title: 'Draft',
+      //           url: '/view/listpayetcc/alltcc',
+      //           items: [],
+      //         },
+      //         {
+      //           title: 'Verified',
+      //           url: '/view/listpayetcc/alltcc/verified',
+      //           items: [],
+      //         },
+      //         {
+      //           title: 'Audit Checked',
+      //           url: '/view/listpayetcc/alltcc/audit',
+      //           items: [],
+      //         },
+      //         {
+      //           title: 'Pending E.C Sign',
+      //           url: '/view/listpayetcc/alltcc/approved',
+      //           items: [],
+      //         },
+      //         {
+      //           title: 'Print',
+      //           url: '/view/listpayetcc',
+      //           items: [],
+      //         },
+      //       ],
+      //     },
+      //     {
+      //       url: '/',
+      //       title: 'Income Details',
+      //       items: [
+      //         {
+      //           title: 'Create',
+      //           url: '/pita/payslip',
+      //           items: [],
+      //         },
+      //         {
+      //           title: 'view',
+      //           url: '/view/payslip',
+      //           items: [],
+      //         },
 
-            ],
-          },
-          {
-            url: '/',
-            title: 'Annual Filing',
-            items: [
-              {
-                title: 'Review Documents',
-                url: '/paye-annual',
-                items: [],
-              },
-            ],
-          },
-        ],
-      },
+      //       ],
+      //     },
+      //     {
+      //       url: '/',
+      //       title: 'Annual Filing',
+      //       items: [
+      //         {
+      //           title: 'Review Documents',
+      //           url: '/paye-annual',
+      //           items: [],
+      //         },
+      //       ],
+      //     },
+      //   ],
+      // },
 
       {
         url: '/',
@@ -212,26 +212,26 @@ const initialState = [
           },
         ],
       },
-      {
-        url: '/',
-        icon: <UserGuide />,
-        title: 'Tax Audit',
-        items: [
-          {
-            title: 'My Jobs',
-            url: "/tax-audit/my-jobs",
-            items: [],
-          },
+      // {
+      //   url: '/',
+      //   icon: <UserGuide />,
+      //   title: 'Tax Audit',
+      //   items: [
+      //     {
+      //       title: 'My Jobs',
+      //       url: "/tax-audit/my-jobs",
+      //       items: [],
+      //     },
 
-          {
-            title: 'Management',
-            items: [
-              { title: 'New Job', url: '/tax-audit/create-job', items: [] },
-              { title: 'All Jobs', url: '/tax-audit/all-jobs', items: [] },
-            ],
-          },
-        ],
-      },
+      //     {
+      //       title: 'Management',
+      //       items: [
+      //         { title: 'New Job', url: '/tax-audit/create-job', items: [] },
+      //         { title: 'All Jobs', url: '/tax-audit/all-jobs', items: [] },
+      //       ],
+      //     },
+      //   ],
+      // },
     ],
   },
 ];

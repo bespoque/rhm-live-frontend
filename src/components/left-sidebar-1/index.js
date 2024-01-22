@@ -69,8 +69,9 @@ const LeftSidebar = () => {
   }
 
   console.log("staffEmail", staffEmail);
-
-  if (staffEmail.includes(creatorRange)) {
+  console.log(staffEmail.includes(creatorRange));
+  
+  if (creatorRange.includes(staffEmail)) {
     return (
       <div className="left-sidebar left-sidebar-1">
         <Logo />

@@ -69,62 +69,62 @@ const initialState = [
         ],
       },
 
-      {
-        url: '/',
-        icon: <Paye />,
-        title: 'PAYE',
-        items: [
-          {
-            url: '/',
-            title: 'TCC',
-            items: [
-              {
-                title: 'Create',
-                url: '/tcc/paye',
-                items: [],
-              },
-              {
-                title: 'Draft',
-                url: '/view/listpayetcc/alltcc',
-                items: [],
-              },
-              {
-                title: 'Print',
-                url: '/view/listpayetcc',
-                items: [],
-              },
-            ],
-          },
-          {
-            url: '/',
-            title: 'Income Details',
-            items: [
-              {
-                title: 'Create',
-                url: '/pita/payslip',
-                items: [],
-              },
-              {
-                title: 'view',
-                url: '/view/payslip',
-                items: [],
-              },
+      // {
+      //   url: '/',
+      //   icon: <Paye />,
+      //   title: 'PAYE',
+      //   items: [
+      //     {
+      //       url: '/',
+      //       title: 'TCC',
+      //       items: [
+      //         {
+      //           title: 'Create',
+      //           url: '/tcc/paye',
+      //           items: [],
+      //         },
+      //         {
+      //           title: 'Draft',
+      //           url: '/view/listpayetcc/alltcc',
+      //           items: [],
+      //         },
+      //         {
+      //           title: 'Print',
+      //           url: '/view/listpayetcc',
+      //           items: [],
+      //         },
+      //       ],
+      //     },
+      //     {
+      //       url: '/',
+      //       title: 'Income Details',
+      //       items: [
+      //         {
+      //           title: 'Create',
+      //           url: '/pita/payslip',
+      //           items: [],
+      //         },
+      //         {
+      //           title: 'view',
+      //           url: '/view/payslip',
+      //           items: [],
+      //         },
 
-            ],
-          },
-          {
-            url: '/',
-            title: 'Annual Filing',
-            items: [
-              {
-                title: 'Review Documents',
-                url: '/paye-annual',
-                items: [],
-              },
-            ],
-          },
-        ],
-      },
+      //       ],
+      //     },
+      //     {
+      //       url: '/',
+      //       title: 'Annual Filing',
+      //       items: [
+      //         {
+      //           title: 'Review Documents',
+      //           url: '/paye-annual',
+      //           items: [],
+      //         },
+      //       ],
+      //     },
+      //   ],
+      // },
     ],
   },
 ];
