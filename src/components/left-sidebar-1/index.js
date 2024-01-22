@@ -36,7 +36,7 @@ const LeftSidebar = () => {
     shallowEqual
   );
 
-  let approverRange = [2, 3, 12, 21, 27, 20]
+  let approverRange = [1, 2, 3, 12, 21, 27, 20]
   let adminRange = [1]
   let payeTccApprover = [30]
   // let creatorRange = [1, 4, 13, 15]
@@ -556,7 +556,7 @@ const LeftSidebar = () => {
     <div className="left-sidebar left-sidebar-1">
       <Logo />
 
-      {navigationCreator.map((menu, i) => (
+      {navigationReport.map((menu, i) => (
         <React.Fragment key={i}>
           <Title>{menu.title}</Title>
           <ul>

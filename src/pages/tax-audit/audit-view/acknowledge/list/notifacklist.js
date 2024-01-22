@@ -221,6 +221,7 @@ export default function Notifiacklist() {
 
     }
 
+    console.log("notifAck", notifAck);
     return (
         <>
             <ToastContainer />
