@@ -38,9 +38,9 @@ const LeftSidebar = () => {
 
   let approverRange = [1, 2, 3, 12, 21, 27, 20]
   let adminRange = [1]
-  let payeTccApprover = [30]
+  let payeTccApprover = [1,30]
   // let creatorRange = [1, 4, 13, 15]
-  let creatorRange = [
+  let creatorRange = [1,
     "m.adibaba@irs.kg.gov.ng",
     "arowosegbe.t@irs.kg.gov.ng",
     "s.simpa@irs.kg.gov.ng",
@@ -70,7 +70,56 @@ const LeftSidebar = () => {
 
   console.log("staffEmail", staffEmail);
 
-  if (StaffType.some(r => adminRange.includes(r))) {
+  if (staffEmail.includes(creatorRange)) {
+    return (
+      <div className="left-sidebar left-sidebar-1">
+        <Logo />
+
+        {navigationCreator.map((menu, i) => (
+          <React.Fragment key={i}>
+            <Title>{menu.title}</Title>
+            <ul>
+              {menu.items.map((l0, a) => (
+                <li key={a} className="l0">
+                  <Item {...l0} />
+                  <ul>
+                    {l0.items.map((l1, b) => (
+                      <li key={b} className="l1">
+                        <Item {...l1} />
+                        <ul className="">
+                          {l1.items.map((l2, c) => (
+                            <li key={c} className="">
+                              <Item {...l2} />
+                              <ul>
+                                {l2.items.map((l3, d) => (
+                                  <li key={d} className="l3">
+                                    <Item {...l3} />
+                                    <ul>
+                                      {l3.items.map((l4, e) => (
+                                        <li key={e} className="l4">
+                                          <Item {...l4} />
+                                        </li>
+                                      ))}
+                                    </ul>
+                                  </li>
+                                ))}
+                              </ul>
+                            </li>
+                          ))}
+                        </ul>
+                      </li>
+                    ))}
+                  </ul>
+                </li>
+              ))}
+            </ul>
+          </React.Fragment>
+        ))}
+      </div>
+    );
+  }
+
+  if (StaffType.some(r => adminRange.includes(r)) && StaffType.some(r => approverRange.includes(r)) && StaffType.some(r => payeTccApprover.includes(r)) ) {
     return (
       <div className="left-sidebar left-sidebar-1">
         <Logo />
@@ -503,54 +552,7 @@ const LeftSidebar = () => {
     );
   }
 
-  else if (staffEmail.includes(creatorRange)) {
-    return (
-      <div className="left-sidebar left-sidebar-1">
-        <Logo />
 
-        {navigationCreator.map((menu, i) => (
-          <React.Fragment key={i}>
-            <Title>{menu.title}</Title>
-            <ul>
-              {menu.items.map((l0, a) => (
-                <li key={a} className="l0">
-                  <Item {...l0} />
-                  <ul>
-                    {l0.items.map((l1, b) => (
-                      <li key={b} className="l1">
-                        <Item {...l1} />
-                        <ul className="">
-                          {l1.items.map((l2, c) => (
-                            <li key={c} className="">
-                              <Item {...l2} />
-                              <ul>
-                                {l2.items.map((l3, d) => (
-                                  <li key={d} className="l3">
-                                    <Item {...l3} />
-                                    <ul>
-                                      {l3.items.map((l4, e) => (
-                                        <li key={e} className="l4">
-                                          <Item {...l4} />
-                                        </li>
-                                      ))}
-                                    </ul>
-                                  </li>
-                                ))}
-                              </ul>
-                            </li>
-                          ))}
-                        </ul>
-                      </li>
-                    ))}
-                  </ul>
-                </li>
-              ))}
-            </ul>
-          </React.Fragment>
-        ))}
-      </div>
-    );
-  }
 
   return (
     <div className="left-sidebar left-sidebar-1">
