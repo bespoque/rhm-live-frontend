@@ -68,8 +68,7 @@ const LeftSidebar = () => {
     staffEmail = jwt.decode(authentication)?.user;
   }
 
-  console.log("staffEmail", staffEmail);
-  console.log(staffEmail.includes(creatorRange));
+  console.log(creatorRange.includes(staffEmail));
   
   if (creatorRange.includes(staffEmail)) {
     return (
