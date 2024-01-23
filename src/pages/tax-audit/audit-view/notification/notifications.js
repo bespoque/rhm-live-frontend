@@ -71,7 +71,7 @@ const AuditNotice = () => {
     };
 
     const handleAcknowledge = (rowData) => {
-        router.push(`/tax-audit/audit-view/acknowledge/list/notifacklist?Notifid=${rowData.id}&JobID&=${rowData.job_id}&auditStartYr=${auditStartYr}&auditEndYr=${auditEndYr}&fileref=${rowData.notification_fileno}`)
+        router.push(`/tax-audit/audit-view/acknowledge/list/notifacklist?Notifid=${rowData.id}&JobID=${rowData.job_id}&auditStartYr=${auditStartYr}&auditEndYr=${auditEndYr}&fileref=${rowData.notification_fileno}`)
     }
     const handleReschedule = (rowData) => {
         router.push(`/tax-audit/audit-view/acknowledge/list/reschedulelist?Notifid=${rowData.id}&JobID=${rowData.job_id}`);

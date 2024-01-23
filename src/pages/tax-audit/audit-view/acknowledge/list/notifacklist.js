@@ -42,7 +42,7 @@ export default function Notifiacklist() {
         shallowEqual
     );
 
-    const { JobID, Notifid, auditStartYr, auditEndYr } = router?.query
+    const { JobID, Notifid, auditStartYr, auditEndYr, fileref } = router?.query
     const decoded = jwt.decode(auth);
     const emailAdd = decoded.user
     const groups = decoded.groups
@@ -274,16 +274,16 @@ export default function Notifiacklist() {
                                 <label className="block mb-1">
                                     Letter Source:
                                 </label>
-                                <select
+                                <input
+                                    type="text"
                                     name="reschedule_lettersource"
                                     className="border border-gray-300 rounded px-2 py-1 w-full"
                                     required
+                                    value={fileref}
                                     ref={register()}
-                                >
-                                    <option value="KGIRS/1234/Audit/9575">KGIRS/1234/Audit/9575</option>
-                                    <option value="KGIRS/1234/Audit/9545">KGIRS/1234/Audit/9453</option>
-                                    <option value="KGIRS/1234/Audit/9588">KGIRS/1234/Audit/9585</option>
-                                </select>
+                                    readOnly
+                                />
+
                             </div>
                         </div>
 

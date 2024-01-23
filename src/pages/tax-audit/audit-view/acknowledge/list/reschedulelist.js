@@ -133,7 +133,8 @@ export default function RescheduleList() {
                             icon: Email,
                             tooltip: 'Letter',
                             onClick: (event, rowData) => {
-                                setSelectedPdfUrl(`https://test.rhm.backend.bespoque.ng/notification-file-pdf.php?fileno=${rowData.reschedule_lettersource}`);
+                                // {`https://test.rhm.backend.bespoque.ng/letters-reschedule-pdf.php?fileno=${notice?.reschedule_lettersource}&reschID=${ReschId}&action=DOWNLOAD`}
+                                setSelectedPdfUrl(`https://test.rhm.backend.bespoque.ng/letters-reschedule-pdf.php?fileno=${rowData.reschedule_lettersource}&reschID=${rowData.id}&action=DOWNLOAD`);
                                 setIsModalOpenPDF(true);
                             }
 

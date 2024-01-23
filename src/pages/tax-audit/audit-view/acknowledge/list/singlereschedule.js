@@ -128,7 +128,7 @@ const Notification = () => {
                 toast.error(dataFetch.message);
             } else {
                 toast.success(dataFetch.message);
-                router.reload()
+                // router.reload()
 
             }
         } catch (error) {
