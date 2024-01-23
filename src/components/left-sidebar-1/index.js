@@ -40,6 +40,7 @@ const LeftSidebar = () => {
   let adminRange = [1]
   let payeTccApprover = [1,30]
   // let creatorRange = [1, 4, 13, 15]
+  let payeTccInitiator = [1, 29, 34, 25, 26]
   let creatorRange = [1,
     "m.adibaba@irs.kg.gov.ng",
     "arowosegbe.t@irs.kg.gov.ng",
@@ -54,7 +55,6 @@ const LeftSidebar = () => {
     "m.obadaki@irs.kg.gov.ng",
     "a.ize@irs.kg.gov.ng"
   ]
-  let payeTccInitiator = [29]
   let reportRange = [39, 9]
   let auditPrint = [42, 19]
   let audit = [19]

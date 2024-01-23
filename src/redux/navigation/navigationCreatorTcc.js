@@ -41,90 +41,64 @@ const initialState = [
           },
         ],
       },
+     
+
       {
         url: '/',
-        icon: <DirectAssessment />,
-        title: 'Objection',
+        icon: <Paye />,
+        title: 'PAYE',
         items: [
           {
-            title: 'Draft',
-            url: '/view/objection/draft',
-            items: [],
+            url: '/',
+            title: 'TCC',
+            items: [
+              {
+                title: 'Create',
+                url: '/tcc/paye',
+                items: [],
+              },
+              {
+                title: 'Draft',
+                url: '/view/listpayetcc/alltcc',
+                items: [],
+              },
+              {
+                title: 'Print',
+                url: '/view/listpayetcc',
+                items: [],
+              },
+            ],
           },
           {
-            title: 'Submitted',
-            url: '/view/objection/submitted',
-            items: [],
+            url: '/',
+            title: 'Income Details',
+            items: [
+              {
+                title: 'Create',
+                url: '/pita/payslip',
+                items: [],
+              },
+              {
+                title: 'view',
+                url: '/view/payslip',
+                items: [],
+              },
+
+            ],
           },
           {
-            title: 'Verified',
-            url: '/view/objection/verified',
-            items: [],
-          },
-          {
-            title: 'Print',
-            url: '/view/objection/vetted',
-            items: [],
+            url: '/',
+            title: 'Annual Filing',
+            items: [
+              {
+                title: 'Review Documents',
+                url: '/paye-annual',
+                items: [],
+              },
+            ],
           },
         ],
       },
-
-      // {
-      //   url: '/',
-      //   icon: <Paye />,
-      //   title: 'PAYE',
-      //   items: [
-      //     {
-      //       url: '/',
-      //       title: 'TCC',
-      //       items: [
-      //         {
-      //           title: 'Create',
-      //           url: '/tcc/paye',
-      //           items: [],
-      //         },
-      //         {
-      //           title: 'Draft',
-      //           url: '/view/listpayetcc/alltcc',
-      //           items: [],
-      //         },
-      //         {
-      //           title: 'Print',
-      //           url: '/view/listpayetcc',
-      //           items: [],
-      //         },
-      //       ],
-      //     },
-      //     {
-      //       url: '/',
-      //       title: 'Income Details',
-      //       items: [
-      //         {
-      //           title: 'Create',
-      //           url: '/pita/payslip',
-      //           items: [],
-      //         },
-      //         {
-      //           title: 'view',
-      //           url: '/view/payslip',
-      //           items: [],
-      //         },
-
-      //       ],
-      //     },
-      //     {
-      //       url: '/',
-      //       title: 'Annual Filing',
-      //       items: [
-      //         {
-      //           title: 'Review Documents',
-      //           url: '/paye-annual',
-      //           items: [],
-      //         },
-      //       ],
-      //     },
-      //   ],
-      // },
     ],
   },
 ];
