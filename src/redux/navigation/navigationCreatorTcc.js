@@ -91,6 +91,11 @@ const initialState = [
             title: 'Annual Filing',
             items: [
               {
+                title: 'File Returns',
+                url: '/file-annual-returns',
+                items: [],
+              },
+              {
                 title: 'Review Documents',
                 url: '/paye-annual',
                 items: [],
