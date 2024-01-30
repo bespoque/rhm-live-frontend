@@ -88,14 +88,14 @@ export default function Notifiacklist() {
     var dateFormatted = year + '-' + (month < 10 ? '0' + month : month) + '-' + (day < 10 ? '0' + day : day);
 
 
-
+   
     const onSubmit = async () => {
         formData.doneby = emailAdd
         formData.job_id = JobID
         formData.notification_id = Notifid
         formData.actionType = "Accepted"
         formData.reschedule_date = dateFormatted
-        // formData.reschedule_notifydate = dateFormatted
+        formData.reschedule_notifydate = dateFormatted
         setIsFetching(true)
 
         try {
@@ -128,6 +128,7 @@ export default function Notifiacklist() {
                     body: JSON.stringify({
                         job_id: JobID,
                         id: Notifid
+
                     })
                 })
                 const dataFetchJobDet = await response.json()
@@ -204,8 +205,7 @@ export default function Notifiacklist() {
                             We wish to inform you that your request for the postponement of
                             the proposed
                             audit exercise has been approved by the Service.  The exercise
-                            {/* has been rescheduled to hold on <strong> {rescheduleDate}. </strong> */}
-                            has been rescheduled to hold on <strong> {formData?.reschedule_notifydate}. </strong>
+                            has been rescheduled to hold on <strong> {rescheduleDate}. </strong>
                             We anticipate maximum cooperation from you.
                             Thank you.
                         </p><br />
@@ -227,10 +227,13 @@ export default function Notifiacklist() {
 
 
     const Proceed = (data) => {
+
         setFormData(data)
         setLetterState('')
         setFormState('hidden')
+
     }
+
 
     return (
         <>
@@ -259,8 +262,8 @@ export default function Notifiacklist() {
                                 </label>
                                 <input
                                     type="date"
-                                    id="reschedule_notifydate"
-                                    name="reschedule_notifydate"
+                                    id="reschedule_date"
+                                    name="reschedule_date"
                                     className="border border-gray-300 rounded px-2 py-1 w-full"
                                     required
                                     ref={register()}
