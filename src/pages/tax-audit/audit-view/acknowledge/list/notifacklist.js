@@ -210,8 +210,6 @@ export default function Notifiacklist() {
                             We anticipate maximum cooperation from you.
                             Thank you.
                         </p><br />
-
-
                         <p>Thank you for the anticipated cooperation.</p> <br />
                         <p>
                             Yours Faithfully..
