@@ -5,14 +5,14 @@ import { useEffect, useState } from "react";
 import Loader from "react-loader-spinner";
 import url from '../../config/url';
 import axios from "axios";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import { DateRangePicker } from 'react-date-range';
 import 'react-date-range/dist/styles.css'; 
 import 'react-date-range/dist/theme/default.css'; 
 import { Controller, useForm } from "react-hook-form";
 import { FormatMoneyComponentReport } from "../FormInput/formInputs";
 import AssessmentReportstable from "../../pages/assessment-report/assessmentreport";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 
 
 export const StartAssessmentReportView = () => {
