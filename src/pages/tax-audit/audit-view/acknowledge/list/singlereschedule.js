@@ -163,7 +163,6 @@ const Notification = () => {
         fetchPost();
     }, [Notifid, JobID, ReschId]);
 
-    console.log("notice?.reviewstatus", notice?.reviewstatus);
     return (
         <>
             <ToastContainer />

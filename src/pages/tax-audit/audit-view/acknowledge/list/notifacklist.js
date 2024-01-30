@@ -78,11 +78,26 @@ export default function Notifiacklist() {
     ];
 
 
+    var currentDate = new Date();
+
+    // Get the current date components
+    var day = currentDate.getDate();
+    var month = currentDate.getMonth() + 1; // Months are zero-based
+    var year = currentDate.getFullYear();
+
+    // Format the date as a string (you can customize the format as needed)
+    var dateFormatted = year + '-' + (month < 10 ? '0' + month : month) + '-' + (day < 10 ? '0' + day : day);
+
+
+   
+
     const onSubmit = async () => {
         formData.doneby = emailAdd
         formData.job_id = JobID
         formData.notification_id = Notifid
         formData.actionType = "Accepted"
+        formData.reschedule_date = dateFormatted
+        console.log("formdata", formData);
         setIsFetching(true)
 
         try {
@@ -90,20 +105,19 @@ export default function Notifiacklist() {
                 method: 'POST',
                 body: JSON.stringify(formData)
             })
-            const dataFetch = await res.json()
             setIsFetching(false)
+            const dataFetch = await res.json()
             if (dataFetch.status === "400") {
                 toast.error(dataFetch.message);
             } else {
                 toast.success(dataFetch.message);
                 closeModal()
-                router.push(`/tax-audit/audit-view/acknowledge/list/reschedulelist?Notifid=${Notifid}&JobID=${JobID}`)
+                // router.push(`/tax-audit/audit-view/acknowledge/list/reschedulelist?Notifid=${Notifid}&JobID=${JobID}`)
+                // router.push(`/tax-audit/audit-view/acknowledge/list/reschedulelist?Notifid=${Notifid}&JobID=${JobID}`)
             }
         } catch (error) {
             setIsFetching(false)
             console.error('Server Error:', error)
-        } finally {
-            setIsFetching(false)
         }
     }
 
@@ -192,7 +206,8 @@ export default function Notifiacklist() {
                             We wish to inform you that your request for the postponement of
                             the proposed
                             audit exercise has been approved by the Service.  The exercise
-                            has been rescheduled to hold on <strong> {rescheduleDate}. </strong>
+                            has been rescheduled to hold on <strong> {dateFormatted}. </strong>
+                            {/* has been rescheduled to hold on <strong> {rescheduleDate}. </strong> */}
                             We anticipate maximum cooperation from you.
                             Thank you.
                         </p><br />
@@ -223,7 +238,7 @@ export default function Notifiacklist() {
 
     }
 
-    console.log("notifAck", notifAck);
+
     return (
         <>
             <ToastContainer />
@@ -251,8 +266,8 @@ export default function Notifiacklist() {
                                 </label>
                                 <input
                                     type="date"
-                                    id="reschedule_date"
-                                    name="reschedule_date"
+                                    id="reschedule_notifydate"
+                                    name="reschedule_notifydate"
                                     className="border border-gray-300 rounded px-2 py-1 w-full"
                                     required
                                     ref={register()}
