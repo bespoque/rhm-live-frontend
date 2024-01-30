@@ -66,7 +66,7 @@ const Notification = () => {
                 reschedule_id: ReschId,
                 action: "review",
                 status: "Verified",
-                note: " ",
+                note: "Letter verified",
                 doneby: emailAdd
             }
         }
@@ -112,7 +112,7 @@ const Notification = () => {
                 reschedule_id: ReschId,
                 action: "approve",
                 status: "Approved",
-                note: " ",
+                note: "Letter approved",
                 doneby: emailAdd
             }
         }
@@ -128,7 +128,7 @@ const Notification = () => {
                 toast.error(dataFetch.message);
             } else {
                 toast.success(dataFetch.message);
-                // router.reload()
+                router.reload()
 
             }
         } catch (error) {
@@ -286,7 +286,7 @@ const Notification = () => {
                                                                             </div>
                                                                         }
                                                                     </div>
-                                                                     : <> </>
+                                                                    : <> </>
                                                             }
                                                         </>
                                                 }
@@ -317,15 +317,26 @@ const Notification = () => {
                     <span className="font-semibold">Create Time:</span>{' '}
                     {notice?.createtime}
                 </p>
+
                 {
+                    notice?.reviewstatus === "Rejected" || notice?.approvestatus === "Rejected" ? (
+
+                        <p>
+                            <span className="font-semibold">NOTE: </span>
+                            <span className='font-bold'>{notice?.approvenote || notice?.reviewnote}</span>
+                        </p>
+                    )
+                        : ""
+                }
+                {/* {
                     notice?.reviewnote && (
 
                         <p>
-                            <span className="font-semibold">REASON: </span>{' '}
+                            <span className="font-semibold">NOTE: </span>{' '}
                             <span className='font-bold'>{notice?.reviewnote || notice?.approvenote}</span>
                         </p>
                     )
-                }
+                } */}
             </div>
             <style
                 jsx>{

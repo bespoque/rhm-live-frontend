@@ -105,7 +105,7 @@ const Notification = () => {
                 notification_id: Notifid,
                 action: "review",
                 status: "Verified",
-                note: "Verified notice letter",
+                note: "Letter verified",
                 doneby: emailAdd
             }
         }
@@ -121,8 +121,6 @@ const Notification = () => {
             } else {
                 toast.success(dataFetch.message);
                 setIsFetching(!isFetching)
-                // router.reload()
-
             }
         } catch (error) {
             setIsFetching(false)
@@ -150,7 +148,7 @@ const Notification = () => {
                 notification_id: Notifid,
                 action: "approve",
                 status: "Approved",
-                note: "Approved notice letter ",
+                note: "Letter Approved ",
                 doneby: emailAdd
             }
         }
@@ -385,7 +383,7 @@ const Notification = () => {
                     notice?.reviewstatus === "Rejected" || notice?.approvestatus === "Rejected" ? (
 
                         <p>
-                            <span className="font-semibold">REASON: </span>
+                            <span className="font-semibold">NOTE: </span>
                             <span className='font-bold'>{notice?.approvenote || notice?.reviewnote}</span>
                         </p>
                     )
