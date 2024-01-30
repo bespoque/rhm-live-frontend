@@ -381,7 +381,7 @@ function ViewAnnualDocs() {
                         {coverL.map((element, i) => (
                             <div key={i} className="p-2">
                                 {/* <a href={`https://annualuploads.bespoque.dev/portal-live/uploads/annual-returns/cover_letter/${element}`} target="_blank" className="underline underline-offset-4 text-blue-600">Download</a> */}
-                                <a href={`https://annualuploads.bespoque.dev/rhm-live/uploads/annual-returns/cover_letter/${element}`} target="_blank" className="underline underline-offset-4 text-blue-600">Download</a>
+                                <a href={`https://annualuploads.bespoque.dev/portal-live/uploads/annual-returns/cover_letter/${element}`} target="_blank" className="underline underline-offset-4 text-blue-600">Download</a>
                             </div>
                         ))}
                     </div>
@@ -400,7 +400,7 @@ function ViewAnnualDocs() {
                     <div className="flex">
                         {expertriateL.map((element, i) => (
                             <div key={i} className="p-2">
-                                <a href={`https://annualuploads.bespoque.dev/rhm-live/uploads/annual-returns/exp_order_letter/${element}`} target="_blank" className="underline underline-offset-4 text-blue-600">Download</a>
+                                <a href={`https://annualuploads.bespoque.dev/portal-live/uploads/annual-returns/exp_order_letter/${element}`} target="_blank" className="underline underline-offset-4 text-blue-600">Download</a>
                             </div>
                         ))}
                     </div>
@@ -417,7 +417,7 @@ function ViewAnnualDocs() {
                     <div className="flex">
                         {monthlyPayrollS.map((element, i) => (
                             <div key={i} className="p-2">
-                                <a href={`https://annualuploads.bespoque.dev/rhm-live/uploads/annual-returns/mnthly_pay_sched/${element}`} target="_blank" className="underline underline-offset-4 text-blue-600">Download</a>
+                                <a href={`https://annualuploads.bespoque.dev/portal-live/uploads/annual-returns/mnthly_pay_sched/${element}`} target="_blank" className="underline underline-offset-4 text-blue-600">Download</a>
                             </div>
                         ))}
                     </div>
@@ -434,7 +434,7 @@ function ViewAnnualDocs() {
                     <div className="flex">
                         {evidenceOfPayeR.map((element, i) => (
                             <div key={i} className="p-2">
-                                <a href={`https://annualuploads.bespoque.dev/rhm-live/uploads/annual-returns/paye_remittance/${element}`} target="_blank" className="underline underline-offset-4 text-blue-600">Download</a>
+                                <a href={`https://annualuploads.bespoque.dev/portal-live/uploads/annual-returns/paye_remittance/${element}`} target="_blank" className="underline underline-offset-4 text-blue-600">Download</a>
                             </div>
                         ))}
                     </div>
@@ -449,7 +449,7 @@ function ViewAnnualDocs() {
                     <div className="flex">
                         {exitStaffL.map((element, i) => (
                             <div key={i} className="p-2">
-                                <a target="_blank" href={`https://annualuploads.bespoque.dev/rhm-live/uploads/annual-returns/exit_staff_list/${element}`} className="underline underline-offset-4 text-blue-600">Download</a>
+                                <a target="_blank" href={`https://annualuploads.bespoque.dev/portal-live/uploads/annual-returns/exit_staff_list/${element}`} className="underline underline-offset-4 text-blue-600">Download</a>
                             </div>
                         ))}
                     </div>
@@ -465,7 +465,7 @@ function ViewAnnualDocs() {
                     <div className="flex">
                         {withTaxD.map((element, i) => (
                             <div key={i} className="p-2">
-                                <a href={`https://annualuploads.bespoque.dev/rhm-live/uploads/annual-returns/wht_tax_deduct/${element}`} target="_blank" className="underline underline-offset-4 text-blue-600">Download</a>
+                                <a href={`https://annualuploads.bespoque.dev/portal-live/uploads/annual-returns/wht_tax_deduct/${element}`} target="_blank" className="underline underline-offset-4 text-blue-600">Download</a>
                             </div>
                         ))}
                     </div>
@@ -480,7 +480,7 @@ function ViewAnnualDocs() {
                     <div className="flex">
                         {withTaxR.map((element, i) => (
                             <div key={i} className="p-2">
-                                <a href={`https://annualuploads.bespoque.dev/rhm-live/uploads/annual-returns/wht_tax_receipts/${element}`} target="_blank" className="underline underline-offset-4 text-blue-600">Download</a>
+                                <a href={`https://annualuploads.bespoque.dev/portal-live/uploads/annual-returns/wht_tax_receipts/${element}`} target="_blank" className="underline underline-offset-4 text-blue-600">Download</a>
                             </div>
                         ))}
                     </div>
@@ -495,7 +495,7 @@ function ViewAnnualDocs() {
                     <div className="flex">
                         {monthlyImmR.map((element, i) => (
                             <div key={i} className="p-2">
-                                <a target="_blank" href={`https://annualuploads.bespoque.dev/rhm-live/uploads/annual-returns/mnthly_immi_returns/${element}`} className="underline underline-offset-4 text-blue-600">Download</a>
+                                <a target="_blank" href={`https://annualuploads.bespoque.dev/portal-live/uploads/annual-returns/mnthly_immi_returns/${element}`} className="underline underline-offset-4 text-blue-600">Download</a>
                             </div>
                         ))}
                     </div>
@@ -510,7 +510,7 @@ function ViewAnnualDocs() {
                     <div className="flex">
                         {devLevyR.map((element, i) => (
                             <div key={i} className="p-2">
-                                <a target="_blank" href={`https://annualuploads.bespoque.dev/rhm-live/uploads/annual-returns/dev_levy_receipts/${element}`} className="underline underline-offset-4 text-blue-600">Download</a>
+                                <a target="_blank" href={`https://annualuploads.bespoque.dev/portal-live/uploads/annual-returns/dev_levy_receipts/${element}`} className="underline underline-offset-4 text-blue-600">Download</a>
                             </div>
                         ))}
                     </div>
@@ -525,7 +525,7 @@ function ViewAnnualDocs() {
                     <div className="flex">
                         {busPremisesR.map((element, i) => (
                             <div key={i} className="p-2">
-                                <a href={`https://annualuploads.bespoque.dev/rhm-live/uploads/annual-returns/bus_premises_receipt/${element}`} target="_blank" className="underline underline-offset-4 text-blue-600">Download</a>
+                                <a href={`https://annualuploads.bespoque.dev/portal-live/uploads/annual-returns/bus_premises_receipt/${element}`} target="_blank" className="underline underline-offset-4 text-blue-600">Download</a>
                             </div>
                         ))}
                     </div>
@@ -540,7 +540,7 @@ function ViewAnnualDocs() {
                     <div className="flex">
                         {groundRentR.map((element, i) => (
                             <div key={i} className="p-2">
-                                <a href={`https://annualuploads.bespoque.dev/rhm-live/uploads/annual-returns/grnd_rent_receipts/${element}`} target="_blank" className="underline underline-offset-4 text-blue-600">Download</a>
+                                <a href={`https://annualuploads.bespoque.dev/portal-live/uploads/annual-returns/grnd_rent_receipts/${element}`} target="_blank" className="underline underline-offset-4 text-blue-600">Download</a>
                             </div>
                         ))}
                     </div>
@@ -555,7 +555,7 @@ function ViewAnnualDocs() {
                     <div className="flex">
                         {SSCLevy.map((element, i) => (
                             <div key={i} className="p-2">
-                                <a href={`https://annualuploads.bespoque.dev/rhm-live/uploads/annual-returns/sscl/${element}`} target="_blank" className="underline underline-offset-4 text-blue-600">Download</a>
+                                <a href={`https://annualuploads.bespoque.dev/portal-live/uploads/annual-returns/sscl/${element}`} target="_blank" className="underline underline-offset-4 text-blue-600">Download</a>
                             </div>
                         ))}
                     </div>
@@ -570,7 +570,7 @@ function ViewAnnualDocs() {
                     <div className="flex">
                         {pensionR.map((element, i) => (
                             <div key={i} className="p-2">
-                                <a href={`https://annualuploads.bespoque.dev/rhm-live/uploads/annual-returns/pension_remittance/${element}`} target="_blank" className="underline underline-offset-4 text-blue-600">Download</a>
+                                <a href={`https://annualuploads.bespoque.dev/portal-live/uploads/annual-returns/pension_remittance/${element}`} target="_blank" className="underline underline-offset-4 text-blue-600">Download</a>
                             </div>
                         ))}
                     </div>
@@ -585,7 +585,7 @@ function ViewAnnualDocs() {
                     <div className="flex">
                         {nhfR.map((element, i) => (
                             <div key={i} className="p-2">
-                                <a href={`https://annualuploads.bespoque.dev/rhm-live/uploads/annual-returns/nhf_remittance/${element}`} target="_blank" className="underline underline-offset-4 text-blue-600">Download</a>
+                                <a href={`https://annualuploads.bespoque.dev/portal-live/uploads/annual-returns/nhf_remittance/${element}`} target="_blank" className="underline underline-offset-4 text-blue-600">Download</a>
                             </div>
                         ))}
                     </div>
@@ -600,7 +600,7 @@ function ViewAnnualDocs() {
                     <div className="flex">
                         {nhisR.map((element, i) => (
                             <div key={i} className="p-2">
-                                <a href={`https://annualuploads.bespoque.dev/rhm-live/uploads/annual-returns/nhis_remittance/${element}`} target="_blank" className="underline underline-offset-4 text-blue-600">Download</a>
+                                <a href={`https://annualuploads.bespoque.dev/portal-live/uploads/annual-returns/nhis_remittance/${element}`} target="_blank" className="underline underline-offset-4 text-blue-600">Download</a>
                             </div>
                         ))}
                     </div>
@@ -615,7 +615,7 @@ function ViewAnnualDocs() {
                     <div className="flex">
                         {lapR.map((element, i) => (
                             <div key={i} className="p-2">
-                                <a href={`https://annualuploads.bespoque.dev/rhm-live/uploads/annual-returns/lap_remittance/${element}`} target="_blank" className="underline underline-offset-4 text-blue-600">Download</a>
+                                <a href={`https://annualuploads.bespoque.dev/portal-live/uploads/annual-returns/lap_remittance/${element}`} target="_blank" className="underline underline-offset-4 text-blue-600">Download</a>
                             </div>
                         ))}
                     </div>
