@@ -88,7 +88,7 @@ export default function Notifiacklist() {
     var dateFormatted = year + '-' + (month < 10 ? '0' + month : month) + '-' + (day < 10 ? '0' + day : day);
 
 
-   
+
     const onSubmit = async () => {
         formData.doneby = emailAdd
         formData.job_id = JobID
