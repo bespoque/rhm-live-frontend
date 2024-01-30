@@ -77,15 +77,15 @@ export default function Notifiacklist() {
     ];
 
 
-    var currentDate = new Date();
+    let currentDate = new Date();
 
     // Get the current date components
-    var day = currentDate.getDate();
-    var month = currentDate.getMonth() + 1; // Months are zero-based
-    var year = currentDate.getFullYear();
+    let day = currentDate.getDate();
+    let month = currentDate.getMonth() + 1; // Months are zero-based
+    let year = currentDate.getFullYear();
 
     // Format the date as a string (you can customize the format as needed)
-    var dateFormatted = year + '-' + (month < 10 ? '0' + month : month) + '-' + (day < 10 ? '0' + day : day);
+    let dateFormatted = year + '-' + (month < 10 ? '0' + month : month) + '-' + (day < 10 ? '0' + day : day);
 
 
    
