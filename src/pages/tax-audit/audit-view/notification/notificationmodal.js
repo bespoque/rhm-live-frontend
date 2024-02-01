@@ -227,6 +227,14 @@ const NotificationModal = ({ isOpen, closeModal, id, auditStartYr, auditEndYr, a
     }, []);
 
 
+    var currentDate = new Date();
+
+    var formattedDate = currentDate.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+
     const { auth } = useSelector(
         (state) => ({
             auth: state.authentication.auth,
@@ -292,7 +300,7 @@ const NotificationModal = ({ isOpen, closeModal, id, auditStartYr, auditEndYr, a
                     <div className="text-justify" >
                         <p className="flex justify-between mt-3">   </p>
                         <p>Ref - {formData.notification_fileno}</p>
-                        <p>Date - {formData.notification_date}</p>
+                        <p>Date - {formattedDate}</p>
                         <p className="w-64">{address}</p>
                         <p className="font-bold">Dear {formData.notification_addressee},</p><br />
                         <div>
@@ -379,12 +387,11 @@ const NotificationModal = ({ isOpen, closeModal, id, auditStartYr, auditEndYr, a
     }
 
 
-
-
     const submitNotice = async () => {
 
         formData.auditscope = String(selectedItems)
         formData.checklists = String(selectedValuesItems)
+        formData.notification_date = formattedDate
         formData.job_id = id
         setIsLoading(true)
 
@@ -400,7 +407,7 @@ const NotificationModal = ({ isOpen, closeModal, id, auditStartYr, auditEndYr, a
             } else {
                 toast.success(dataFetch.message);
                 closeModal()
-                router.reload()
+                // router.reload()
 
             }
         } catch (error) {
@@ -431,15 +438,16 @@ const NotificationModal = ({ isOpen, closeModal, id, auditStartYr, auditEndYr, a
                         <div className="grid grid-cols-2 gap-2">
                             <div className="mb-2">
                                 <label className="block mb-1  text-dark">
-                                    Visit date:
+                                    Letter date:
                                 </label>
                                 <input
-                                    type="date"
-                                    name='notification_date'
-                                    value={formData.notification_date}
-                                    onChange={handleInputChange}
+                                    type="text"
+                                    // name='notification_date'
+                                    value={formattedDate}
+                                    // onChange={handleInputChange}
                                     className="border border-gray-300 rounded px-2 py-1 w-full"
                                     required
+                                    readOnly
 
                                 />
                             </div>
@@ -576,7 +584,7 @@ const NotificationModal = ({ isOpen, closeModal, id, auditStartYr, auditEndYr, a
                         className="bg-green-500 hover:bg-gray-400 text-white py-2 px-4 rounded mt-4 ml-2"
                         onClick={submitNotice}
                     >
-                        Send
+                        Submit
                     </button>
                     <button
                         className="bg-red-500 hover:bg-gray-400 text-white py-2 px-4 rounded mt-4 ml-2"

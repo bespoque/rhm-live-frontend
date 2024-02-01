@@ -318,7 +318,7 @@ const initialState = [
 
       {
         url: '/',
-        icon: <ManageUser />,
+        icon: <ManageTaxpayer />,
         title: 'Access Management',
         items: [
 

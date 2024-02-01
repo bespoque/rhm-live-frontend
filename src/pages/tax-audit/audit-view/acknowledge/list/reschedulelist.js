@@ -31,7 +31,18 @@ export default function RescheduleList() {
     const [isModalOpenPDF, setIsModalOpenPDF] = useState(false);
     const { JobID, Notifid } = router?.query
 
+    const handleDetails = (rowData) => {
+        router.push(`/tax-audit/audit-view/acknowledge/list/singlereschedule?Notifid=${rowData.notification_id}&JobID=${rowData.job_id}&ReschId=${rowData.id}`);
+    };
 
+    const handleEmail = (rowData) => {
+        if (rowData.status !== "Rejected" && rowData.status !== "Pending" && rowData.status !== "Verified") {
+            setSelectedPdfUrl(`https://test.rhm.backend.bespoque.ng/letters-reschedule-pdf.php?fileno=${rowData.reschedule_lettersource}&reschID=${rowData.id}&action=DOWNLOAD`);
+            setIsModalOpenPDF(true);
+        }
+    };
+
+    console.log("notifAck", notifAck);
 
     const fields = [
         {
@@ -50,6 +61,26 @@ export default function RescheduleList() {
             title: "Letter Source",
             field: "reschedule_lettersource",
         },
+        {
+            title: "Actions",
+            render: (rowData) => (
+                <>
+                    <span className='cursor-pointer'>
+                        <MoreHoriz onClick={() => handleDetails(rowData)} />
+
+                    </span>
+                    <span className='cursor-pointer pl-3'>
+                        <Email onClick={() => handleEmail(rowData)}
+                            style={{
+                                cursor: rowData.status !== "Rejected" && rowData.status !== "Pending" && rowData.status !== "Verified" ? "pointer" : "default",
+                                color: rowData.status === "Rejected"  || rowData.status === "Pending" || rowData.status === "Verified" ? "gray" : "inherit",
+                            }}
+
+                        />
+                    </span>
+                </>
+            ),
+        }
     ];
 
 
@@ -67,29 +98,29 @@ export default function RescheduleList() {
                 })
                 const dataFetch = await res.json()
                 if (dataFetch && dataFetch.body) {
-                    const updatedData = {
-                        ...dataFetch,
-                        body: dataFetch.body.map(record => {
-                            const { reviewstatus, approvestatus } = record;
+                    // const updatedData = {
+                    //     ...dataFetch,
+                    //     body: dataFetch.body.map(record => {
+                    //         const { reviewstatus, approvestatus } = record;
 
-                            if (
-                                (reviewstatus === null || reviewstatus === '') &&
-                                (approvestatus === null || approvestatus === '')
-                            ) {
-                                return { ...record, status: null };
-                            } else if (
-                                reviewstatus !== null &&
-                                reviewstatus !== '' &&
-                                (approvestatus === null || approvestatus === '')
-                            ) {
-                                return { ...record, status: reviewstatus };
-                            } else {
-                                return { ...record, status: approvestatus };
-                            }
-                        }),
-                    };
+                    //         if (
+                    //             (reviewstatus === null || reviewstatus === '') &&
+                    //             (approvestatus === null || approvestatus === '')
+                    //         ) {
+                    //             return { ...record, status: null };
+                    //         } else if (
+                    //             reviewstatus !== null &&
+                    //             reviewstatus !== '' &&
+                    //             (approvestatus === null || approvestatus === '')
+                    //         ) {
+                    //             return { ...record, status: reviewstatus };
+                    //         } else {
+                    //             return { ...record, status: approvestatus };
+                    //         }
+                    //     }),
+                    // };
 
-                    setNotifAck(updatedData.body);
+                    setNotifAck(dataFetch.body);
                 }
 
                 // setNotifAck(dataFetch.body)
@@ -102,6 +133,8 @@ export default function RescheduleList() {
         }
         fetchPost();
     }, [JobID, Notifid]);
+
+ 
 
     return (
         <>
@@ -121,27 +154,26 @@ export default function RescheduleList() {
                 data={notifAck}
                 columns={fields}
 
-                actions={
-                    [
+                // actions={
+                //     [
 
-                        {
-                            icon: MoreHoriz,
-                            tooltip: 'Details',
-                            onClick: (event, rowData) => router.push(`/tax-audit/audit-view/acknowledge/list/singlereschedule?Notifid=${rowData.notification_id}&JobID=${rowData.job_id}&ReschId=${rowData.id}`),
-                        },
-                        {
-                            icon: Email,
-                            tooltip: 'Letter',
-                            onClick: (event, rowData) => {
-                                // {`https://test.rhm.backend.bespoque.ng/letters-reschedule-pdf.php?fileno=${notice?.reschedule_lettersource}&reschID=${ReschId}&action=DOWNLOAD`}
-                                setSelectedPdfUrl(`https://test.rhm.backend.bespoque.ng/letters-reschedule-pdf.php?fileno=${rowData.reschedule_lettersource}&reschID=${rowData.id}&action=DOWNLOAD`);
-                                setIsModalOpenPDF(true);
-                            }
+                //         {
+                //             icon: MoreHoriz,
+                //             tooltip: 'Details',
+                //             onClick: (event, rowData) => router.push(`/tax-audit/audit-view/acknowledge/list/singlereschedule?Notifid=${rowData.notification_id}&JobID=${rowData.job_id}&ReschId=${rowData.id}`),
+                //         },
+                //         {
+                //             icon: Email,
+                //             tooltip: 'Letter',
+                //             onClick: (event, rowData) => {
+                //                 setSelectedPdfUrl(`https://test.rhm.backend.bespoque.ng/letters-reschedule-pdf.php?fileno=${rowData.reschedule_lettersource}&reschID=${rowData.id}&action=DOWNLOAD`);
+                //                 setIsModalOpenPDF(true);
+                //             }
 
-                        },
+                //         },
 
-                    ]
-                }
+                //     ]
+                // }
                 options={{
                     search: true,
                     paging: true,

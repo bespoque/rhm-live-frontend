@@ -88,14 +88,12 @@ export default function Notifiacklist() {
     let dateFormatted = year + '-' + (month < 10 ? '0' + month : month) + '-' + (day < 10 ? '0' + day : day);
 
 
-   
+
     const onSubmit = async () => {
         formData.doneby = emailAdd
         formData.job_id = JobID
         formData.notification_id = Notifid
         formData.actionType = "Accepted"
-        formData.reschedule_date = dateFormatted
-        formData.reschedule_notifydate = dateFormatted
         setIsFetching(true)
 
         try {
@@ -110,9 +108,8 @@ export default function Notifiacklist() {
             } else {
                 toast.success(dataFetch.message);
                 closeModal()
-                router.reload()
-                // router.push(`/tax-audit/audit-view/acknowledge/list/reschedulelist?Notifid=${Notifid}&JobID=${JobID}`)
-                // router.push(`/tax-audit/audit-view/acknowledge/list/reschedulelist?Notifid=${Notifid}&JobID=${JobID}`)
+                // router.reload()
+                router.push(`/tax-audit/audit-view/acknowledge/list/reschedulelist?Notifid=${Notifid}&JobID=${JobID}`)
             }
         } catch (error) {
             setIsFetching(false)
@@ -133,7 +130,6 @@ export default function Notifiacklist() {
                 })
                 const dataFetchJobDet = await response.json()
                 const notification = await dataFetchJobDet.body[0]
-                console.log("dataFetchJobDet", dataFetchJobDet.body[0]);
                 setNotification(notification)
             } catch (error) {
                 console.error('Server Error:', error)
@@ -166,23 +162,30 @@ export default function Notifiacklist() {
     }, [JobID, Notifid]);
 
     const today = new Date()
-    let formattedDate = today.toLocaleDateString('en-US', {
+    let todayFormattedDate = today.toLocaleDateString('en-US', {
         year: 'numeric',
         month: 'long',
         day: 'numeric'
     });
-    let customDate = new Date(formData?.reschedule_date);
-    let rescheduleDate = customDate.toLocaleDateString('en-US', {
+    let customDateReschedule = new Date(formData?.reschedule_date);
+    let customDateRequestedResch = new Date(formData?.reschedule_notifydate);
+    let rescheduleDate = customDateReschedule.toLocaleDateString('en-US', {
         year: 'numeric',
         month: 'long',
         day: 'numeric'
     });
-    let oldNoticeDate = new Date(notificationData?.notification_date);
-    let oldNoticeDateFormatted = oldNoticeDate.toLocaleDateString('en-US', {
+    let requestReschDate = customDateRequestedResch.toLocaleDateString('en-US', {
         year: 'numeric',
         month: 'long',
         day: 'numeric'
     });
+
+    // let oldNoticeDate = new Date(notificationData?.notification_date);
+    // let oldNoticeDateFormatted = oldNoticeDate.toLocaleDateString('en-US', {
+    //     year: 'numeric',
+    //     month: 'long',
+    //     day: 'numeric'
+    // });
 
 
     function Letter() {
@@ -192,7 +195,7 @@ export default function Notifiacklist() {
                     <div className="text-justify" >
                         <p className="flex justify-between mt-3">   </p>
                         <p>Ref - {formData?.reschedule_lettersource}</p>
-                        <p>Date -  {formattedDate}</p>
+                        <p>Date -  {todayFormattedDate}</p>
                         <p className="w-64">{"Address"}</p>
                         <p className="font-bold">Dear {formData?.reschedule_adressee},</p><br />
                         <div>
@@ -200,7 +203,7 @@ export default function Notifiacklist() {
                         </div>
 
                         <p>
-                            Your letter dated <strong>{oldNoticeDateFormatted}</strong> on the above subject matter
+                            Your letter dated <strong>{requestReschDate}</strong> on the above subject matter
                             refers please.
                             We wish to inform you that your request for the postponement of
                             the proposed
@@ -258,7 +261,20 @@ export default function Notifiacklist() {
                         <div className="p-2">
                             <div className="mb-2">
                                 <label className="block mb-1">
-                                    Reschedule Date:
+                                    Taxpayer correspondence letter date: <span className='text-red-600'>*</span>
+                                </label>
+                                <input
+                                    type="date"
+                                    id="reschedule_notifydate"
+                                    name="reschedule_notifydate"
+                                    className="border border-gray-300 rounded px-2 py-1 w-full"
+                                    required
+                                    ref={register()}
+                                />
+                            </div>
+                            <div className="mb-2">
+                                <label className="block mb-1">
+                                    Proposed date of visit: <span className='text-red-600'>*</span>
                                 </label>
                                 <input
                                     type="date"
@@ -269,9 +285,10 @@ export default function Notifiacklist() {
                                     ref={register()}
                                 />
                             </div>
+
                             <div className="mb-2">
                                 <label className="block mb-1">
-                                    Addressee:
+                                    Addressee: <span className='text-red-600'>*</span>
                                 </label>
                                 <input
                                     type="text"
@@ -317,10 +334,10 @@ export default function Notifiacklist() {
                         className="bg-green-300 hover:bg-gray-400 text-gray-700 py-2 px-4 rounded mt-4 ml-2"
                         onClick={onSubmit}
                     >
-                        Send
+                        Submit
                     </button>
                     <button
-                        className="bg-red-300 hover:bg-gray-400 text-gray-700 py-2 px-4 rounded mt-4 ml-2"
+                        className="bg-red-400 hover:bg-gray-400 text-gray-700 py-2 px-4 rounded mt-4 ml-2"
                         onClick={() => {
                             setFormState('')
                             setLetterState('hidden')

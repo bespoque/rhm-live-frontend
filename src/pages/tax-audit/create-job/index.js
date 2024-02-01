@@ -99,7 +99,6 @@ const CreateJob = () => {
         fetchPost()
     }, [taxId]);
 
-
     async function onSubmit(jobdata) {
         jobdata.job_kgtin = tpDetail?.KGTIN
         jobdata.job_start_status = "Pending"

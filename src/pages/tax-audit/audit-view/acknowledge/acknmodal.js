@@ -21,14 +21,16 @@ const AcknModal = ({ isOpen, closeModal, JobID, Notifid }) => {
     );
 
     const decoded = jwt.decode(auth);
-    const emailAdd = decoded.user
+    const staffName = decoded?.staffName
 
 
     const onSubmit = async (data) => {
-        data.doneby = emailAdd
+        data.doneby = staffName
         data.job_id = JobID
         data.notification_id = Notifid
         data.actionType = "AUDIT VISIT"
+        data.ack_relationship = data.ack_relationship || "null"
+        data.ack_note = data.ack_note || "null"
 
         setIsLoading(true)
 
@@ -70,7 +72,7 @@ const AcknModal = ({ isOpen, closeModal, JobID, Notifid }) => {
                     <form onSubmit={handleSubmit(onSubmit)} >
                         <div className="mb-2">
                             <label className="block mb-1  ">
-                                Acknowledgement Date:
+                                Acknowledgement Date:  <span className='text-red-600'>*</span>
                             </label>
                             <input
                                 type="date"
@@ -83,7 +85,7 @@ const AcknModal = ({ isOpen, closeModal, JobID, Notifid }) => {
                         </div>
                         <div className="mb-2">
                             <label className="block  mb-1 ">
-                                Acknowledged by:
+                                Acknowledged by:   <span className='text-red-600'>*</span>
                             </label>
                             <input type="text" name="ack_by"
                                 className="border border-gray-300 rounded px-2 py-1 w-full"
@@ -99,14 +101,14 @@ const AcknModal = ({ isOpen, closeModal, JobID, Notifid }) => {
                                 type="text"
                                 id="ack_relationship"
                                 name='ack_relationship'
+                                placeholder='eg. staff, wife, brother etc'
                                 className="border border-gray-300 rounded px-2 py-1 w-full"
-                                required
                                 ref={register()}
                             />
                         </div>
                         <div className="mb-2">
                             <label className="block  mb-1 ">
-                                Delivery method:
+                                Delivery method: <span className='text-red-600'>*</span>
                             </label>
                             <select
                                 id="ack_channel"
@@ -116,7 +118,7 @@ const AcknModal = ({ isOpen, closeModal, JobID, Notifid }) => {
                                 ref={register()}
                             >
                                 <option value="">Please Select</option>
-                                <option value="relative">Courier</option>
+                                <option value="courier">Courier</option>
                                 <option value="email">Email</option>
                             </select>
                         </div>
@@ -129,7 +131,6 @@ const AcknModal = ({ isOpen, closeModal, JobID, Notifid }) => {
 
                                 id="ack_note"
                                 className="border border-gray-300 rounded px-2 py-1 w-full"
-                                required
                                 ref={register()}
                                 name='ack_note'
                             ></textarea>
