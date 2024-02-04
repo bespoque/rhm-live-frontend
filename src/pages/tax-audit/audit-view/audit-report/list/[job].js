@@ -5,6 +5,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { formatNumber } from 'accounting';
 import { FiCheck, FiX } from 'react-icons/fi';
+import { shallowEqual, useSelector } from 'react-redux';
+import jwt from "jsonwebtoken";
 
 function ApproveAuditUploads() {
     const [uploadsArr, setUploadsArr] = useState([])
@@ -21,6 +23,15 @@ function ApproveAuditUploads() {
     const router = useRouter()
     let jobId = router.query?.job
 
+    const { auth } = useSelector(
+        (state) => ({
+            auth: state.authentication.auth,
+        }),
+        shallowEqual
+    );
+
+    const decoded = jwt.decode(auth);
+    const staffName = decoded?.staffName
 
     const handleButtonClick = (checklistID) => {
         setShowModal(true);
@@ -149,7 +160,7 @@ function ApproveAuditUploads() {
                     report: globalCheckId,
                     status: selectedOption,
                     note: textInput,
-                    doneby: "prince.u@bespoque.ng"
+                    doneby: staffName
                 })
             })
             const dataFetch = await response.json()

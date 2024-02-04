@@ -31,7 +31,7 @@ const ViewCompliance = () => {
     );
 
     const decoded = jwt.decode(auth);
-    const emailAdd = decoded.user
+    const staffName = decoded?.staffName
     const groups = decoded.groups
     let ApprovalRange = [1, 2, 3, 12, 21, 27, 20, 30]
     const shouldApproveCompliance = groups.some((element) => ApprovalRange.includes(element));
@@ -61,7 +61,7 @@ const ViewCompliance = () => {
                 action: "verify",
                 status: "Rejected",
                 note: verifyComment || "Declined",
-                doneby: emailAdd
+                doneby: staffName
             }
 
         } else {
@@ -71,7 +71,7 @@ const ViewCompliance = () => {
                 action: "verify",
                 status: "Verified",
                 note: "Verified",
-                doneby: emailAdd
+                doneby: staffName
             }
         }
         try {
@@ -106,7 +106,7 @@ const ViewCompliance = () => {
                 action: "approve",
                 status: "Rejected",
                 note: approveComment || "Declined",
-                doneby: emailAdd
+                doneby: staffName
             }
 
         } else {
@@ -116,7 +116,7 @@ const ViewCompliance = () => {
                 action: "approve",
                 status: "Approved",
                 note: "Approved",
-                doneby: emailAdd
+                doneby: staffName
             }
         }
 

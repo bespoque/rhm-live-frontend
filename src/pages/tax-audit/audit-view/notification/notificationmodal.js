@@ -243,7 +243,7 @@ const NotificationModal = ({ isOpen, closeModal, id, auditStartYr, auditEndYr, a
     );
 
     const decoded = jwt.decode(auth);
-    const emailAdd = decoded.user
+    const staffName = decoded?.staffName
 
     const [formData, setFormData] = useState({
         notification_date: '',
@@ -253,7 +253,7 @@ const NotificationModal = ({ isOpen, closeModal, id, auditStartYr, auditEndYr, a
         actionType: 'Audit Visit',
         reviewstatus: 'Draft',
         approvestatus: 'Draft',
-        doneby: emailAdd,
+        doneby: staffName,
         notification_status: 'Created',
         notification_delivery: 'Email',
         notification_note: 'Audit Visit',

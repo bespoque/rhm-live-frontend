@@ -20,10 +20,10 @@ const AuditModal = ({ isOpen, closeModal, JobID }) => {
     );
 
     const decoded = jwt.decode(auth);
-    const emailAdd = decoded.user
+    const staffName = decoded?.staffName
 
     const onSubmit = async (data) => {
-        data.doneby = emailAdd
+        data.doneby = staffName
         data.job_id = JobID
         data.reportfile = "filepath"
         console.log("data", data);

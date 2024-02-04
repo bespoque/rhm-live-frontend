@@ -42,7 +42,7 @@ const Notification = () => {
     );
 
     const decoded = jwt.decode(auth);
-    const emailAdd = decoded.user
+    const staffName = decoded?.staffName
     const groups = decoded.groups
     let creatorRange = [1, 4, 13, 15, 29]
     let ApprovalRange = [1, 2, 3, 12, 21, 27, 20, 30]
@@ -96,7 +96,7 @@ const Notification = () => {
                 action: "review",
                 status: "Rejected",
                 note: verifyComment || "Declined",
-                doneby: emailAdd
+                doneby: staffName
             }
 
         } else {
@@ -106,7 +106,7 @@ const Notification = () => {
                 action: "review",
                 status: "Verified",
                 note: "Letter verified",
-                doneby: emailAdd
+                doneby: staffName
             }
         }
         try {
@@ -139,7 +139,7 @@ const Notification = () => {
                 action: "approve",
                 status: "Rejected",
                 note: approveComment || "Declined",
-                doneby: emailAdd
+                doneby: staffName
             }
 
         } else {
@@ -149,7 +149,7 @@ const Notification = () => {
                 action: "approve",
                 status: "Approved",
                 note: "Letter Approved ",
-                doneby: emailAdd
+                doneby: staffName
             }
         }
 

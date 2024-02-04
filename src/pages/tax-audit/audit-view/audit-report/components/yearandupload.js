@@ -22,7 +22,7 @@ const YearAndUpload = ({ years, selectedScope, toggleVis, checklistItem, checkli
     );
 
     const decoded = jwt.decode(auth);
-    const emailAdd = decoded.user
+    const staffName = decoded?.staffName
 
     const handleYearChange = (event) => {
         setSelectedYear(event.target.value);
@@ -84,7 +84,7 @@ const YearAndUpload = ({ years, selectedScope, toggleVis, checklistItem, checkli
                 formData.append("document", remittanceFiles)
                 formData.append("year", selectedYear)
                 formData.append("RemittedAmount", amountFormatted)
-                formData.append("doneby", emailAdd)
+                formData.append("doneby", staffName)
                 formData.append("CheckListID", checklistItemID)
                 setIsFetching(true)
                 try {
@@ -117,7 +117,7 @@ const YearAndUpload = ({ years, selectedScope, toggleVis, checklistItem, checkli
                 formData.append("document", documentFiles)
                 formData.append("schedule", " ")
                 formData.append("year", selectedYear)
-                formData.append("doneby", emailAdd)
+                formData.append("doneby", staffName)
                 formData.append("CheckListID", checklistItemID)
                 formData.append("RemittedAmount", " ")
                 setIsFetching(true)

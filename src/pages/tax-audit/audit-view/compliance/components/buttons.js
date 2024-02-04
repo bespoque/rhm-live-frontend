@@ -16,7 +16,7 @@ const ComplianceButtons = ({ JobID }) => {
     );
 
     const decoded = jwt.decode(auth);
-    const emailAdd = decoded.user
+    const staffName = decoded?.staffName
 
     const openModalNon = () => {
         setIsModalOpenNon(true);
@@ -64,7 +64,7 @@ const ComplianceButtons = ({ JobID }) => {
             <AllComplianceModals
                 isOpenNon={isModalOpenNon}
                 closeNoneCompModal={closeModalNon}
-                doneby={emailAdd}
+                doneby={staffName}
                 JobID={JobID}
                 isOpenSpecial={isModalOpenSpecial}
                 closeSpecialModal={closeModalSpecial}

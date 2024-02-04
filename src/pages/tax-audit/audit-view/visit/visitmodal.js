@@ -211,12 +211,12 @@ const VisitModal = ({ isOpen, closeModal, id }) => {
     );
 
     const decoded = jwt.decode(auth);
-    const emailAdd = decoded.user
+    const staffName = decoded?.staffName
 
 
     const onSubmit = async (data) => {
         data.job_id = id
-        data.doneby = emailAdd
+        data.doneby = staffName
         setIsLoading(true)
         try {
             const res = await fetch('https://test.rhm.backend.bespoque.ng/taxaudit/taxaudit-newauditlog.php', {

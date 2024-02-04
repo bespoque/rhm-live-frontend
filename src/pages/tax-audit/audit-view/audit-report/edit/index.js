@@ -31,7 +31,7 @@ function Index() {
         shallowEqual
     );
     const decoded = jwt.decode(auth);
-    const emailAdd = decoded.user
+    const staffName = decoded?.staffName
 
     useEffect(() => {
         async function fetchPost() {
@@ -59,7 +59,7 @@ function Index() {
     const onSubmit = async (data) => {
         data.job_id = jobId
         data.auditreport_id = reportId
-        data.doneby = emailAdd
+        data.doneby = staffName
         data.reportfile = "filepath"
 
         setIsLoading(true)

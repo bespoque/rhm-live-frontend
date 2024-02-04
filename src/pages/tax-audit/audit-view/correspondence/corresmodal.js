@@ -24,7 +24,7 @@ const CorresModal = ({ isOpen, closeModal, id }) => {
     );
 
     const decoded = jwt.decode(auth);
-    const emailAdd = decoded.user
+    const staffName = decoded?.staffName
     let jodId = id
 
     const multFormData = new FormData();
@@ -37,7 +37,7 @@ const CorresModal = ({ isOpen, closeModal, id }) => {
         receipt_datetime: '',
         lettersource: '',
         letterdate: '',
-        doneby: emailAdd,
+        doneby: staffName,
 
     });
 
@@ -56,7 +56,6 @@ const CorresModal = ({ isOpen, closeModal, id }) => {
         //         setSelectedFile(null);
         //     }
         // } else {
-
         // }
     };
 
@@ -87,7 +86,7 @@ const CorresModal = ({ isOpen, closeModal, id }) => {
             } else {
                 toast.success(dataFetch.message);
                 closeModal()
-                router.reload()
+                // router.reload()
 
             }
         } catch (error) {

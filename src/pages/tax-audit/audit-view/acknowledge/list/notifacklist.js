@@ -44,7 +44,7 @@ export default function Notifiacklist() {
 
     const { JobID, Notifid, auditStartYr, auditEndYr, fileref } = router?.query
     const decoded = jwt.decode(auth);
-    const emailAdd = decoded.user
+    const staffName = decoded?.staffName
     const groups = decoded.groups
     let creatorRange = [1, 4, 13, 15, 29]
 
@@ -90,7 +90,7 @@ export default function Notifiacklist() {
 
 
     const onSubmit = async () => {
-        formData.doneby = emailAdd
+        formData.doneby = staffName
         formData.job_id = JobID
         formData.notification_id = Notifid
         formData.actionType = "Accepted"
