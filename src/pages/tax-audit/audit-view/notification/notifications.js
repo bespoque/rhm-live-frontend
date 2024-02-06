@@ -124,8 +124,8 @@ const AuditNotice = () => {
                     </option>
 
                     <option value="details">Details</option>
-                    <option disabled={rowData?.status === "Rejected" || rowData?.status === null} value="acknowledge">Acknowledgements</option>
-                    <option disabled={rowData?.status === "Rejected" || rowData?.status === null} value="reschedule">Reschedules</option>
+                    <option disabled={rowData?.status === "Rejected" || rowData?.status === null || rowData?.status === "Verified"} value="acknowledge">Acknowledgements</option>
+                    <option disabled={rowData?.status === "Rejected" || rowData?.status === null || rowData?.status === "Verified"} value="reschedule">Reschedules</option>
                     {rowData.status === "Approved" && (
                         <option value="letter">Letter</option>
                     )}

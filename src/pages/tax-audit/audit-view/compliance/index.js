@@ -15,10 +15,11 @@ import ArrowDownward from "@material-ui/icons/ArrowDownward";
 import Clear from "@material-ui/icons/Clear";
 import { useRouter } from 'next/router'
 import ComplianceButtons from './components/buttons'
-import { MoreHoriz } from '@material-ui/icons'
+import { Email, MoreHoriz } from '@material-ui/icons'
 import { FiArrowUp, FiPlusCircle } from 'react-icons/fi'
 import { shallowEqual, useSelector } from 'react-redux'
 import jwt from "jsonwebtoken";
+import { Modal } from '@material-ui/core'
 
 function Index() {
   const router = useRouter()
@@ -28,6 +29,19 @@ function Index() {
   const [complianceList, setComplianceList] = useState([]);
   const [isPanelOpen, setIsPanelOpen] = useState(false);
   const [job, setJob] = useState(() => []);
+  const [selectedPdfUrl, setSelectedPdfUrl] = useState('');
+  const [isModalOpenPDF, setIsModalOpenPDF] = useState(false);
+
+  const handleDetails = (rowData) => {
+    router.push(`/tax-audit/audit-view/compliance/${rowData.job_id}_${rowData.id}`);
+  };
+
+  const handleEmail = (rowData) => {
+    if (rowData.status !== "Rejected" && rowData.status !== "Pending" && rowData.status !== null && rowData.status !== "Verified") {
+      setSelectedPdfUrl(`https://test.rhm.backend.bespoque.ng/letters-compliance-pdf.php?fileno=${rowData.notification_fileno}&job_id=${JobID}&action=DOWNLOAD`);
+      setIsModalOpenPDF(true);
+    }
+  };
 
   const fields = [
     {
@@ -56,19 +70,40 @@ function Index() {
       field: "createtime",
     },
 
+    {
+      title: "Actions",
+      render: (rowData) => (
+        <>
+          <span className='cursor-pointer'>
+            <MoreHoriz onClick={() => handleDetails(rowData)} />
+
+          </span>
+          <span className='cursor-pointer pl-3'>
+            <Email onClick={() => handleEmail(rowData)}
+              style={{
+                cursor: rowData.status !== "Rejected" && rowData.status !== "Pending" && rowData.status !== "Verified" ? "pointer" : "default",
+                color: rowData.status === "Rejected" || rowData.status === "Pending" || rowData.status === "Verified" || rowData.status === null ? "gray" : "inherit",
+              }}
+
+            />
+          </span>
+        </>
+      ),
+    }
+
   ];
 
 
   const { auth } = useSelector(
     (state) => ({
-        auth: state.authentication.auth,
+      auth: state.authentication.auth,
     }),
     shallowEqual
-);
-const decoded = jwt.decode(auth);
-const groups = decoded.groups
-let creatorRange = [1, 4, 13, 15, 29]
-const shouldCreateCompliance = groups.some((element) => creatorRange.includes(element));
+  );
+  const decoded = jwt.decode(auth);
+  const groups = decoded.groups
+  let creatorRange = [1, 4, 13, 15, 29]
+  const shouldCreateCompliance = groups.some((element) => creatorRange.includes(element));
 
   const togglePanel = () => {
     setIsPanelOpen(!isPanelOpen);
@@ -169,11 +204,11 @@ const shouldCreateCompliance = groups.some((element) => creatorRange.includes(el
           </div>
 
           <div style={{ display: isPanelOpen ? 'block' : 'none' }}>
-            {shouldCreateCompliance && 
-            <div className='flex gap-4 justify-center mb-10'>
-              <ComplianceButtons JobID={JobID} />
-            </div>
-            
+            {shouldCreateCompliance &&
+              <div className='flex gap-4 justify-center mb-10'>
+                <ComplianceButtons JobID={JobID} />
+              </div>
+
             }
 
             {checkList?.map((item) => (
@@ -196,17 +231,17 @@ const shouldCreateCompliance = groups.some((element) => creatorRange.includes(el
       <MaterialTable title="Compliance log"
         data={complianceList}
         columns={fields}
-        actions={
-          [
-            {
-              icon: MoreHoriz,
-              tooltip: 'View',
-              onClick: (event, rowData) => {
-                router.push(`/tax-audit/audit-view/compliance/${rowData.job_id}_${rowData.id}`)
-              }
-            },
-          ]
-        }
+        // actions={
+        //   [
+        //     {
+        //       icon: MoreHoriz,
+        //       tooltip: 'View',
+        //       onClick: (event, rowData) => {
+        //         router.push(`/tax-audit/audit-view/compliance/${rowData.job_id}_${rowData.id}`)
+        //       }
+        //     },
+        //   ]
+        // }
         options={{
           search: true,
           paging: true,
@@ -229,6 +264,23 @@ const shouldCreateCompliance = groups.some((element) => creatorRange.includes(el
         }}
 
       />
+
+      <Modal
+        open={isModalOpenPDF}
+        onClose={() => setIsModalOpenPDF(false)}
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <iframe
+          title="PDF Viewer"
+          src={selectedPdfUrl}
+          width="50%"
+          height="600"
+        />
+      </Modal>
     </>
   )
 }

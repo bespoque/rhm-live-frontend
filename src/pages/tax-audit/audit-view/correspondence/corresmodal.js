@@ -66,7 +66,7 @@ const CorresModal = ({ isOpen, closeModal, id }) => {
     // multFormData.append('letterdate', formData.letterdate);
     // multFormData.append('letterdate', formData.doneby);
     // multFormData.append('receipt_datetime', formData.receipt_datetime);
-    // multFormData.append('docfile', "test");
+    // multFormData.append('docfile', selectedFile);
 
     formData.docfile = selectedFile
 
@@ -78,6 +78,7 @@ const CorresModal = ({ isOpen, closeModal, id }) => {
             const res = await fetch('https://test.rhm.backend.bespoque.ng/taxaudit/taxaudit-newcorrespondence.php', {
                 method: 'POST',
                 body: JSON.stringify(formData)
+                // body: multFormData
             })
             const dataFetch = await res.json()
             setIsLoading(false)
@@ -86,7 +87,7 @@ const CorresModal = ({ isOpen, closeModal, id }) => {
             } else {
                 toast.success(dataFetch.message);
                 closeModal()
-                // router.reload()
+                router.reload()
 
             }
         } catch (error) {
@@ -114,7 +115,7 @@ const CorresModal = ({ isOpen, closeModal, id }) => {
                     <form onSubmit={submitNotice}>
                         <div className="mb-2">
                             <label className="block mb-1  text-dark">
-                                Receipt date:
+                               Correspondence letter Receipt date:
                             </label>
                             <input
                                 type="date"

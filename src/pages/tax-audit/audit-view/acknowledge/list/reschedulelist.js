@@ -42,7 +42,6 @@ export default function RescheduleList() {
         }
     };
 
-    console.log("notifAck", notifAck);
 
     const fields = [
         {
@@ -153,27 +152,6 @@ export default function RescheduleList() {
             <MaterialTable title="Notification Reschedules"
                 data={notifAck}
                 columns={fields}
-
-                // actions={
-                //     [
-
-                //         {
-                //             icon: MoreHoriz,
-                //             tooltip: 'Details',
-                //             onClick: (event, rowData) => router.push(`/tax-audit/audit-view/acknowledge/list/singlereschedule?Notifid=${rowData.notification_id}&JobID=${rowData.job_id}&ReschId=${rowData.id}`),
-                //         },
-                //         {
-                //             icon: Email,
-                //             tooltip: 'Letter',
-                //             onClick: (event, rowData) => {
-                //                 setSelectedPdfUrl(`https://test.rhm.backend.bespoque.ng/letters-reschedule-pdf.php?fileno=${rowData.reschedule_lettersource}&reschID=${rowData.id}&action=DOWNLOAD`);
-                //                 setIsModalOpenPDF(true);
-                //             }
-
-                //         },
-
-                //     ]
-                // }
                 options={{
                     search: true,
                     paging: true,

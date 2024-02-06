@@ -407,7 +407,7 @@ const NotificationModal = ({ isOpen, closeModal, id, auditStartYr, auditEndYr, a
             } else {
                 toast.success(dataFetch.message);
                 closeModal()
-                // router.reload()
+                router.reload()
 
             }
         } catch (error) {

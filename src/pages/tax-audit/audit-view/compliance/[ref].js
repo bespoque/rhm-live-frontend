@@ -57,7 +57,7 @@ const ViewCompliance = () => {
         if (reviewDecline === "Decline") {
             formData = {
                 job_id: JobID,
-                notification_id: id,
+                compliance_id: id,
                 action: "verify",
                 status: "Rejected",
                 note: verifyComment || "Declined",
@@ -67,7 +67,7 @@ const ViewCompliance = () => {
         } else {
             formData = {
                 job_id: JobID,
-                notification_id: id,
+                compliance_id: id,
                 action: "verify",
                 status: "Verified",
                 note: "Verified",
@@ -102,7 +102,7 @@ const ViewCompliance = () => {
         if (approveDecline === "Decline") {
             formData = {
                 job_id: JobID,
-                notification_id: id,
+                compliance_id: id,
                 action: "approve",
                 status: "Rejected",
                 note: approveComment || "Declined",
@@ -112,7 +112,7 @@ const ViewCompliance = () => {
         } else {
             formData = {
                 job_id: JobID,
-                notification_id: id,
+                compliance_id: id,
                 action: "approve",
                 status: "Approved",
                 note: "Approved",
@@ -259,7 +259,10 @@ const ViewCompliance = () => {
                     <h2 className="text-xl font-semibold">Compliance Details</h2>
                     <div className="flex">
                         <button onClick={() => router.back()} className="p-2 bg-gray-400 text-white w-20 rounded mr-3">Back</button>
-                        <button><a href={`https://test.rhm.backend.bespoque.ng/notification-file-pdf.php?fileno=${complianceData?.notification_fileno}`} rel="noreferrer" target="_blank" className="p-2 bg-pink-400 text-white rounded">View letter</a></button>
+                        <button><a href={`https://test.rhm.backend.bespoque.ng/letters-compliance-pdf.php?fileno=${complianceData?.notification_fileno}&job_id=${JobID}&action=DOWNLOAD`} rel="noreferrer" target="_blank" className="p-2 bg-pink-400 text-white rounded">View letter</a></button>
+                        {complianceData?.approvestatus === "Approved" && <>
+                            <button><a href={` https://test.rhm.backend.bespoque.ng/letters-compliance-pdf.php?fileno=${complianceData?.notification_fileno}&job_id=${JobID}&action=EMAIL`} rel="noreferrer" target="_blank" className="p-2 bg-purple-400 text-white ml-3 rounded">Email</a></button>
+                        </>}
                     </div>
 
                 </div>
@@ -315,23 +318,11 @@ const ViewCompliance = () => {
                         </>
                     }
 
-                    {/* <div>
-                        {
-                            complianceData?.reviewstatus === "rejected" || complianceData?.approvestatus === "rejected" || complianceData?.approvestatus === null || complianceData?.reviewstatus === null ? "" : "<NewAckButton Notifid={Notifid} JobID={JobID}" />
 
-                        }
-                    </div> */}
 
                 </div>
 
-                <p className="">
-                    <span className="font-semibold">Notification Date:</span>{' '}
-                    {complianceData?.notification_date}
-                </p>
-                <p className="">
-                    <span className="font-semibold">Notification Status:</span>{' '}
-                    {complianceData?.notification_status}
-                </p>
+
                 <p className="">
                     <span className="font-semibold">Notification Delivery:</span>{' '}
                     {complianceData?.notification_delivery}
@@ -344,6 +335,16 @@ const ViewCompliance = () => {
                     {complianceData?.createtime}
                 </p>
                 {
+                    complianceData?.reviewstatus === "Rejected" || complianceData?.approvestatus === "Rejected" ? (
+
+                        <p>
+                            <span className="font-semibold">NOTE: </span>
+                            <span className='font-bold'>{complianceData?.approvenote || complianceData?.reviewnote}</span>
+                        </p>
+                    )
+                        : ""
+                }
+                {/* {
                     complianceData?.reviewnote && (
 
                         <p>
@@ -351,7 +352,7 @@ const ViewCompliance = () => {
                             <span className='font-bold'>{complianceData?.reviewnote}</span>
                         </p>
                     )
-                }
+                } */}
             </div>
         </div>
     )
