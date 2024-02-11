@@ -1,4 +1,4 @@
-import { RhmDashboard, ManageTaxpayer, Paye, UserGuide, DirectAssessment } from '../../components/Icons/index';
+import { RhmDashboard, ManageTaxpayer, Paye } from '../../components/Icons/index';
 
 
 const initialState = [
