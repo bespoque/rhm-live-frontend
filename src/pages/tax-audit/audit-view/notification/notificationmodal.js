@@ -425,7 +425,7 @@ const NotificationModal = ({ isOpen, closeModal, id, auditStartYr, auditEndYr, a
             <Modal
                 isOpen={isOpen}
                 onRequestClose={closeModal}
-                className="fixed inset-0 bg-white border max-w-lg p-4 mx-auto overflow-y-scroll"
+                className="fixed inset-0 bg-white border w-2/3 p-4 mx-auto overflow-y-scroll"
                 overlayClassName="fixed inset-0 bg-black bg-opacity-75"
 
             >

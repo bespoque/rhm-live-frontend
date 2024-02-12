@@ -356,15 +356,6 @@ const ViewCompliance = () => {
                     )
                         : ""
                 }
-                {/* {
-                    complianceData?.reviewnote && (
-
-                        <p>
-                            <span className="font-semibold">REASON: </span>{' '}
-                            <span className='font-bold'>{complianceData?.reviewnote}</span>
-                        </p>
-                    )
-                } */}
             </div>
         </div>
     )
