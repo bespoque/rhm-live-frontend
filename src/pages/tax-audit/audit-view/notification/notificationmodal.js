@@ -230,9 +230,9 @@ const NotificationModal = ({ isOpen, closeModal, id, auditStartYr, auditEndYr, a
     var currentDate = new Date();
 
     var formattedDate = currentDate.toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
     });
 
     const { auth } = useSelector(
@@ -494,7 +494,7 @@ const NotificationModal = ({ isOpen, closeModal, id, auditStartYr, auditEndYr, a
                                 />
 
                             </div>
-                
+
                         </div>
                         <div className="my-4">
                             <hr />
@@ -524,8 +524,20 @@ const NotificationModal = ({ isOpen, closeModal, id, auditStartYr, auditEndYr, a
                         <p className="font-bold my-4 text-center">Audit Documents</p>
 
                         <div className="flex justify-center">
-                            <div ref={dropdownRef}>
-                                <div>
+                            <div className="grid grid-cols-3 gap-1">
+
+                                {checks.map((option, index) => (
+                                    <label key={option.checklist_id} className="block pl-4 pr-12 py-2 hover:bg-gray-100">
+                                        <input
+                                            type="checkbox"
+                                            className="form-checkbox h-5 w-5 text-blue-500 mr-2"
+                                            onChange={() => handleOptionChange(index)}
+                                            checked={selectedValuesItems[index] === 'YES'}
+                                        />
+                                        {option.checklist_item}
+                                    </label>
+                                ))}
+                                {/* <div>
                                     <button
                                         onClick={toggleDropdown}
                                         type="button"
@@ -535,8 +547,10 @@ const NotificationModal = ({ isOpen, closeModal, id, auditStartYr, auditEndYr, a
                                         {isOpenCheckItems ? <IoIosArrowUp className="ml-2" /> : <IoIosArrowDown className="ml-2" />}
 
                                     </button>
-                                </div>
-                                {isOpenCheckItems && (
+                                </div> */}
+
+
+                                {/* {isOpenCheckItems && (
                                     <div className="origin-top-right right-0 mt-2 w-72 h-32 overflow-y-scroll rounded-md shadow-lg bg-white ring-1">
                                         <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                                             {checks.map((option, index) => (
@@ -552,7 +566,7 @@ const NotificationModal = ({ isOpen, closeModal, id, auditStartYr, auditEndYr, a
                                             ))}
                                         </div>
                                     </div>
-                                )}
+                                )} */}
                             </div>
                         </div>
 

@@ -1,9 +1,7 @@
-import Widget from "../widget";
+
 import { formatNumber } from "../../functions/numbers";
-import * as Icons from '../Icons/index';
-import Link from 'next/link';
 import { useEffect, useState } from "react";
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import url from '../../config/url';
 import axios from "axios";
 import setAuthToken from "../../functions/setAuthToken";
@@ -11,14 +9,9 @@ import { useRouter } from "next/router";
 import Loader from "react-loader-spinner";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { FormatMoneyComponent, FormatMoneyComponentBOJ } from "../FormInput/formInputs";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import { SubmitButton } from "../CustomButton/CustomButton";
-import { FiCheck } from 'react-icons/fi';
+import {FormatMoneyComponentBOJ } from "../FormInput/formInputs";
 import SectionTitle from "../section-title";
-import { set } from "nprogress";
-import { data } from "autoprefixer";
+
 
 export const StartBOJ = () => {
 
@@ -27,8 +20,6 @@ export const StartBOJ = () => {
   const [assmentYear, setAssessmentYear] = useState('');
   const [payerKgtin, setPayerKgtin] = useState('');
   const [bojData, setBojData] = useState(() => []);
-  const [employed, setEmployed] = useState('');
-  const [self_employed, setSelfEmployed] = useState('');
   const [routerAssId, setAssessId] = useState('');
   const [fixedValues, fixValues] = useState({ amount: 0 });
   const [fixedValues2, fixValues2] = useState({ amount: 0 });
@@ -231,7 +222,7 @@ export const StartBOJ = () => {
 
   }
 
- 
+
 
   consolidatedIncome = (Number(selfEmployedF) + Number(employedF) + Number(otherIncomeF));
   // console.log("Consl", consolidatedIncome);
@@ -319,7 +310,7 @@ export const StartBOJ = () => {
 
   return (
     <>
-
+      <ToastContainer />
       <div>
         {bojData.map((ind, i) => (
           <div>

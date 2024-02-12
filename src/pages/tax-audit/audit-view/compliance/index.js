@@ -33,7 +33,7 @@ function Index() {
   const [isModalOpenPDF, setIsModalOpenPDF] = useState(false);
 
   const handleDetails = (rowData) => {
-    router.push(`/tax-audit/audit-view/compliance/${rowData.job_id}_${rowData.id}`);
+    router.push(`/tax-audit/audit-view/compliance/${rowData.job_id}_${rowData.id}_${rowData.actionType}`);
   };
 
   const handleEmail = (rowData) => {

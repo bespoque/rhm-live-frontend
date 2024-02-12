@@ -19,9 +19,7 @@ const ViewCompliance = () => {
     const [isFetching, setIsFetching] = useState(() => true);
     const [complianceData, setComplianceData] = useState([]);
 
-    const urlDataSplit = urlData?.split("_")
-    const JobID = urlDataSplit?.shift()
-    const id = urlDataSplit?.pop()
+    const [JobID = '', id = '', actionType = ''] = urlData?.split('_') || [];
 
     const { auth } = useSelector(
         (state) => ({
@@ -103,6 +101,7 @@ const ViewCompliance = () => {
             formData = {
                 job_id: JobID,
                 compliance_id: id,
+                // action: actionType,
                 action: "approve",
                 status: "Rejected",
                 note: approveComment || "Declined",
@@ -113,6 +112,7 @@ const ViewCompliance = () => {
             formData = {
                 job_id: JobID,
                 compliance_id: id,
+                // action: actionType,
                 action: "approve",
                 status: "Approved",
                 note: "Approved",
@@ -132,7 +132,7 @@ const ViewCompliance = () => {
             } else {
                 toast.success(dataFetch.message);
                 closeModal()
-                router.reload()
+                // router.reload()
 
             }
         } catch (error) {
@@ -259,10 +259,22 @@ const ViewCompliance = () => {
                     <h2 className="text-xl font-semibold">Compliance Details</h2>
                     <div className="flex">
                         <button onClick={() => router.back()} className="p-2 bg-gray-400 text-white w-20 rounded mr-3">Back</button>
-                        <button><a href={`https://test.rhm.backend.bespoque.ng/letters-compliance-pdf.php?fileno=${complianceData?.notification_fileno}&job_id=${JobID}&action=DOWNLOAD`} rel="noreferrer" target="_blank" className="p-2 bg-pink-400 text-white rounded">View letter</a></button>
-                        {complianceData?.approvestatus === "Approved" && <>
-                            <button><a href={` https://test.rhm.backend.bespoque.ng/letters-compliance-pdf.php?fileno=${complianceData?.notification_fileno}&job_id=${JobID}&action=EMAIL`} rel="noreferrer" target="_blank" className="p-2 bg-purple-400 text-white ml-3 rounded">Email</a></button>
-                        </>}
+                        {actionType === "NON-COMPLIANCE" && (
+                            <>
+                                <button><a href={`https://test.rhm.backend.bespoque.ng/letters-compliance-pdf.php?fileno=${complianceData?.notification_fileno}&job_id=${JobID}&action=DOWNLOAD`} rel="noreferrer" target="_blank" className="p-2 bg-pink-400 text-white rounded">View letter</a></button>
+                                {complianceData?.approvestatus === "Approved" && <>
+                                    <button><a href={` https://test.rhm.backend.bespoque.ng/letters-compliance-pdf.php?fileno=${complianceData?.notification_fileno}&job_id=${JobID}&action=EMAIL`} rel="noreferrer" target="_blank" className="p-2 bg-purple-400 text-white ml-3 rounded">Email</a></button>
+                                </>}
+                            </>
+                        )}
+                        {actionType === "SPECIAL NON-COMPLIANCE" && (
+                            <>
+                                <button><a href={`https://test.rhm.backend.bespoque.ng/letters-special-non-compliance-pdf.php?fileno=${complianceData?.notification_fileno}&job_id=${JobID}&action=DOWNLOAD`} rel="noreferrer" target="_blank" className="p-2 bg-pink-400 text-white rounded">View letter</a></button>
+                                {complianceData?.approvestatus === "Approved" && <>
+                                    <button><a href={` https://test.rhm.backend.bespoque.ng/letters-special-non-compliance-pdf.php?fileno=${complianceData?.notification_fileno}&job_id=${JobID}&action=EMAIL`} rel="noreferrer" target="_blank" className="p-2 bg-purple-400 text-white ml-3 rounded">Email</a></button>
+                                </>}
+                            </>
+                        )}
                     </div>
 
                 </div>
