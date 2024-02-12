@@ -32,20 +32,23 @@ export default function SinglePayerProfile() {
   const fieldAssessment = [
     {
       title: "Assesment Id",
-      field: "assmt_id",
+      field: "assessment_id",
+      // field: "assmt_id",
     },
     {
       title: "Year",
-      field: "assmt_year",
+      // field: "assmt_year",
+      field: "year",
     },
     {
       title: "Revenue Item",
-      field: "revenue_item",
+      field: "rev_item",
     },
     {
       title: "Assessed Amount",
-      field: "assmt_amount",
-      render: (amount) => formatNumber(amount.assmt_amount)
+      field: "tax",
+      // field: "assmt_amount",
+      render: (amount) => formatNumber(amount.tax)
 
     },
     {
@@ -55,7 +58,8 @@ export default function SinglePayerProfile() {
     },
     {
       title: "Created Time",
-      field: "assmt_date",
+      field: "createtime",
+      // field: "assmt_date",
       type: "date"
     },
   ];
