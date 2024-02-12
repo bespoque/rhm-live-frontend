@@ -45,8 +45,8 @@ const AcknModal = ({ isOpen, closeModal, JobID, Notifid }) => {
                 toast.error(dataFetch.message);
             } else {
                 toast.success(dataFetch.message);
-                router.reload()
-                // router.push(`/tax-audit/audit-view/acknowledge/list/jobacklist?JobID=${JobID}`)
+                // router.reload()
+                router.push(`/tax-audit/audit-view/acknowledge/list/jobacklist?JobID=${JobID}`)
             }
 
         } catch (error) {
@@ -64,7 +64,7 @@ const AcknModal = ({ isOpen, closeModal, JobID, Notifid }) => {
             <Modal
                 isOpen={isOpen}
                 onRequestClose={closeModal}
-                className="fixed inset-0 bg-white border max-w-sm p-4 mx-auto overflow-y-scroll"
+                className="fixed inset-0 bg-white border max-w-lg p-4 mx-auto overflow-y-scroll"
                 overlayClassName="fixed inset-0 bg-black bg-opacity-75"
             >
                 <div >

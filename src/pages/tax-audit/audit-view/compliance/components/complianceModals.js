@@ -132,7 +132,7 @@ const AllComplianceModals = ({
                 <Modal
                     isOpen={isOpenNon}
                     onRequestClose={closeNoneCompModal}
-                    className="fixed inset-0 bg-white border max-w-lg p-4 mx-auto overflow-y-scroll"
+                    className="fixed inset-0 bg-white border w-1/2 p-4 mx-auto overflow-y-scroll"
                     overlayClassName="fixed inset-0 bg-black bg-opacity-60 z-50"
                 >
                     <div className="modal-close flex justify-end top-0 right-0 cursor-pointer">
@@ -375,7 +375,7 @@ const AllComplianceModals = ({
                 <Modal
                     isOpen={isOpenSpecial}
                     onRequestClose={closeSpecialModal}
-                    className="fixed inset-0 bg-white border max-w-lg p-4 mx-auto overflow-y-scroll"
+                    className="fixed inset-0 bg-white border w-1/2 p-4 mx-auto overflow-y-scroll"
                     overlayClassName="fixed inset-0 bg-black bg-opacity-60 z-50"
                 >
                     <div className="modal-close flex justify-end top-0 right-0 cursor-pointer">

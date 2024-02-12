@@ -366,10 +366,6 @@ const Notification = () => {
                     <span className="font-semibold">Notification Date:</span>{' '}
                     {notice?.notification_date}
                 </p>
-                {/* <p className="">
-                    <span className="font-semibold">Notification Status:</span>{' '}
-                    {notice?.notification_status}
-                </p> */}
                 <p className="">
                     <span className="font-semibold">Notification Delivery:</span>{' '}
                     {notice?.notification_delivery}
