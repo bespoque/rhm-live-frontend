@@ -56,6 +56,7 @@ const ViewCompliance = () => {
             formData = {
                 job_id: JobID,
                 compliance_id: id,
+                type: actionType,
                 action: "verify",
                 status: "Rejected",
                 note: verifyComment || "Declined",
@@ -66,6 +67,7 @@ const ViewCompliance = () => {
             formData = {
                 job_id: JobID,
                 compliance_id: id,
+                type: actionType,
                 action: "verify",
                 status: "Verified",
                 note: "Verified",
@@ -101,7 +103,7 @@ const ViewCompliance = () => {
             formData = {
                 job_id: JobID,
                 compliance_id: id,
-                // action: actionType,
+                type: actionType,
                 action: "approve",
                 status: "Rejected",
                 note: approveComment || "Declined",
@@ -112,7 +114,7 @@ const ViewCompliance = () => {
             formData = {
                 job_id: JobID,
                 compliance_id: id,
-                // action: actionType,
+                type: actionType,
                 action: "approve",
                 status: "Approved",
                 note: "Approved",
@@ -132,7 +134,7 @@ const ViewCompliance = () => {
             } else {
                 toast.success(dataFetch.message);
                 closeModal()
-                // router.reload()
+                router.reload()
 
             }
         } catch (error) {

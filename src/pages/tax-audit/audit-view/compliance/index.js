@@ -38,7 +38,11 @@ function Index() {
 
   const handleEmail = (rowData) => {
     if (rowData.status !== "Rejected" && rowData.status !== "Pending" && rowData.status !== null && rowData.status !== "Verified") {
-      setSelectedPdfUrl(`https://test.rhm.backend.bespoque.ng/letters-compliance-pdf.php?fileno=${rowData.notification_fileno}&job_id=${JobID}&action=DOWNLOAD`);
+      if (rowData.actionType === "NON-COMPLIANCE") {
+        setSelectedPdfUrl(`https://test.rhm.backend.bespoque.ng/letters-compliance-pdf.php?fileno=${rowData.notification_fileno}&job_id=${JobID}&action=DOWNLOAD`);
+      } else if(rowData.actionType === "SPECIAL NON-COMPLIANCE") {
+        setSelectedPdfUrl(`https://test.rhm.backend.bespoque.ng/letters-special-non-compliance-pdf.php?fileno=${rowData.notification_fileno}&job_id=${JobID}&action=DOWNLOAD`);
+      }
       setIsModalOpenPDF(true);
     }
   };
