@@ -20,6 +20,30 @@ const AllComplianceModals = ({
     isOpenCompliance,
     closeModalCompliance
 }) => {
+    const [fileRef, setFileRef] = useState([])
+
+    useEffect(() => {
+        async function fetchPost() {
+            try {
+                const response = await fetch('https://test.rhm.backend.bespoque.ng/taxaudit/taxaudit-filerefs.php', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        job_id: JobID,
+                    })
+                })
+                const dataFetchJobDet = await response.json()
+                if (dataFetchJobDet.status === "400") {
+                    toast.error(dataFetchJobDet.message);
+                } else {
+                    setFileRef(dataFetchJobDet.body);
+                }
+
+            } catch (error) {
+                console.error('Server Error:', error)
+            }
+        }
+        fetchPost();
+    }, [JobID]);
 
 
     const NonCompliance = ({ isOpenNon, closeNoneCompModal, JobID, doneby }) => {
@@ -178,13 +202,25 @@ const AllComplianceModals = ({
                                     <label className="text-dark  block mb-1">
                                         File Ref:
                                     </label>
-                                    <input
+                                    <select
+                                        ref={register()}
+                                        name='notification_fileno'
+                                        className="border border-gray-300 rounded px-2 py-1 w-full"
+                                    >
+                                        <option value="">Select an option</option>
+                                        {fileRef.map((option) => (
+                                            <option key={option.id} value={option.fileref}>
+                                                {option.fileref} -  {option.type}
+                                            </option>
+                                        ))}
+                                    </select>
+                                    {/* <input
                                         required
                                         ref={register()}
                                         type="text"
                                         name='notification_fileno'
                                         className="border border-gray-300 rounded px-2 py-1 w-full"
-                                    />
+                                    /> */}
 
                                 </div>
                                 <div className="mb-1">
@@ -421,13 +457,26 @@ const AllComplianceModals = ({
                                     <label className="text-dark  block mb-1">
                                         File Ref:
                                     </label>
-                                    <input
+
+                                    <select
+                                        ref={register()}
+                                        name='notification_fileno'
+                                        className="border border-gray-300 rounded px-2 py-1 w-full"
+                                    >
+                                        <option value="">Select an option</option>
+                                        {fileRef.map((option) => (
+                                            <option key={option.id} value={option.fileref}>
+                                                {option.fileref} -  {option.type}
+                                            </option>
+                                        ))}
+                                    </select>
+                                    {/* <input
                                         required
                                         ref={register()}
                                         type="text"
                                         name='notification_fileno'
                                         className="border border-gray-300 rounded px-2 py-1 w-full"
-                                    />
+                                    /> */}
 
                                 </div>
                                 <div className="mb-1">
