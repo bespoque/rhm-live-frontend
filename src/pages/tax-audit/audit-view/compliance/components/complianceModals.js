@@ -32,11 +32,11 @@ const AllComplianceModals = ({
                     })
                 })
                 const dataFetchJobDet = await response.json()
-                if (dataFetchJobDet.status === "400") {
-                    toast.error(dataFetchJobDet.message);
-                } else {
-                    setFileRef(dataFetchJobDet.body);
-                }
+                setFileRef(dataFetchJobDet.body);
+                // if (dataFetchJobDet.status === "400") {
+                //     toast.error(dataFetchJobDet.message);
+                // } else {
+                // }
 
             } catch (error) {
                 console.error('Server Error:', error)
