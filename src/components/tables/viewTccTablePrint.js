@@ -234,7 +234,6 @@ export const ViewSingleTccPrintTable = ({
   let dueDateYear = due_date.getFullYear()
 
 
-
   let Issdate = new Date()
   let Issdue_date = new Date(Issdate)
   let dateIssue = dateformat(Issdue_date, "dd mmm yyyy")
@@ -516,7 +515,7 @@ export const ViewSingleTccPrintTable = ({
               </div>
               <div>
                 <p className="mb-2"><span className="font-bold">3.</span> His/her known source(s) of income are: <span>Employment, Trade/Professional</span> </p>
-                <p><span className="font-bold">4.</span> This certificate expires on: <span>31st Dec {dueDateYear}</span> </p>
+                <p><span className="font-bold">4.</span> This certificate expires on: <span>31st Dec {thirdYear}</span> </p>
               </div>
               <p className="text-red-600 flex justify-center text-3xl">INCOME TAX CLEARANCE CERTIFICATE</p>
               <div className="flex justify-end mt-16">
