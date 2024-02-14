@@ -208,7 +208,7 @@ const AllComplianceModals = ({
                                         className="border border-gray-300 rounded px-2 py-1 w-full"
                                     >
                                         <option value="">Select an option</option>
-                                        {fileRef.map((option) => (
+                                        {fileRef?.map((option) => (
                                             <option key={option.id} value={option.fileref}>
                                                 {option.fileref} -  {option.type}
                                             </option>
@@ -464,7 +464,7 @@ const AllComplianceModals = ({
                                         className="border border-gray-300 rounded px-2 py-1 w-full"
                                     >
                                         <option value="">Select an option</option>
-                                        {fileRef.map((option) => (
+                                        {fileRef?.map((option) => (
                                             <option key={option.id} value={option.fileref}>
                                                 {option.fileref} -  {option.type}
                                             </option>
