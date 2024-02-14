@@ -287,9 +287,9 @@ const Notification = () => {
                     <div className="flex">
                         <button onClick={() => router.back()} className="p-2 bg-gray-400 text-white w-20 rounded mr-3">Back</button>
                         <button><a href={`https://test.rhm.backend.bespoque.ng/letters-notification-pdf.php?fileno=${notice?.notification_fileno}&action=DOWNLOAD`} rel="noreferrer" target="_blank" className="p-2 bg-pink-400 text-white rounded">View letter</a></button>
-                        {notice?.approvestatus === "Approved" && <>
+                        {/* {notice?.approvestatus === "Approved" && <>
                         <button><a href={`https://test.rhm.backend.bespoque.ng/letters-notification-pdf.php?fileno=${notice?.notification_fileno}&action=EMAIL`} rel="noreferrer" target="_blank" className="p-2 bg-purple-400 ml-3 text-white rounded">Email</a></button>
-                        </>}
+                        </>} */}
                     </div>
                 </div>
                 <div className="flex justify-end gap-2 items-center mb-4">
