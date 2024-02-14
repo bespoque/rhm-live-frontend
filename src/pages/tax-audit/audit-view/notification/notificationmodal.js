@@ -386,7 +386,6 @@ const NotificationModal = ({ isOpen, closeModal, id, auditStartYr, auditEndYr, a
         }
     }
 
-
     const submitNotice = async () => {
 
         formData.auditscope = String(selectedItems)

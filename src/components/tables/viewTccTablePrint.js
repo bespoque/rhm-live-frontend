@@ -85,6 +85,8 @@ export const ViewTccPrintTable = ({ tccdata }) => {
   const decoded = jwt.decode(auth);
   const userGroup = decoded.groups
 
+  
+
   return (
     <>
       <MaterialTable title="Tcc List"
@@ -232,6 +234,8 @@ export const ViewSingleTccPrintTable = ({
   let date = printPrintTime
   let due_date = new Date(date)
   let dueDateYear = due_date.getFullYear()
+
+  const expiryYear = Number(thirdYear) + 1
 
 
   let Issdate = new Date()
@@ -515,7 +519,7 @@ export const ViewSingleTccPrintTable = ({
               </div>
               <div>
                 <p className="mb-2"><span className="font-bold">3.</span> His/her known source(s) of income are: <span>Employment, Trade/Professional</span> </p>
-                <p><span className="font-bold">4.</span> This certificate expires on: <span>31st Dec {thirdYear}</span> </p>
+                <p><span className="font-bold">4.</span> This certificate expires on: <span>31st Dec {expiryYear}</span> </p>
               </div>
               <p className="text-red-600 flex justify-center text-3xl">INCOME TAX CLEARANCE CERTIFICATE</p>
               <div className="flex justify-end mt-16">
