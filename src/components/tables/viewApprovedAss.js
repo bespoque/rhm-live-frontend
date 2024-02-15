@@ -15,7 +15,7 @@ import ArrowDownward from "@material-ui/icons/ArrowDownward";
 import Clear from "@material-ui/icons/Clear";
 // import MaterialTable from "material-table";
 import MaterialTable from '@material-table/core';
-import { Delete, WarningRounded } from "@material-ui/icons";
+import { Delete, WarningRounded, CheckRounded } from "@material-ui/icons";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Loader from "react-loader-spinner";
@@ -25,6 +25,8 @@ import setAuthToken from "../../functions/setAuthToken";
 import { shallowEqual, useSelector } from "react-redux";
 import jwt from "jsonwebtoken";
 import { useRouter } from "next/router";
+import Modal from 'react-modal';
+import { useForm } from "react-hook-form";
 
 
 const fields = [
@@ -83,10 +85,18 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
   const [modal, setModal] = useState(false);
   const [revisedmodal, setRevisedModal] = useState(false);
   const [revisedAssFields, setRevisedAssFields] = useState({});
+  const [ackFields, setAckFields] = useState({});
   const [assessId, setAssessId] = useState('');
   const [createErrors, setCreateErrors] = useState([]);
   const [isFetching, setIsFetching] = useState(() => false);
+  const [modalSpinner, setModalSpinner] = useState(() => false);
   const router = useRouter();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [createForm, showCreateForm] = useState("hidden");
+  const [viewAck, setViewAck] = useState("hidden");
+  const [ackData, setAckData] = useState([]);
+  const [selectedFile, setSelectedFile] = useState(null)
+  const { handleSubmit, register } = useForm();
 
   const { auth } = useSelector(
     (state) => ({
@@ -95,11 +105,32 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
     shallowEqual
   );
 
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    showCreateForm('hidden')
+    setViewAck('hidden')
+  };
+
+  console.log("ackFields", ackFields);
+
   const DeleteRange = [1, 12]
   const reportRange = [39, 9, 20]
   const decoded = jwt.decode(auth);
   const userGroup = decoded.groups
 
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    setSelectedFile(file);
+    // if (file) {
+    //     if (file.size > 200000) {
+    //         alert("file size cannot be more than 200kb")
+    //         setSelectedFile(null);
+    //     }
+    // } else {
+
+    // }
+  };
 
   const toggleModal = () => {
     setModal(!modal);
@@ -109,6 +140,61 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
   };
 
   setAuthToken();
+  const ViewAcknowledgement = async (data) => {
+    setModalSpinner(true)
+    let deleteOBJ = {
+      assessment_id: ackFields.assessment_id,
+      kgtin: ackFields.kgtin
+    }
+
+    try {
+      let resp = await axios.post(`${url.BASE_URL}forma/view-acknowledgement`, deleteOBJ)
+      console.log("resp", resp);
+      setViewAck('')
+      setModalSpinner(false)
+      setAckData(resp?.data?.body[0])
+    } catch (error) {
+      if (error.response.data.status === 400) {
+        showCreateForm('')
+
+      }
+      console.log("error", error.response.data);
+      setModalSpinner(false)
+      setViewAck('hidden')
+    }
+  };
+
+  const CreateAcknowlegement = async (data) => {
+    const multFormData = new FormData();
+    multFormData.append('kgtin', data?.kgtin);
+    multFormData.append('recipient', data?.recipient);
+    multFormData.append('relationship', data?.relationship);
+    multFormData.append('department', data?.department);
+    multFormData.append('designation', data?.designation);
+    multFormData.append('date', data?.date);
+    multFormData.append('assessment_id', ackFields.assessment_id);
+    multFormData.append('upload_da', selectedFile);
+    setModalSpinner(true)
+
+    try {
+      let response = await axios.post(`${url.BASE_URL}forma/acknowledge-assessment`, multFormData)
+      toast.success(response.data.message)
+      closeModal()
+      showCreateForm('hidden')
+      setViewAck('hidden')
+      setModalSpinner(false)
+    } catch (error) {
+      if (error.response.data) {
+        toast.error(error.response.data.message)
+      }
+      setModalSpinner(false)
+      showCreateForm('hidden')
+      setViewAck('hidden')
+      closeModal()
+
+    }
+  };
+
   const DeleteAssessment = async (data) => {
     data.preventDefault()
     setIsFetching(true)
@@ -156,9 +242,281 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
   return (
     <>
       <ToastContainer />
+      <Modal
+        isOpen={isModalOpen}
+        onRequestClose={closeModal}
+        className="fixed inset-0 bg-white border max-w-lg p-4 mx-auto overflow-y-scroll"
+        overlayClassName="fixed inset-0 bg-black bg-opacity-75"
+
+      >
+        {modalSpinner && (
+          <div className="flex justify-center item mb-2">
+            <Loader
+              visible={modalSpinner}
+              type="BallTriangle"
+              color="#00FA9A"
+              height={19}
+              width={19}
+              timeout={0}
+              className="ml-2"
+            />
+            <p className="font-bold">Processing...</p>
+          </div>
+        )}
+
+        <div className={`${createForm}`}>
+          <form onSubmit={handleSubmit(CreateAcknowlegement)}>
+            <h6 className="text-dark text-center">Acknowledge Notice of Assessment</h6>
+            <div className="grid grid-cols-2 gap-2">
+              <div className="mb-2">
+                <label className="block mb-1  text-dark">
+                  KGTIN
+                </label>
+                <input
+                  ref={register()}
+                  type="text"
+                  name='kgtin'
+                  readOnly
+                  value={ackFields?.kgtin}
+                  className="border border-gray-300 rounded px-2 py-1 w-full"
+                  required
+
+                />
+              </div>
+              <div className="mb-1">
+                <label className="text-dark  block mb-1">
+                  Date:
+                </label>
+                <input
+                  ref={register()}
+                  type="date"
+                  name='date'
+                  className="border border-gray-300 rounded px-2 py-1 w-full"
+                  required
+
+                />
+              </div>
+
+              <div className="mb-1">
+                <label className="text-dark  block mb-1">
+                  Receipient name
+                </label>
+                <input
+                  ref={register()}
+                  type="text"
+                  name='recipient'
+                  className="border border-gray-300 rounded px-2 py-1 w-full"
+                  required
+
+                />
+
+              </div>
+              <div className="mb-1">
+                <label className="text-dark  block mb-1">
+                  Relationship:
+                </label>
+                <input
+                  ref={register()}
+                  type="text"
+                  name='relationship'
+                  placeholder="Eg. Staff, relative, spouse "
+                  className="border border-gray-300 rounded px-2 py-1 w-full"
+                  required
+
+                />
+
+              </div>
+              <div className="mb-1">
+                <label className="text-dark  block mb-1">
+                  Department:
+                </label>
+                <input
+                  ref={register()}
+                  type="text"
+                  name='department'
+                  className="border border-gray-300 rounded px-2 py-1 w-full"
+                  required
+
+                />
+              </div>
+              <div className="mb-1">
+                <label className="text-dark  block mb-1">
+                  Designation:
+                </label>
+                <input
+                  ref={register()}
+                  type="text"
+                  name='designation'
+                  className="border border-gray-300 rounded px-2 py-1 w-full"
+                  required
+
+                />
+              </div>
+              <div className="mb-2">
+                <label className="block mb-1  text-dark">
+                  Upload document :
+                </label>
+                <input
+                  type="file"
+                  name="upload_da"
+                  onChange={handleFileChange}
+                  className="border border-gray-300 rounded px-2 py-1 w-full"
+                />
+              </div>
+            </div>
+            <div className="mb-1">
+              <label className="block mb-1 text-dark">
+                Taxpayer name
+              </label>
+              <input
+                type="text"
+                value={ackFields?.tp_name}
+                className="border border-gray-300 rounded px-2 py-1 w-full"
+                required
+
+              />
+            </div>
+            <div className="my-4">
+              <hr />
+            </div>
+
+            <div className="flex justify-evenly mt-4">
+              <button
+                className="bg-blue-500 hover:bg-blue-600 text-dark py-2 px-4 rounded mt-4"
+                type="submit"
+              >
+                Proceed
+              </button>
+
+              <button
+                className="bg-red-300 hover:bg-gray-400 text-gray-700 py-2 px-4 rounded mt-4 ml-2"
+                onClick={() => {
+                  closeModal()
+                }}
+              >
+                Close
+              </button>
+            </div>
+
+          </form>
+        </div>
+
+        <div className={`${viewAck}`}>
+          <form>
+            <h6 className="text-dark text-center text-blue-400">Acknowledged Notice of Assessment</h6>
+            <div className="grid grid-cols-2 gap-2">
+              <div className="mb-2">
+                <label className="block mb-1  text-dark">
+                  KGTIN
+                </label>
+                <input
+                  type="text"
+                  name='kgtin'
+                  readOnly
+                  value={ackData?.kgtin}
+                  className="border border-gray-300 rounded px-2 py-1 w-full"
+                />
+              </div>
+              <div className="mb-1">
+                <label className="text-dark  block mb-1">
+                  Date:
+                </label>
+                <input
+                  type="date"
+                  name='date'
+                  value={ackData?.date}
+                  className="border border-gray-300 rounded px-2 py-1 w-full"
+
+                />
+              </div>
+
+              <div className="mb-1">
+                <label className="text-dark  block mb-1">
+                  Receipient name
+                </label>
+                <input
+                  type="text"
+                  name='recipient'
+                  value={ackData?.recipient}
+                  className="border border-gray-300 rounded px-2 py-1 w-full"
+                  required
+
+                />
+
+              </div>
+              <div className="mb-1">
+                <label className="text-dark  block mb-1">
+                  Relationship:
+                </label>
+                <input
+                  type="text"
+                  name='relationship'
+                  value={ackData?.relationship}
+                  className="border border-gray-300 rounded px-2 py-1 w-full"
+                />
+
+              </div>
+              <div className="mb-1">
+                <label className="text-dark  block mb-1">
+                  Department:
+                </label>
+                <input
+                  type="text"
+                  name='department'
+                  value={ackData?.department}
+                  className="border border-gray-300 rounded px-2 py-1 w-full"
+                />
+              </div>
+              <div className="mb-1">
+                <label className="text-dark  block mb-1">
+                  Designation:
+                </label>
+                <input
+                  type="text"
+                  name='designation'
+                  value={ackData?.designation}
+                  className="border border-gray-300 rounded px-2 py-1 w-full"
+                />
+              </div>
+            </div>
+            <div className="mb-1">
+              <label className="block mb-1 text-dark">
+                Taxpayer name
+              </label>
+              <input
+                type="text"
+                value={ackFields?.tp_name}
+                className="border border-gray-300 rounded px-2 py-1 w-full"
+              />
+            </div>
+            <div className="mb-2 flex justify-center">
+              <a
+                className="text-blue-400" target="_blank" rel="noreferrer"
+                href={`https://annualuploads.bespoque.dev/rhm-live/uploads/da/acknowledgement/${ackData?.upload_file}`}>View document</a>
+            </div>
+            <div className="my-4">
+              <hr />
+            </div>
+
+            <div className="flex justify-center mt-4">
+              <button
+                className="bg-red-300 hover:bg-gray-400 text-gray-700 py-2 px-4 rounded mt-4 ml-2"
+                onClick={() => {
+                  closeModal()
+                }}
+              >
+                Close
+              </button>
+            </div>
+
+          </form>
+        </div>
+
+
+      </Modal>
+      <button onClick={ViewAcknowledgement}>Click</button>
       {modal && (
         <div className="modal">
-          {/* <div onClick={toggleModal} className="overlay"></div> */}
           <div className="modal-content" width="300">
             <form onSubmit={DeleteAssessment}>
               <div className="flex justify-center">
@@ -168,7 +526,6 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
                 />
               </div>
               <p>Are you sure you want to delete?</p>
-              {/* <textarea required className="form-control w-full rounded" minlength="10" maxlength="50" onChange={(e) => setComment(e.target.value)}></textarea> */}
               <div className="mt-2 flex justify-between">
                 <button onClick={toggleModal}
                   className="btn w-32 bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md"
@@ -192,7 +549,6 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
       )}
       {revisedmodal && (
         <div className="modal">
-          {/* <div onClick={toggleModal} className="overlay"></div> */}
           <div className="modal-content" width="300">
             <form onSubmit={ReviseAssessment}>
               <div className="flex justify-center">
@@ -242,6 +598,23 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
         data={items}
         columns={fields}
         actions={[
+          {
+            icon: () => <CheckRounded />,
+            tooltip: 'Acknowledge',
+            hidden: false,
+            onClick: (event, rowData) => {
+              event.preventDefault()
+              setAckFields(
+                {
+                  "kgtin": rowData.kgtin,
+                  "assessment_id": rowData.assessment_id,
+                  "tp_name": rowData.tp_name,
+                }
+              )
+              setIsModalOpen(true);
+              ViewAcknowledgement()
+            }
+          },
           () => {
             if (userGroup.some(r => DeleteRange.includes(r))) {
               return {
@@ -285,6 +658,7 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
               setRevisedModal(true)
             }
           },
+
         ]}
 
         options={{
@@ -296,7 +670,6 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
             if (rowData.printstatus === "Yes") {
               return {
                 color: "#5f9f45"
-                // backgroundColor: "#156448",
               }
             } else {
               return {};
