@@ -300,16 +300,16 @@ export default function Notifiacklist() {
                             </div>
                             <div className="mb-2">
                                 <label className="block mb-1">
-                                    Letter Source:
+                                    Our ref:
                                 </label>
                                 <input
                                     type="text"
                                     name="reschedule_lettersource"
                                     className="border border-gray-300 rounded px-2 py-1 w-full"
                                     required
-                                    value={fileref}
+                                    // value={fileref}
                                     ref={register()}
-                                    readOnly
+                                    
                                 />
 
                             </div>

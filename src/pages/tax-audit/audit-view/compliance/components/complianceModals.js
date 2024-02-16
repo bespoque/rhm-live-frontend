@@ -81,7 +81,7 @@ const AllComplianceModals = ({
                     toast.success(dataFetch.message);
                 }
                 closeNoneCompModal()
-                router.reload()
+                // router.reload()
             } catch (error) {
                 setIsFetching(false)
                 console.error('Server Error:', error)
@@ -202,25 +202,14 @@ const AllComplianceModals = ({
                                     <label className="text-dark  block mb-1">
                                         File Ref:
                                     </label>
-                                    <select
-                                        ref={register()}
-                                        name='notification_fileno'
-                                        className="border border-gray-300 rounded px-2 py-1 w-full"
-                                    >
-                                        <option value="">Select an option</option>
-                                        {fileRef?.map((option) => (
-                                            <option key={option.id} value={option.fileref}>
-                                                {option.fileref} -  {option.type}
-                                            </option>
-                                        ))}
-                                    </select>
-                                    {/* <input
+
+                                    <input
                                         required
                                         ref={register()}
                                         type="text"
                                         name='notification_fileno'
                                         className="border border-gray-300 rounded px-2 py-1 w-full"
-                                    /> */}
+                                    />
 
                                 </div>
                                 <div className="mb-1">
@@ -397,7 +386,7 @@ const AllComplianceModals = ({
                     toast.success(dataFetch.message);
                 }
                 closeSpecialModal()
-                router.reload()
+                // router.reload()
             } catch (error) {
                 setIsFetching(false)
                 console.error('Server Error:', error)
@@ -458,25 +447,13 @@ const AllComplianceModals = ({
                                         File Ref:
                                     </label>
 
-                                    <select
-                                        ref={register()}
-                                        name='notification_fileno'
-                                        className="border border-gray-300 rounded px-2 py-1 w-full"
-                                    >
-                                        <option value="">Select an option</option>
-                                        {fileRef?.map((option) => (
-                                            <option key={option.id} value={option.fileref}>
-                                                {option.fileref} -  {option.type}
-                                            </option>
-                                        ))}
-                                    </select>
-                                    {/* <input
+                                    <input
                                         required
                                         ref={register()}
                                         type="text"
                                         name='notification_fileno'
                                         className="border border-gray-300 rounded px-2 py-1 w-full"
-                                    /> */}
+                                    />
 
                                 </div>
                                 <div className="mb-1">

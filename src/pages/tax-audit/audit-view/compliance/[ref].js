@@ -263,7 +263,7 @@ const ViewCompliance = () => {
                         <button onClick={() => router.back()} className="p-2 bg-gray-400 text-white w-20 rounded mr-3">Back</button>
                         {actionType === "NON-COMPLIANCE" && (
                             <>
-                                <button><a href={`https://test.rhm.backend.bespoque.ng/letters-compliance-pdf.php?fileno=${complianceData?.notification_fileno}&job_id=${JobID}&action=DOWNLOAD`} rel="noreferrer" target="_blank" className="p-2 bg-pink-400 text-white rounded">View letter</a></button>
+                                <button><a href={`https://test.rhm.backend.bespoque.ng/letters-compliance-pdf.php?compID=${complianceData?.id}&jobID=${JobID}&action=DOWNLOAD`} rel="noreferrer" target="_blank" className="p-2 bg-pink-400 text-white rounded">View letter</a></button>
                                 {/* {complianceData?.approvestatus === "Approved" && <>
                                     <button><a href={` https://test.rhm.backend.bespoque.ng/letters-compliance-pdf.php?fileno=${complianceData?.notification_fileno}&job_id=${JobID}&action=EMAIL`} rel="noreferrer" target="_blank" className="p-2 bg-purple-400 text-white ml-3 rounded">Email</a></button>
                                 </>} */}
@@ -271,7 +271,7 @@ const ViewCompliance = () => {
                         )}
                         {actionType === "SPECIAL NON-COMPLIANCE" && (
                             <>
-                                <button><a href={`https://test.rhm.backend.bespoque.ng/letters-special-non-compliance-pdf.php?fileno=${complianceData?.notification_fileno}&job_id=${JobID}&action=DOWNLOAD`} rel="noreferrer" target="_blank" className="p-2 bg-pink-400 text-white rounded">View letter</a></button>
+                                <button><a href={`https://test.rhm.backend.bespoque.ng/letters-special-non-compliance-pdf.php?compID=${complianceData?.id}&jobID=${JobID}&action=DOWNLOAD`} rel="noreferrer" target="_blank" className="p-2 bg-pink-400 text-white rounded">View letter</a></button>
                                 {/* {complianceData?.approvestatus === "Approved" && <>
                                     <button><a href={` https://test.rhm.backend.bespoque.ng/letters-special-non-compliance-pdf.php?fileno=${complianceData?.notification_fileno}&job_id=${JobID}&action=EMAIL`} rel="noreferrer" target="_blank" className="p-2 bg-purple-400 text-white ml-3 rounded">Email</a></button>
                                 </>} */}
