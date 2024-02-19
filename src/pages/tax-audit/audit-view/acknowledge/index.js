@@ -15,7 +15,7 @@ const Notification = () => {
         async function fetchPost() {
 
             try {
-                const res = await fetch('https://bespoque.dev/rhm/taxaudit/taxaudit-notifications-single.php', {
+                const res = await fetch('https://test.rhm.backend.bespoque.ng/taxaudit/taxaudit-notifications-single.php', {
                     method: 'POST',
                     body: JSON.stringify({
                         "job_id": id,
