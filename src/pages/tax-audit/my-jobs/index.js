@@ -81,7 +81,7 @@ const Index = () => {
         });
 
 
-    const filteredJobs = jobs.filter(obj => obj.job_user.includes(emailAdd));
+    const filteredJobs = jobs?.filter(obj => obj.job_user.includes(emailAdd));
 
     useEffect(() => {
         async function fetchPost() {
