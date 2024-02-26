@@ -83,6 +83,9 @@ const Index = () => {
             data.taxYr_3 = (data.taxYr_3).replace(/,/g, '')
             data.tp_id = taxpayerInfo.KGTIN
             data.employer = payslipYear1.org_id
+            data.assmtYr_1 = extractYearFromDate(watchYear1)
+            data.assmtYr_2 = extractYearFromDate(watchYear2)
+            data.assmtYr_3 = extractYearFromDate(watchYear3)
 
             await axios.post(`${url.BASE_URL}paye/tcc`, data)
                 .then(function (response) {
