@@ -598,7 +598,7 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
         columns={fields}
         actions={[
           {
-            icon: () => <CheckRounded />,
+            icon: () => <Icons.Acknowledge />,
             tooltip: 'Acknowledge',
             hidden: false,
             onClick: (event, rowData) => {
