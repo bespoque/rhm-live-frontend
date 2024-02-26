@@ -514,7 +514,6 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
 
 
       </Modal>
-      <button onClick={ViewAcknowledgement}>Click</button>
       {modal && (
         <div className="modal">
           <div className="modal-content" width="300">

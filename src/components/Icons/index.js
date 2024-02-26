@@ -256,6 +256,34 @@ export const ManageUser = () => {
   );
 };
 
+export const Acknowledge = () => {
+  return (
+    <div className="">
+      <Image
+        layout="fixed"
+        src="/images/rhmicons/Acknowledgement.png"
+        alt=""
+        width={18}
+        height={18}
+      />
+    </div>
+  );
+};
+
+export const Reschedule = () => {
+  return (
+    <div className="">
+      <Image
+        layout="fixed"
+        src="/images/rhmicons/reschedule.png"
+        alt=""
+        width={18}
+        height={18}
+      />
+    </div>
+  );
+};
+
 export const DirectAssessment = () => {
   return (
     <div className="mx-6 flex items-center">
