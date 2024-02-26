@@ -156,9 +156,7 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
     } catch (error) {
       if (error.response.data.status === 400) {
         showCreateForm('')
-
       }
-      console.log("error", error.response.data);
       setModalSpinner(false)
       setViewAck('hidden')
     }
@@ -242,278 +240,292 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
   return (
     <>
       <ToastContainer />
-      <Modal
-        isOpen={isModalOpen}
-        onRequestClose={closeModal}
-        className="fixed inset-0 bg-white border max-w-lg p-4 mx-auto overflow-y-scroll"
-        overlayClassName="fixed inset-0 bg-black bg-opacity-75"
+      {isModalOpen &&
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
+          <div className="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
+          <div className="modal-container bg-white w-120 mx-auto rounded-lg shadow-lg z-50 overflow-y-auto p-10">
+            {modalSpinner && (
+              <div className="flex justify-center item mb-2">
+                <Loader
+                  visible={modalSpinner}
+                  type="BallTriangle"
+                  color="#00FA9A"
+                  height={19}
+                  width={19}
+                  timeout={0}
+                  className="ml-2"
+                />
+                <p className="font-bold">Processing...</p>
+              </div>
+            )}
 
-      >
-        {modalSpinner && (
-          <div className="flex justify-center item mb-2">
-            <Loader
-              visible={modalSpinner}
-              type="BallTriangle"
-              color="#00FA9A"
-              height={19}
-              width={19}
-              timeout={0}
-              className="ml-2"
-            />
-            <p className="font-bold">Processing...</p>
+            <div className={`${createForm}`}>
+              <form onSubmit={handleSubmit(CreateAcknowlegement)}>
+                <h6 className="text-dark text-center">Acknowledge Notice of Assessment</h6>
+                <div className="grid grid-cols-2 gap-2">
+                  <div className="mb-2">
+                    <label className="block mb-1  text-dark">
+                      KGTIN
+                    </label>
+                    <input
+                      ref={register()}
+                      type="text"
+                      name='kgtin'
+                      readOnly
+                      value={ackFields?.kgtin}
+                      className="border border-gray-300 rounded px-2 py-1 w-full"
+                      required
+
+                    />
+                  </div>
+                  <div className="mb-1">
+                    <label className="text-dark  block mb-1">
+                      Date:
+                    </label>
+                    <input
+                      ref={register()}
+                      type="date"
+                      name='date'
+                      className="border border-gray-300 rounded px-2 py-1 w-full"
+                      required
+
+                    />
+                  </div>
+
+                  <div className="mb-1">
+                    <label className="text-dark  block mb-1">
+                      Receipient name
+                    </label>
+                    <input
+                      ref={register()}
+                      type="text"
+                      name='recipient'
+                      className="border border-gray-300 rounded px-2 py-1 w-full"
+                      required
+
+                    />
+
+                  </div>
+                  <div className="mb-1">
+                    <label className="text-dark  block mb-1">
+                      Relationship:
+                    </label>
+                    <input
+                      ref={register()}
+                      type="text"
+                      name='relationship'
+                      placeholder="Eg. Staff, relative, spouse "
+                      className="border border-gray-300 rounded px-2 py-1 w-full"
+                      required
+
+                    />
+
+                  </div>
+                  <div className="mb-1">
+                    <label className="text-dark  block mb-1">
+                      Department:
+                    </label>
+                    <input
+                      ref={register()}
+                      type="text"
+                      name='department'
+                      className="border border-gray-300 rounded px-2 py-1 w-full"
+                    
+
+                    />
+                  </div>
+                  <div className="mb-1">
+                    <label className="text-dark  block mb-1">
+                      Designation:
+                    </label>
+                    <input
+                      ref={register()}
+                      type="text"
+                      name='designation'
+                      className="border border-gray-300 rounded px-2 py-1 w-full"
+                    
+
+                    />
+                  </div>
+                  <div className="mb-2">
+                    <label className="block mb-1  text-dark">
+                      Upload document :
+                    </label>
+                    <input
+                      type="file"
+                      name="upload_da"
+                      onChange={handleFileChange}
+                      className="border border-gray-300 rounded px-2 py-1 w-full"
+                    />
+                  </div>
+                </div>
+                <div className="mb-1">
+                  <label className="block mb-1 text-dark">
+                    Taxpayer name
+                  </label>
+                  <input
+                    type="text"
+                    value={ackFields?.tp_name}
+                    className="border border-gray-300 rounded px-2 py-1 w-full"
+                    required
+
+                  />
+                </div>
+                <div className="my-4">
+                  <hr />
+                </div>
+
+                <div className="flex justify-evenly mt-4">
+                  <button
+                    className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded mt-4"
+                    type="submit"
+                  // disabled={modalSpinner}
+                  >
+                    Submit
+                  </button>
+
+                  <button
+                    className="bg-red-300 hover:bg-gray-400 text-gray-700 py-2 px-4 rounded mt-4 ml-2"
+                    onClick={() => {
+                      closeModal()
+                    }}
+                  >
+                    Close
+                  </button>
+                </div>
+
+              </form>
+            </div>
+
+
+            <div className={`${viewAck}`}>
+              <form>
+                <h6 className="text-dark text-center text-blue-400">Acknowledged Notice of Assessment</h6>
+                <div className="grid grid-cols-2 gap-2">
+                  <div className="mb-2">
+                    <label className="block mb-1  text-dark">
+                      KGTIN
+                    </label>
+                    <input
+                      type="text"
+                      name='kgtin'
+                      readOnly
+                      value={ackData?.kgtin}
+                      className="border border-gray-300 rounded px-2 py-1 w-full"
+                    />
+                  </div>
+                  <div className="mb-1">
+                    <label className="text-dark  block mb-1">
+                      Date:
+                    </label>
+                    <input
+                      type="date"
+                      name='date'
+                      value={ackData?.date}
+                      className="border border-gray-300 rounded px-2 py-1 w-full"
+                      readOnly
+
+                    />
+                  </div>
+
+                  <div className="mb-1">
+                    <label className="text-dark  block mb-1">
+                      Receipient name
+                    </label>
+                    <input
+                      type="text"
+                      name='recipient'
+                      value={ackData?.recipient}
+                      className="border border-gray-300 rounded px-2 py-1 w-full"
+                      readOnly
+
+                    />
+
+                  </div>
+                  <div className="mb-1">
+                    <label className="text-dark  block mb-1">
+                      Relationship:
+                    </label>
+                    <input
+                      type="text"
+                      name='relationship'
+                      value={ackData?.relationship}
+                      className="border border-gray-300 rounded px-2 py-1 w-full"
+                      readOnly
+                    />
+
+                  </div>
+                  <div className="mb-1">
+                    <label className="text-dark  block mb-1">
+                      Department:
+                    </label>
+                    <input
+                      type="text"
+                      name='department'
+                      value={ackData?.department}
+                      className="border border-gray-300 rounded px-2 py-1 w-full"
+                      readOnly
+                    />
+                  </div>
+                  <div className="mb-1">
+                    <label className="text-dark  block mb-1">
+                      Designation:
+                    </label>
+                    <input
+                      type="text"
+                      name='designation'
+                      value={ackData?.designation}
+                      className="border border-gray-300 rounded px-2 py-1 w-full"
+                      readOnly
+                    />
+                  </div>
+                </div>
+                <div className="mb-1">
+                  <label className="block mb-1 text-dark">
+                    Taxpayer name
+                  </label>
+                  <input
+                    type="text"
+                    value={ackFields?.tp_name}
+                    className="border border-gray-300 rounded px-2 py-1 w-full"
+                    readOnly
+                  />
+                </div>
+                <div className="mb-1">
+                  <label className="block mb-1 text-dark">
+                    Created by
+                  </label>
+                  <input
+                    type="text"
+                    value={ackData?.doneby}
+                    className="border border-gray-300 rounded px-2 py-1 w-full"
+                  />
+                </div>
+                <div className="mb-2 flex justify-center">
+                  <a
+                    className="text-blue-400" target="_blank" rel="noreferrer"
+                    href={`https://annualuploads.bespoque.dev/rhm-live/uploads/da/acknowledgement/${ackData?.upload_file}`}>View document</a>
+                </div>
+                <div className="my-4">
+                  <hr />
+                </div>
+
+                <div className="flex justify-center mt-4">
+                  <button
+                    className="bg-red-300 hover:bg-gray-400 text-gray-700 py-2 px-4 rounded mt-4 ml-2"
+                    onClick={() => {
+                      closeModal()
+                    }}
+                  >
+                    Close
+                  </button>
+                </div>
+
+              </form>
+            </div>
           </div>
-        )}
-
-        <div className={`${createForm}`}>
-          <form onSubmit={handleSubmit(CreateAcknowlegement)}>
-            <h6 className="text-dark text-center">Acknowledge Notice of Assessment</h6>
-            <div className="grid grid-cols-2 gap-2">
-              <div className="mb-2">
-                <label className="block mb-1  text-dark">
-                  KGTIN
-                </label>
-                <input
-                  ref={register()}
-                  type="text"
-                  name='kgtin'
-                  readOnly
-                  value={ackFields?.kgtin}
-                  className="border border-gray-300 rounded px-2 py-1 w-full"
-                  required
-
-                />
-              </div>
-              <div className="mb-1">
-                <label className="text-dark  block mb-1">
-                  Date:
-                </label>
-                <input
-                  ref={register()}
-                  type="date"
-                  name='date'
-                  className="border border-gray-300 rounded px-2 py-1 w-full"
-                  required
-
-                />
-              </div>
-
-              <div className="mb-1">
-                <label className="text-dark  block mb-1">
-                  Receipient name
-                </label>
-                <input
-                  ref={register()}
-                  type="text"
-                  name='recipient'
-                  className="border border-gray-300 rounded px-2 py-1 w-full"
-                  required
-
-                />
-
-              </div>
-              <div className="mb-1">
-                <label className="text-dark  block mb-1">
-                  Relationship:
-                </label>
-                <input
-                  ref={register()}
-                  type="text"
-                  name='relationship'
-                  placeholder="Eg. Staff, relative, spouse "
-                  className="border border-gray-300 rounded px-2 py-1 w-full"
-                  required
-
-                />
-
-              </div>
-              <div className="mb-1">
-                <label className="text-dark  block mb-1">
-                  Department:
-                </label>
-                <input
-                  ref={register()}
-                  type="text"
-                  name='department'
-                  className="border border-gray-300 rounded px-2 py-1 w-full"
-                  required
-
-                />
-              </div>
-              <div className="mb-1">
-                <label className="text-dark  block mb-1">
-                  Designation:
-                </label>
-                <input
-                  ref={register()}
-                  type="text"
-                  name='designation'
-                  className="border border-gray-300 rounded px-2 py-1 w-full"
-                  required
-
-                />
-              </div>
-              <div className="mb-2">
-                <label className="block mb-1  text-dark">
-                  Upload document :
-                </label>
-                <input
-                  type="file"
-                  name="upload_da"
-                  onChange={handleFileChange}
-                  className="border border-gray-300 rounded px-2 py-1 w-full"
-                />
-              </div>
-            </div>
-            <div className="mb-1">
-              <label className="block mb-1 text-dark">
-                Taxpayer name
-              </label>
-              <input
-                type="text"
-                value={ackFields?.tp_name}
-                className="border border-gray-300 rounded px-2 py-1 w-full"
-                required
-
-              />
-            </div>
-            <div className="my-4">
-              <hr />
-            </div>
-
-            <div className="flex justify-evenly mt-4">
-              <button
-                className="bg-blue-500 hover:bg-blue-600 text-dark py-2 px-4 rounded mt-4"
-                type="submit"
-              >
-                Proceed
-              </button>
-
-              <button
-                className="bg-red-300 hover:bg-gray-400 text-gray-700 py-2 px-4 rounded mt-4 ml-2"
-                onClick={() => {
-                  closeModal()
-                }}
-              >
-                Close
-              </button>
-            </div>
-
-          </form>
         </div>
-
-        <div className={`${viewAck}`}>
-          <form>
-            <h6 className="text-dark text-center text-blue-400">Acknowledged Notice of Assessment</h6>
-            <div className="grid grid-cols-2 gap-2">
-              <div className="mb-2">
-                <label className="block mb-1  text-dark">
-                  KGTIN
-                </label>
-                <input
-                  type="text"
-                  name='kgtin'
-                  readOnly
-                  value={ackData?.kgtin}
-                  className="border border-gray-300 rounded px-2 py-1 w-full"
-                />
-              </div>
-              <div className="mb-1">
-                <label className="text-dark  block mb-1">
-                  Date:
-                </label>
-                <input
-                  type="date"
-                  name='date'
-                  value={ackData?.date}
-                  className="border border-gray-300 rounded px-2 py-1 w-full"
-
-                />
-              </div>
-
-              <div className="mb-1">
-                <label className="text-dark  block mb-1">
-                  Receipient name
-                </label>
-                <input
-                  type="text"
-                  name='recipient'
-                  value={ackData?.recipient}
-                  className="border border-gray-300 rounded px-2 py-1 w-full"
-                  required
-
-                />
-
-              </div>
-              <div className="mb-1">
-                <label className="text-dark  block mb-1">
-                  Relationship:
-                </label>
-                <input
-                  type="text"
-                  name='relationship'
-                  value={ackData?.relationship}
-                  className="border border-gray-300 rounded px-2 py-1 w-full"
-                />
-
-              </div>
-              <div className="mb-1">
-                <label className="text-dark  block mb-1">
-                  Department:
-                </label>
-                <input
-                  type="text"
-                  name='department'
-                  value={ackData?.department}
-                  className="border border-gray-300 rounded px-2 py-1 w-full"
-                />
-              </div>
-              <div className="mb-1">
-                <label className="text-dark  block mb-1">
-                  Designation:
-                </label>
-                <input
-                  type="text"
-                  name='designation'
-                  value={ackData?.designation}
-                  className="border border-gray-300 rounded px-2 py-1 w-full"
-                />
-              </div>
-            </div>
-            <div className="mb-1">
-              <label className="block mb-1 text-dark">
-                Taxpayer name
-              </label>
-              <input
-                type="text"
-                value={ackFields?.tp_name}
-                className="border border-gray-300 rounded px-2 py-1 w-full"
-              />
-            </div>
-            <div className="mb-2 flex justify-center">
-              <a
-                className="text-blue-400" target="_blank" rel="noreferrer"
-                href={`https://annualuploads.bespoque.dev/rhm-live/uploads/da/acknowledgement/${ackData?.upload_file}`}>View document</a>
-            </div>
-            <div className="my-4">
-              <hr />
-            </div>
-
-            <div className="flex justify-center mt-4">
-              <button
-                className="bg-red-300 hover:bg-gray-400 text-gray-700 py-2 px-4 rounded mt-4 ml-2"
-                onClick={() => {
-                  closeModal()
-                }}
-              >
-                Close
-              </button>
-            </div>
-
-          </form>
-        </div>
-
-
-      </Modal>
+      }
       {modal && (
         <div className="modal">
           <div className="modal-content" width="300">
