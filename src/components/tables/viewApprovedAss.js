@@ -183,7 +183,7 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
       setModalSpinner(false)
     } catch (error) {
       if (error.response.data) {
-        toast.error(error.response.data.message)
+        toast.error(error.response?.data?.message)
       }
       setModalSpinner(false)
       showCreateForm('hidden')
