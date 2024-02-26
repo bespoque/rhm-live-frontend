@@ -196,6 +196,8 @@ function Index() {
         >
           Back
         </button>
+        <button onClick={() => router.push(`/tax-audit/audit-view?id=${JobID}`)} className="p-2 bg-green-400 text-white rounded mx-3">Home</button>
+
 
       </div>
       <Widget>

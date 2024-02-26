@@ -68,11 +68,6 @@ const CorresModal = ({ isOpen, closeModal, id }) => {
                 })
                 const dataFetchJobDet = await response.json()
                 setFileRef(dataFetchJobDet.body);
-                // if (dataFetchJobDet.status === "400") {
-                //     toast.error(dataFetchJobDet.message);
-                // } else {
-                // }
-
             } catch (error) {
                 console.error('Server Error:', error)
             }
@@ -80,28 +75,27 @@ const CorresModal = ({ isOpen, closeModal, id }) => {
         fetchPost();
     }, [jobId]);
 
-    // multFormData.append('job_id', jodId);
-    // multFormData.append('subject', formData.subject);
-    // multFormData.append('signee', formData.signee);
-    // multFormData.append('lettersource', formData.lettersource);
-    // multFormData.append('letterdate', formData.letterdate);
-    // multFormData.append('doneby', formData.doneby);
-    // multFormData.append('receipt_datetime', formData.receipt_datetime);
-    // multFormData.append('docfile', selectedFile);
+    multFormData.append('job_id', jobId);
+    multFormData.append('subject', formData.subject);
+    multFormData.append('signee', formData.signee);
+    multFormData.append('lettersource', formData.lettersource);
+    multFormData.append('letterdate', formData.letterdate);
+    multFormData.append('doneby', formData.doneby);
+    multFormData.append('receipt_datetime', formData.receipt_datetime);
+    multFormData.append('document', selectedFile);
 
 
 
     formData.docfile = selectedFile
-    let dataSubmit = formData
-
+ 
     const submitNotice = async (e) => {
         e.preventDefault()
         setIsLoading(true)
         try {
             const res = await fetch('https://test.rhm.backend.bespoque.ng/taxaudit/taxaudit-newcorrespondence.php', {
                 method: 'POST',
-                body: JSON.stringify(dataSubmit)
-                // body: multFormData
+                // body: JSON.stringify(formData)
+                body: multFormData
             })
             const dataFetch = await res.json()
             setIsLoading(false)
@@ -110,7 +104,7 @@ const CorresModal = ({ isOpen, closeModal, id }) => {
             } else {
                 toast.success(dataFetch.message);
                 closeModal()
-                // router.reload()
+                router.reload()
 
             }
         } catch (error) {
@@ -229,7 +223,7 @@ const CorresModal = ({ isOpen, closeModal, id }) => {
 
                         <div className="flex justify-evenly">
                             <button
-                                className="bg-blue-500 hover:bg-blue-600 text-dark py-2 px-4 rounded mt-4"
+                                className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded mt-4"
                                 type="submit"
                             >
                                 Submit

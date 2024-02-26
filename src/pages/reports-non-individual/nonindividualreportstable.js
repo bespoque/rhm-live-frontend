@@ -1,3 +1,4 @@
+import MaterialTable from 'material-table';
 import Search from '@material-ui/icons/Search'
 import { Edit, MoreHoriz } from "@material-ui/icons";
 import SaveAlt from '@material-ui/icons/SaveAlt'
@@ -11,7 +12,6 @@ import ArrowDownward from "@material-ui/icons/ArrowDownward";
 import Clear from "@material-ui/icons/Clear";
 import * as Icons from '../../components/Icons/index';
 import { useRouter } from "next/router";
-import MaterialTable from 'material-table';
 
 
 const fields = [

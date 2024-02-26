@@ -58,7 +58,7 @@ export default function Notifiacklist() {
         async function fetchPost() {
 
             try {
-                const response = await fetch('https://bespoque.dev/rhm/taxaudit/taxaudit-fetch-singlejob.php', {
+                const response = await fetch('https://test.rhm.backend.bespoque.ng/taxaudit/taxaudit-fetch-singlejob.php', {
                     method: 'POST',
                     body: JSON.stringify({
                         "param1": "id",
@@ -66,7 +66,7 @@ export default function Notifiacklist() {
                     })
                 })
 
-                const res = await fetch('https://bespoque.dev/rhm/taxaudit/taxaudit-notes-batch.php', {
+                const res = await fetch('https://test.rhm.backend.bespoque.ng/taxaudit/taxaudit-notes-batch.php', {
                     method: 'POST',
                     body: JSON.stringify({
                         "job_id": JobID,

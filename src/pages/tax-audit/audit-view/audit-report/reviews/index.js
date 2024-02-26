@@ -50,7 +50,7 @@ export default function Reviews() {
     useEffect(() => {
         async function fetchPost() {
             try {
-                const res = await fetch('https://bespoque.dev/rhm/taxaudit/taxaudit-auditreports-reviews-batch.php', {
+                const res = await fetch('https://test.rhm.backend.bespoque.ng/taxaudit/taxaudit-auditreports-reviews-batch.php', {
                     method: 'POST',
                     body: JSON.stringify({
                         "job_id": jobId,

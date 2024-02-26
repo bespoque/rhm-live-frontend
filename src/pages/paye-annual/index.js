@@ -1,15 +1,13 @@
 import React, { useState } from 'react'
-import ReactDatePicker from 'react-datepicker';
-import "react-datepicker/dist/react-datepicker.css";
+
 import dateformat from "dateformat";
-import { Controller, useForm } from 'react-hook-form';
-import { useRouter } from 'next/router';
 import AnnualUploadsList from './annualUploadsList';
 import url from '../../config/url';
 import axios from "axios";
 import setAuthToken from '../../functions/setAuthToken';
 import Loader from 'react-loader-spinner';
 import Widget1 from '../../components/dashboard/widget-1';
+import { DatePicker } from 'antd';
 
 
 function Index() {
@@ -47,12 +45,11 @@ function Index() {
                 <div>
                     <p className="font-bold mb-5">Select Year</p>
                     <div className="">
-                        <ReactDatePicker
-                            selected={startDate}
-                            onChange={(date) => setStartDate(date)}
-                            showYearPicker
-                            dateFormat="yyyy"
-                            className="form-control mb-3 rounded"
+                        <DatePicker
+                           onChange={(date) => setStartDate(date)}
+                            picker="year"
+                            size='large'
+                            className="mb-6"
                         />
                     </div>
                     <div>
@@ -70,37 +67,31 @@ function Index() {
                         color="blue"
                         title="Year"
                         description={selectedYear || ""}
-                    // right={<TotalRemittance />}
                     />
                     <Widget1
                         color="blue"
                         title="Draft"
                         description={yearReport?.Draft || 0}
-                    // right={<TotalRemittance />}
                     />
                     <Widget1
                         color="blue"
                         title="Submitted"
                         description={yearReport?.Submitted || 0}
-                    // right={<TotalRemittance />}
                     />
                     <Widget1
                         color="blue"
                         title="Verified"
                         description={yearReport?.Verified || 0}
-                    // right={<TotalRemittance />}
                     />
                     <Widget1
                         color="blue"
                         title="Approved"
                         description={yearReport?.Approved || 0}
-                    // right={<TotalRemittance />}
                     />
                     <Widget1
                         color="blue"
                         title="Declined"
                         description={yearReport?.Declined || 0}
-                    // right={<TotalRemittance />}
                     />
 
                 </div>

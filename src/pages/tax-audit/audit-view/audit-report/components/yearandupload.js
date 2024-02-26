@@ -5,7 +5,15 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { ProcessorSpinner } from '../../../../../components/spiner';
 
-const YearAndUpload = ({ years, selectedScope, toggleVis, checklistItem, checklistItemType, onUpload, JobID, checklistItemID, changeScope }) => {
+const YearAndUpload = ({ years,
+    selectedScope,
+    toggleVis,
+    checklistItem,
+    checklistItemType,
+    onUpload,
+    JobID,
+    checklistItemID,
+    changeScope }) => {
     const [selectedYear, setSelectedYear] = useState("");
     const [taxScheduleFiles, setTaxScheduleFiles] = useState(null);
     const [remittanceFiles, setRemittanceFiles] = useState(null);
@@ -38,8 +46,8 @@ const YearAndUpload = ({ years, selectedScope, toggleVis, checklistItem, checkli
                 setTaxScheduleFiles(null);
                 return;
             }
-            if (file.size > 1024 * 100) {
-                alert("file too large..file size shoulde not exceed 100kb");
+            if (file.size > 1024 * 200) {
+                alert("file too large..file size shoulde not exceed 200kb");
                 return
             }
             else {
@@ -170,7 +178,7 @@ const YearAndUpload = ({ years, selectedScope, toggleVis, checklistItem, checkli
                 </div>
             </div>
             {checklistItemType === "EXCEL" ?
-                <div className="grid grid-cols-3 my-5">
+                <div className="grid grid-cols-3 my-5 border rounded-md p-10">
                     <div>
                         <label htmlFor="amount" className=" text-gray-700 text-sm font-bold">
                             Remitted amount:
@@ -179,7 +187,7 @@ const YearAndUpload = ({ years, selectedScope, toggleVis, checklistItem, checkli
                     </div>
                     <div>
                         <p className="text-gray-700 text-sm font-bold mb-2">
-                            Upload Tax Schedule  (csv):
+                            Upload Schedule  (csv):
                         </p>
                         <input onClick={(e) => (e.target.value = null)} type="file" id="taxSchedule" className=" hidden" onChange={handleTaxScheduleChange} />
                         <label
@@ -202,7 +210,7 @@ const YearAndUpload = ({ years, selectedScope, toggleVis, checklistItem, checkli
 
                 </div>
                 :
-                <div className="flex justify-center gap-2">
+                <div className="flex justify-center gap-2  border rounded-md p-10">
                     <div>
                         <label htmlFor="document" className="block text-gray-700 text-sm font-bold">
                             Upload document:

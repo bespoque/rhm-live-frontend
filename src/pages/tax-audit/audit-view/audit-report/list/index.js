@@ -35,6 +35,8 @@ export default function AuditReportList() {
         shallowEqual
     );
 
+
+
     const decoded = jwt.decode(auth);
     const groups = decoded.groups
     let ApprovalRange = [1, 2, 3, 12, 21, 27, 20, 30]
@@ -285,16 +287,15 @@ export default function AuditReportList() {
         });
     };
 
-
-
     return (
 
         <>
             <ToastContainer />
             {isFetching && <ProcessorSpinner />}
-            <button className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded my-2" onClick={() => router.back()}>
+            <button className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 mr-2 rounded my-2" onClick={() => router.back()}>
                 Back
             </button>
+            <button onClick={() => router.push(`/tax-audit/audit-view?id=${JobID}`)} className="p-2 bg-green-400 text-white rounded mr-3">Home</button>
 
             <Widget>
                 <div className="flex justify-between">

@@ -278,6 +278,7 @@ const AuditNotice = () => {
                     <Typography> <p>Letter Ref: <span className="font-bold">{selectedRow?.lettersource}</span></p></Typography>
                     <Typography> <p>Subject: <span className="font-bold">{selectedRow?.subject}</span></p></Typography>
                     <Typography> <p>Signee: <span className="font-bold">{selectedRow?.signee}</span></p></Typography>
+                    <Typography> <p>Document: <a target='_blank' rel='noreferrer' href={`https://test.rhm.backend.bespoque.ng/taxaudit/${selectedRow?.docfile}`} className="text-blue-400">View doc</a></p></Typography>
                 </DialogContent>
             </Dialog>
 

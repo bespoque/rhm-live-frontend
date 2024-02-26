@@ -1,30 +1,24 @@
-import React, { useEffect } from 'react'
-import { Controller, useForm } from 'react-hook-form';
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import SectionTitle from '../../../components/section-title';
-import setAuthToken from '../../../functions/setAuthToken';
-import axios from 'axios';
-import { useState } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { Controller, useForm } from "react-hook-form";
+import setAuthToken from "../../../functions/setAuthToken";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-import Loader from 'react-loader-spinner';
-import url from '../../../config/url';
-import { formatNumber } from 'accounting';
-import { useRouter } from 'next/router';
+import url from "../../../config/url";
+import Loader from "react-loader-spinner";
+import SectionTitle from "../../../components/section-title";
+import { formatNumber } from "../../../functions/numbers";
+import { DatePicker } from "antd";
 
 
-
-function Index() {
+const Index = () => {
     const [kgtinErr, setKgtinErr] = useState("")
     const [isFetching, setIsFetching] = useState(() => false);
     const [taxpayerInfo, setTaxpayerinfo] = useState([]);
     const [payslipYear1, setPayslipYear1] = useState([]);
     const [payslipYear2, setPayslipYear2] = useState([]);
     const [payslipYear3, setPayslipYear3] = useState([]);
-    const [form1Value, setForm1Value] = useState(null);
-    const [form2Value, setForm2Value] = useState(null);
-    const [form3Value, setForm3Value] = useState(null);
     const router = useRouter();
     const {
         register,
@@ -36,13 +30,21 @@ function Index() {
         { mode: "onBlur", }
     )
 
-    let yr1Gross = (Number(payslipYear1.basic) + Number(payslipYear1.housing) + Number(payslipYear1.trans_allw) + Number(payslipYear1.leave_allw) + Number(payslipYear1.other_allw) + Number(payslipYear1.benefits) + Number(payslipYear1.utilities))
-    let yr2Gross = (Number(payslipYear2.basic) + Number(payslipYear2.housing) + Number(payslipYear2.trans_allw) + Number(payslipYear2.leave_allw) + Number(payslipYear2.other_allw) + Number(payslipYear2.benefits) + Number(payslipYear2.utilities))
-    let yr3Gross = (Number(payslipYear3.basic) + Number(payslipYear3.housing) + Number(payslipYear3.trans_allw) + Number(payslipYear3.leave_allw) + Number(payslipYear3.other_allw) + Number(payslipYear3.benefits) + Number(payslipYear3.utilities))
+    function extractYearFromDate(dateString) {
+        // Convert the date string to a Date object
+        const dateObject = new Date(dateString);
+      
+        // Get the year from the Date object
+        const year = dateObject.getUTCFullYear();
+      
+        return String(year);
+      }
+
+    let yr1Gross = (Number(payslipYear1?.basic) + Number(payslipYear1?.housing) + Number(payslipYear1?.trans_allw) + Number(payslipYear1?.leave_allw) + Number(payslipYear1?.other_allw) + Number(payslipYear1?.benefits) + Number(payslipYear1?.utilities))
+    let yr2Gross = (Number(payslipYear2?.basic) + Number(payslipYear2?.housing) + Number(payslipYear2?.trans_allw) + Number(payslipYear2?.leave_allw) + Number(payslipYear2?.other_allw) + Number(payslipYear2?.benefits) + Number(payslipYear2?.utilities))
+    let yr3Gross = (Number(payslipYear3?.basic) + Number(payslipYear3?.housing) + Number(payslipYear3?.trans_allw) + Number(payslipYear3?.leave_allw) + Number(payslipYear3?.other_allw) + Number(payslipYear3?.benefits) + Number(payslipYear3?.utilities))
 
 
-
-    console.log("payslipYear1", payslipYear1);
 
     const {
         register: registerkgtin,
@@ -52,7 +54,6 @@ function Index() {
         { mode: "onBlur", }
     )
 
-
     const watchYear1 = watch("assmtYr_1", "");
     const watchYear2 = watch("assmtYr_2", "");
     const watchYear3 = watch("assmtYr_3", "");
@@ -60,25 +61,18 @@ function Index() {
     setAuthToken();
     const CreateTcc = async (data) => {
 
-        if (data.taxYr_1 === '0' && data.incYr_1 === '0') {
+        if (data?.taxYr_1 === '0' && data?.incYr_1 === '0') {
             alert("Please provide Tax and Income figures for Year one")
         }
         else {
             setIsFetching(true)
-            data.assmtYr_1 = (data.assmtYr_1).getFullYear()
 
             if (data.assmtYr_2 === undefined) {
                 delete data.assmtYr_2
-
-            } else {
-                data.assmtYr_2 = (data.assmtYr_2).getFullYear()
             }
 
             if (data.assmtYr_3 === undefined) {
                 delete data.assmtYr_3
-            }
-            else {
-                data.assmtYr_3 = (data.assmtYr_3).getFullYear()
             }
 
             data.incYr_1 = (data.incYr_1).replace(/,/g, '')
@@ -132,7 +126,7 @@ function Index() {
     useEffect(() => {
         const fetchPostYear1 = () => {
             if (dirtyFields.assmtYr_1) {
-                let year = watchYear1.getFullYear()
+                let year = extractYearFromDate(watchYear1)
                 let kgtin = taxpayerInfo.KGTIN
                 setIsFetching(true)
                 axios.get(`${url.BASE_URL}paye/payslip?id=tcc&kgtin=${kgtin}&year=${year}`)
@@ -162,7 +156,7 @@ function Index() {
 
         const fetchPostYear2 = () => {
             if (dirtyFields.assmtYr_2) {
-                let year2 = watchYear2.getFullYear()
+                let year2 = extractYearFromDate(watchYear2)
                 let kgtin = taxpayerInfo.KGTIN
                 setIsFetching(true)
                 axios.get(`${url.BASE_URL}paye/payslip?id=tcc&kgtin=${kgtin}&year=${year2}`)
@@ -192,7 +186,7 @@ function Index() {
 
         const fetchPostYear3 = () => {
             if (dirtyFields.assmtYr_3) {
-                let year3 = watchYear3.getFullYear()
+                let year3 = extractYearFromDate(watchYear3)
                 let kgtin = taxpayerInfo.KGTIN
                 setIsFetching(true)
                 axios.get(`${url.BASE_URL}paye/payslip?id=tcc&kgtin=${kgtin}&year=${year3}`)
@@ -314,13 +308,9 @@ function Index() {
                                 render={({ onChange, value }) => {
                                     return (
                                         <DatePicker
-                                            className="form-control w-full rounded"
                                             onChange={onChange}
-                                            selected={value}
-                                            showYearPicker
-                                            dateFormat="yyyy"
-                                            yearItemNumber={8}
-                                            placeholderText="Select Year"
+                                            picker="year"
+                                            size='large'
                                         />
                                     );
                                 }}
@@ -362,27 +352,21 @@ function Index() {
 
                     <div className="p-3 grid justify-items-stretch">
                         <h6 className="text-center mb-6">Year 2</h6>
-                        <div className="mb-6 justify-self-center">
+                        <Controller
+                            name="assmtYr_2"
+                            control={control}
+                            render={({ onChange, value }) => {
+                                return (
+                                    <DatePicker
+                                        onChange={onChange}
+                                        picker="year"
+                                        size='large'
+                                        className="mb-6"
+                                    />
+                                );
+                            }}
+                        />
 
-                            <Controller
-                                name="assmtYr_2"
-                                control={control}
-                                render={({ onChange, value }) => {
-                                    return (
-                                        <DatePicker
-                                            className="form-control w-full rounded"
-                                            onChange={onChange}
-                                            selected={value}
-                                            showYearPicker
-                                            dateFormat="yyyy"
-                                            yearItemNumber={8}
-                                            placeholderText="Select Year"
-
-                                        />
-                                    );
-                                }}
-                            />
-                        </div>
 
 
                         <div className="mb-6 justify-self-center">
@@ -417,27 +401,21 @@ function Index() {
 
                     <div className="p-3 grid justify-items-stretch">
                         <h6 className="text-center mb-6">Year 3</h6>
-                        <div className="mb-6 justify-self-center">
 
-                            <Controller
-                                name="assmtYr_3"
-                                control={control}
-                                render={({ onChange, value }) => {
-                                    return (
-                                        <DatePicker
-                                            className="form-control w-full rounded"
-                                            onChange={onChange}
-                                            selected={value}
-                                            showYearPicker
-                                            dateFormat="yyyy"
-                                            yearItemNumber={8}
-                                            placeholderText="Select Year"
-
-                                        />
-                                    );
-                                }}
-                            />
-                        </div>
+                        <Controller
+                            name="assmtYr_3"
+                            control={control}
+                            render={({ onChange, value }) => {
+                                return (
+                                    <DatePicker
+                                        onChange={onChange}
+                                        picker="year"
+                                        size='large'
+                                        className="mb-6"
+                                    />
+                                );
+                            }}
+                        />
 
                         <div className="mb-6 justify-self-center">
                             <div>

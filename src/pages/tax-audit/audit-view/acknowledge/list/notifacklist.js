@@ -108,7 +108,6 @@ export default function Notifiacklist() {
             } else {
                 toast.success(dataFetch.message);
                 closeModal()
-                // router.reload()
                 router.push(`/tax-audit/audit-view/acknowledge/list/reschedulelist?Notifid=${Notifid}&JobID=${JobID}`)
             }
         } catch (error) {
@@ -244,6 +243,7 @@ export default function Notifiacklist() {
             {isFetching && <ProcessorSpinner />}
             <div className='flex justify-end mb-3'>
                 <button onClick={() => router.back()} className="p-2 bg-gray-400 text-white w-20 rounded mr-3">Back</button>
+                <button onClick={() => router.push(`/tax-audit/audit-view?id=${JobID}`)} className="p-2 bg-green-400 text-white rounded mr-3">Home</button>
             </div>
             <Modal
                 isOpen={isModalOpen}
@@ -356,7 +356,8 @@ export default function Notifiacklist() {
                     () => {
                         if (groups.some(r => creatorRange.includes(r))) {
                             return {
-                                icon: HomeRounded,
+                                icon: () => <Icons.Reschedule />,
+                                // icon: HomeRounded,
                                 tooltip: 'Reschedule Visit',
                                 onClick: (event, rowData) => {
                                     setAckId(rowData.id)

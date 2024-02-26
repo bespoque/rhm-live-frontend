@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react'
-import { Controller, useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import Widget from '../../../components/widget'
 import axios from "axios";
 import url from "../../../config/url";
@@ -10,9 +10,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from 'next/router';
 import { FormatMoneyComponentReport } from '../../../components/FormInput/formInputs';
 import { useEffect } from 'react';
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 import { formatNumber } from 'accounting';
+import { DatePicker } from 'antd';
 
 export default function Payslip() {
     const [isFetching, setIsFetching] = useState(false)
@@ -24,7 +23,7 @@ export default function Payslip() {
     const [numberVal, setNumberVal] = useState({ amount: "" });
     const [createError, setCreateError] = useState("");
     const [taxValue, setTaxValue] = useState(() => 0);
-
+    const [payslipYear, setPaySlipYear] = useState(new Date());
 
     const router = useRouter();
 
@@ -69,7 +68,6 @@ export default function Payslip() {
     let lap = watch("lap", "0").replace(/,/g, '')
     let basic = watch("basic", "0").replace(/,/g, '')
     let no_months = watch("no_months", "0").replace(/,/g, '')
-    let payroll_year = watch("payroll_year", "")
     let consolidatedRelief
     let tax
 
@@ -149,8 +147,18 @@ export default function Payslip() {
     let chargeableIncomeS = Number(chargeableIncome / 12) * Number(no_months);
     let grossInc = (Number(consolidatedIncomeS / 12 * no_months));
 
+    function extractYearFromDate(dateString) {
+        // Convert the date string to a Date object
+        const dateObject = new Date(dateString);
 
+        // Get the year from the Date object
+        const year = dateObject.getUTCFullYear();
 
+        return String(year);
+    }
+
+    console.log("startDate", extractYearFromDate(payslipYear));
+    let YearSelected = extractYearFromDate(payslipYear)
     setAuthToken()
     useEffect(() => {
 
@@ -232,7 +240,6 @@ export default function Payslip() {
 
 
     const createPayslip = (data) => {
-        console.log(data);
         if (data.org_id === "" || data.paye_tp === "") {
             alert("Please provide Organization and Employee KGTIN")
         }
@@ -255,9 +262,10 @@ export default function Payslip() {
             data.month_13 = (data.month_13).replace(/,/g, '')
             data.housing = (data.housing).replace(/,/g, '')
             data.other_relief = (data.other_relief).replace(/,/g, '')
-            data.payroll_year = payroll_year.getFullYear()
+            data.payroll_year = YearSelected
             data.tax = (data.tax).replace(/,/g, '')
             data.consolidated_relief = consolidatedReliefS
+            console.log(data);
             axios.post(`${url.BASE_URL}paye/payslip`, data)
                 .then(function (response) {
                     setIsFetching(false)
@@ -357,24 +365,13 @@ export default function Payslip() {
                             </div>
                             <div className="form-group ">
                                 <p className="block">Year <small className="font-bold text-red-600">*</small></p>
-                                <Controller
-                                    name="payroll_year"
-                                    ref={registerForm()}
-                                    control={control}
-                                    render={({ onChange, value }) => {
-                                        return (
-                                            <DatePicker
-                                                className="form-control w-full rounded"
-                                                onChange={onChange}
-                                                selected={value}
-                                                showYearPicker
-                                                dateFormat="yyyy"
-                                                yearItemNumber={8}
-                                                placeholderText="Select Year"
-                                                required={true}
-                                            />
-                                        );
-                                    }}
+
+                                <DatePicker
+                                    onChange={(date) => setPaySlipYear(date)}
+                                    picker="year"
+                                    size='large'
+                                    className="mb-6"
+                                    required
                                 />
 
                             </div>

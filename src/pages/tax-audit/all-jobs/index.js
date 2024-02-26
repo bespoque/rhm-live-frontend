@@ -14,6 +14,7 @@ import ArrowDownward from "@material-ui/icons/ArrowDownward";
 import Clear from "@material-ui/icons/Clear";
 import MaterialTable from 'material-table';
 import { Edit } from "@material-ui/icons";
+import url from '../../../config/url';
 
 
 const Index = () => {
@@ -69,7 +70,7 @@ const Index = () => {
         async function fetchPost() {
             setIsFetching(true)
             try {
-                const response = await fetch('https://test.rhm.backend.bespoque.ng/taxaudit/taxaudit-jobs-batch.php', {
+                const response = await fetch(`https://test.rhm.backend.bespoque.ng/taxaudit/taxaudit-jobs-batch.php`, {
                     method: 'POST',
                     body: JSON.stringify({
                         "post": "action"

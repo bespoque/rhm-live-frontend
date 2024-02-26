@@ -14,6 +14,7 @@ import ArrowDownward from "@material-ui/icons/ArrowDownward";
 import Clear from "@material-ui/icons/Clear";
 import MaterialTable from '@material-table/core';
 import { FiArrowUp, FiPlusCircle } from 'react-icons/fi';
+import url from '../../../config/url';
 
 
 
@@ -61,7 +62,7 @@ const Index = () => {
 
         async function fetchPost() {
             try {
-                const response = await fetch('https://test.rhm.backend.bespoque.ng/taxaudit/taxaudit-fetch-singlejob.php', {
+                const response = await fetch(`https://test.rhm.backend.bespoque.ng/taxaudit/taxaudit-fetch-singlejob.php`, {
                     method: 'POST',
                     body: JSON.stringify({
                         "param1": "id",
@@ -73,7 +74,7 @@ const Index = () => {
                 const jobUsers = dataFetchJobDet?.body?.jobusers
                 setJobUsers(jobUsers)
                 setJob(dataFetchJobDet.body[0])
-                const res = await fetch('https://test.rhm.backend.bespoque.ng/taxaudit/taxaudit-activities.php', {
+                const res = await fetch(`https://test.rhm.backend.bespoque.ng/taxaudit/taxaudit-activities.php`, {
                     method: 'POST',
                     body: JSON.stringify({
                         "job_id": id,
@@ -81,8 +82,6 @@ const Index = () => {
                 })
                 const dataFetch = await res.json()
                 setHistoryData(dataFetch.body)
-
-
                 setIsFetching(false)
             } catch (error) {
                 setIsFetching(false)
