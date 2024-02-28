@@ -2,7 +2,7 @@ import { formatNumber } from "../../functions/numbers";
 import * as Icons from '../Icons/index';
 import dateformat from "dateformat";
 import { KgirsLogo, KogiGov, Signature } from "../Images/Images";
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import Search from '@material-ui/icons/Search'
 import SaveAlt from '@material-ui/icons/SaveAlt'
 import ChevronLeft from '@material-ui/icons/ChevronLeft'
@@ -15,7 +15,7 @@ import ArrowDownward from "@material-ui/icons/ArrowDownward";
 import Clear from "@material-ui/icons/Clear";
 // import MaterialTable from "material-table";
 import MaterialTable from '@material-table/core';
-import { Delete, WarningRounded, CheckRounded } from "@material-ui/icons";
+import { Delete, WarningRounded } from "@material-ui/icons";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Loader from "react-loader-spinner";
@@ -25,7 +25,6 @@ import setAuthToken from "../../functions/setAuthToken";
 import { shallowEqual, useSelector } from "react-redux";
 import jwt from "jsonwebtoken";
 import { useRouter } from "next/router";
-import Modal from 'react-modal';
 import { useForm } from "react-hook-form";
 
 
@@ -113,6 +112,41 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
   };
 
   console.log("ackFields", ackFields);
+  
+  const memoizedAckFields = useMemo(() => {
+    return ackFields; // You can add more complex logic here if needed
+  }, [ackFields]);
+  
+  console.log("memoizedAckFields", memoizedAckFields);
+
+  setAuthToken();
+  const ViewAcknowledgement = async () => {
+    setModalSpinner(true)
+    let deleteOBJ = {
+      assessment_id: memoizedAckFields.assessment_id,
+      kgtin: memoizedAckFields.kgtin
+      // assessment_id: ackFields.assessment_id,
+      // kgtin: ackFields.kgtin
+    }
+
+    console.log("inside", deleteOBJ);
+
+    try {
+      let resp = await axios.post(`${url.BASE_URL}forma/view-acknowledgement`, {
+        assessment_id: memoizedAckFields.assessment_id,
+        kgtin: memoizedAckFields.kgtin
+      })
+      setViewAck('')
+      setModalSpinner(false)
+      setAckData(resp?.data?.body[0])
+    } catch (error) {
+      if (error.response.data.status === 400) {
+        showCreateForm('')
+      }
+      setModalSpinner(false)
+      setViewAck('hidden')
+    }
+  };
 
   const DeleteRange = [1, 12]
   const reportRange = [39, 9, 20]
@@ -139,28 +173,7 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
     setRevisedModal(!revisedmodal);
   };
 
-  setAuthToken();
-  const ViewAcknowledgement = async (data) => {
-    setModalSpinner(true)
-    let deleteOBJ = {
-      assessment_id: ackFields.assessment_id,
-      kgtin: ackFields.kgtin
-    }
 
-    try {
-      let resp = await axios.post(`${url.BASE_URL}forma/view-acknowledgement`, deleteOBJ)
-      console.log("resp", resp);
-      setViewAck('')
-      setModalSpinner(false)
-      setAckData(resp?.data?.body[0])
-    } catch (error) {
-      if (error.response.data.status === 400) {
-        showCreateForm('')
-      }
-      setModalSpinner(false)
-      setViewAck('hidden')
-    }
-  };
 
   const CreateAcknowlegement = async (data) => {
     const multFormData = new FormData();
