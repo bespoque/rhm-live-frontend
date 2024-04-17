@@ -80,7 +80,6 @@ const Index = () => {
             day: 'numeric',
         });
 
-
     const filteredJobs = jobs?.filter(obj => obj.job_user.includes(emailAdd));
 
     useEffect(() => {

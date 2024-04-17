@@ -59,7 +59,7 @@ export default function Index() {
         };
 
         try {
-            const response = await fetch('https://rhmapi.abssin.com/api/v1/identity', {
+            const response = await fetch('https://centralapi.abiapay.ng/api/v1/identity', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

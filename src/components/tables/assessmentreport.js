@@ -105,8 +105,6 @@ export const StartAssessmentReportView = () => {
     })
 }
 
-  console.log("filtered", FilteredData);
-
 
 
   return (
