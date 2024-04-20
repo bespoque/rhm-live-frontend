@@ -67,8 +67,7 @@ export default function Index() {
                 body: JSON.stringify(requestBody),
             });
 
-            const responseData = await response.json();
-            console.log("response", responseData);
+            const responseData = await response.json()
             setIsFetching(false)
             if (responseData?.idtype === "NIN") {
                 console.log("NIN - Number");
@@ -90,6 +89,16 @@ export default function Index() {
 
             } else if (responseData.status.status === "verified") {
                 console.log("NIN-PHONE");
+                setIdData(
+                    {
+                        "surname": responseData?.lastname,
+                        "first_name": responseData?.firstname,
+                        "middle_name": responseData?.middlename,
+                        "birth_date": responseData?.birthdate,
+                        "phone_number": responseData?.phone,
+                    }
+                );
+                setDisplayRegForm(true)
             }
             else {
                 setDisplayRegForm(false)
