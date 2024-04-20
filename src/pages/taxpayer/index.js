@@ -67,22 +67,31 @@ export default function Index() {
                 body: JSON.stringify(requestBody),
             });
 
-
             const responseData = await response.json();
+            console.log("response", responseData);
             setIsFetching(false)
+            if (responseData?.idtype === "NIN") {
+                console.log("NIN - Number");
+            }
+            else if (responseData?.idtype === "BVN") {
 
-            if (responseData.status.status === "verified") {
+                console.log("BVN");
+
                 setIdData(
                     {
-                        "surname": responseData?.nin?.lastname || responseData?.bvn?.lastname,
-                        "first_name": responseData?.nin?.firstname || responseData?.bvn?.firstname,
-                        "middle_name": responseData?.nin?.middlename || responseData?.bvn?.middlename,
-                        "birth_date": responseData?.nin?.birthdate || responseData?.bvn?.birthdate,
-                        "phone_number": responseData?.nin?.phone || responseData?.bvn?.phone,
+                        "surname": responseData?.lastname,
+                        "first_name": responseData?.firstname,
+                        "middle_name": responseData?.middlename,
+                        "birth_date": responseData?.birthdate,
+                        "phone_number": responseData?.phone,
                     }
                 );
                 setDisplayRegForm(true)
-            } else {
+
+            } else if (responseData.status.status === "verified") {
+                console.log("NIN-PHONE");
+            }
+            else {
                 setDisplayRegForm(false)
                 toast.error(responseData?.message)
                 setIdData('')
@@ -92,7 +101,9 @@ export default function Index() {
             setDisplayRegForm(false)
 
         }
+
     };
+
 
     useEffect(() => {
         setAuthToken();
@@ -162,8 +173,6 @@ export default function Index() {
                     </p>
                 </div>
             }
-
-            {/* {isFetching && <ProcessorSpinner />} */}
             <div className="flex justify-center mb-4">
                 <h6 className="p-2 font-bold">Register Individual Taxpayer</h6>
             </div>
@@ -180,19 +189,13 @@ export default function Index() {
                         >
                             <option value="">Select an option</option>
                             <option value="BVN">BVN</option>
-                            {/* <option value="Driver's License">Driver's License</option>
-                            <option value="Voter's Card No.">Voter's Card No.</option>
-                            <option value="PASSPORT">PASSPORT</option> */}
-                            <option value="NIN">NIN</option>
+                            {/* <option value="NIN">NIN</option> */}
                             <option value="NIN-PHONE">NIN-PHONE</option>
                         </select>
                     </div>
                     <div>
-                        {/* {selectedOption && ( */}
                         <div>
-                            {/* <label className="block text-sm font-semibold">Enter {selectedOption}:</label> */}
                             <input
-                                // type={selectedOption === 'BVN' || selectedOption === 'NIN' || selectedOption === 'NIN-PHONE' ? 'number' : 'text'}
                                 type="text"
                                 className={`w-full p-2 border border-gray-300 rounded-md ${(selectedOption === 'BVN' || selectedOption === 'NIN') &&
                                     'appearance-none w-px'
@@ -201,11 +204,9 @@ export default function Index() {
                                 value={inputValue}
                                 placeholder={`Enter ${selectedOption}`}
                                 onChange={handleInputChange}
-                            // onBlur={handleInputBlur}
                             />
 
                         </div>
-                        {/* )} */}
                     </div>
                     <div>
                         <button
