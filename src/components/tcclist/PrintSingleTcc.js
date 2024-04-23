@@ -8,7 +8,6 @@ import setAuthToken from "../../functions/setAuthToken";
 import Loader from "react-loader-spinner";
 import { ViewSingleTccPrintTable } from "../tables/viewTccTablePrint";
 
-
 const PrintSingleTcc = () => {
   const [isFetching, setIsFetching] = useState(() => true);
   const [tccdata, setTccData] = useState(() => []);

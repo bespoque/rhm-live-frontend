@@ -85,7 +85,7 @@ export const ViewTccPrintTable = ({ tccdata }) => {
   const decoded = jwt.decode(auth);
   const userGroup = decoded.groups
 
-  
+
 
   return (
     <>
@@ -201,7 +201,7 @@ export const ViewSingleTccPrintTable = ({
 
   if (printPrintTime === undefined) {
     printPrintTime = new Date()
-  } 
+  }
 
   const year1 = assessmentData.map((ind, i) => {
     return ind.year
@@ -252,7 +252,7 @@ export const ViewSingleTccPrintTable = ({
       status: "Printed"
     }
     try {
-    axios.post(`${url.BASE_URL}forma/tcc-status`, statusObj);
+      axios.post(`${url.BASE_URL}forma/tcc-status`, statusObj);
     } catch (error) {
       console.log(error);
     }
@@ -287,9 +287,9 @@ export const ViewSingleTccPrintTable = ({
               </div>
               <div className="flex justify-center">
                 <div>
-                <p className="text-green-600 text-xl">KOGI STATE GOVERNMENT</p>
+                  <p className="text-green-600 text-xl">KOGI STATE GOVERNMENT</p>
                   <div className="text-center">
-                  <p className="text-red-600 text-lg">TAX CLEARANCE CERTIFICATE</p>
+                    <p className="text-red-600 text-lg">TAX CLEARANCE CERTIFICATE</p>
                   </div>
                 </div>
               </div>
@@ -470,9 +470,7 @@ export const ViewSingleTccPrintTable = ({
                               <p>{ind?.assessment_type === "Assessment" ? "Direct Assessment" : ind?.assessment_type}</p>
                             ))}
                           </td>
-                          {/* <td className="">
-                            <p>Direct Assessment</p>
-                          </td> */}
+
 
                         </tr>
 
@@ -507,10 +505,6 @@ export const ViewSingleTccPrintTable = ({
                               <p>{ind?.assessment_type === "Assessment" ? "Direct Assessment" : ind?.assessment_type}</p>
                             ))}
                           </td>
-                          {/* <td className="">
-                            <p>Direct Assessment</p>
-                          </td> */}
-
                         </tr>
                       }
                     </tbody>
@@ -523,7 +517,7 @@ export const ViewSingleTccPrintTable = ({
               </div>
               <p className="text-red-600 flex justify-center text-3xl">INCOME TAX CLEARANCE CERTIFICATE</p>
               <div className="flex justify-end mt-16">
-                
+
                 <div className="mr-20">
                   <QRCode
                     value={`https://irs.kg.gov.ng/verify/fetch_tcc.php?ref=${fileRef}`}
