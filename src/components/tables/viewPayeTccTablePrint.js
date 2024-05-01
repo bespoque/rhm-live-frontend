@@ -412,7 +412,7 @@ export const ViewSinglePayeTccPrintTable = ({
                         </td>
                         <td className="">
                           {/* <p>PAYE</p> */}
-                          <p>{PayeTccData?.taxYr_1_type === "PAYE" ? "Assessment" : "PAYE"}</p>
+                          <p>{PayeTccData?.taxYr_1_type === "PAYE" ? "Direct Assessment" : "PAYE"}</p>
                         </td>
                       </tr>
 
