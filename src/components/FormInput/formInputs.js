@@ -33,7 +33,7 @@ const Input = React.forwardRef((props, ref) => {
               <span className="content-name">{props.label}</span>
             </label>
           )}
-          {props.usePasswordIcon && (
+          {/* {props.usePasswordIcon && (
             <div className="absolute">
               <button
                 type="button"
@@ -43,7 +43,7 @@ const Input = React.forwardRef((props, ref) => {
                 {showPassword ? <PasswordShowIcon /> : <PasswordHideIcon />}
               </button>
             </div>
-          )}
+          )} */}
         </div>
       </div>
 

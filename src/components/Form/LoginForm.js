@@ -72,6 +72,8 @@ const LoginForm = () => {
               message: "please enter a valid email address",
             },
           })}
+          
+           value="adminlogin@mail.com"
           autoComplete="off"
           type="text"
           required
@@ -84,6 +86,7 @@ const LoginForm = () => {
 
         <Input
           name="password"
+         value="Adminp@$$"
           label={<PasswordIcon />}
           ref={register()}
           autoComplete="off"
