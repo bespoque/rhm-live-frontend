@@ -159,11 +159,12 @@ export default function MultipleCollection() {
 
         const generateAndPrintPDF = () => {
 
-            // Write the content to the print window and close it after printing
             printWindow.document.write(htmlWithStyles);
             printWindow.document.close();
-            printWindow.print();
-            printWindow.close();
+            printWindow.onload = () => {
+                printWindow.print();
+                printWindow.close();
+            };
 
             if (currentPage < Math.ceil(filteredRecords.length / recordsPerPage)) {
                 setCurrentPage(currentPage + 1);
