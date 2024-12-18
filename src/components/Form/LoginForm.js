@@ -73,7 +73,7 @@ const LoginForm = () => {
             },
           })}
           
-           value="adminlogin@mail.com"
+           value="prince.u@bespoque.ng"
           autoComplete="off"
           type="text"
           required
@@ -86,7 +86,7 @@ const LoginForm = () => {
 
         <Input
           name="password"
-         value="Adminp@$$"
+         value="prinxard"
           label={<PasswordIcon />}
           ref={register()}
           autoComplete="off"

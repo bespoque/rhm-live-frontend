@@ -1505,9 +1505,9 @@ export const AssesmentCount = ({
           <Section
             description={<span>PERFORMANCE TREND</span>}
           >
-            <div className="flex flex-row w-full">
+            {/* <div className="flex flex-row w-full">
               <Lines perfTrend={perfTrend} />
-            </div>
+            </div> */}
           </Section>
         </div>
 
