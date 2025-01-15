@@ -316,24 +316,24 @@ const initialState = [
         ],
       },
 
-      // {
-      //   url: '/',
-      //   icon: <ManageTaxpayer />,
-      //   title: 'Access Management',
-      //   items: [
+      {
+        url: '/',
+        icon: <ManageTaxpayer />,
+        title: 'Access Management',
+        items: [
 
-      //     {
-      //       title: 'Manage User',
-      //       items: [
-      //         { title: 'Create', url: '/register', items: [] },
-      //         {
-      //           title: 'View',
-      //           url: '/view/users',
-      //           items: [],
+          {
+            title: 'Manage User',
+            items: [
+              { title: 'Create', url: '/register', items: [] },
+              {
+                title: 'View',
+                url: '/view/users',
+                items: [],
                 
-      //         },
-      //       ],
-      //     },
+              },
+            ],
+          },
           // {
           //   title: 'User Groups',
           //   items: [
@@ -357,9 +357,9 @@ const initialState = [
           //   ],
           // },
 
-        // ],
+        ],
 
-      // },
+      },
     ],
   },
 ];
